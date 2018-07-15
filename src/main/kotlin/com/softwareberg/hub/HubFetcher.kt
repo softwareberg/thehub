@@ -1,24 +1,18 @@
-package com.softwareberg.hubno
+package com.softwareberg.hub
 
 import com.softwareberg.HttpClient
 import com.softwareberg.HttpMethod.GET
 import com.softwareberg.HttpRequest
 import com.softwareberg.JsonMapper
-import com.softwareberg.SimpleHttpClient
 import org.jsoup.Jsoup
 import org.slf4j.LoggerFactory
 
-data class CompaniesWrapper(val companies: Companies)
-data class Companies(val docs: List<Company>)
-data class Company(val key: String, val name: String)
-data class CompanyWithPositions(val key: String, val name: String, val positions: List<String>)
-
-class HubNoFetcher(
-    private val http: HttpClient = SimpleHttpClient.create(),
-    private val json: JsonMapper = JsonMapper.create()
+class HubFetcher(
+    private val http: HttpClient,
+    private val json: JsonMapper
 ) {
 
-    private val log = LoggerFactory.getLogger(HubNoFetcher::class.java)
+    private val log = LoggerFactory.getLogger(HubFetcher::class.java)
 
     fun fetchCompaniesWithPositions(lastPage: Int): List<CompanyWithPositions> {
         val companies = fetchAllCompanies(lastPage)
