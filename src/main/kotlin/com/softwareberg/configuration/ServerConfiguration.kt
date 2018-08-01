@@ -1,3 +1,3 @@
-package com.softwareberg.configurations
+package com.softwareberg.configuration
 
 data class ServerConfiguration(val port: Int)

@@ -1,6 +1,6 @@
 package com.softwareberg.web
 
-import com.softwareberg.configurations.ServerConfiguration
+import com.softwareberg.configuration.ServerConfiguration
 import com.softwareberg.hub.HubController
 import com.softwareberg.web.errors.ErrorsController
 import spark.Request

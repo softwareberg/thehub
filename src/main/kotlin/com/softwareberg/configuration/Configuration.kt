@@ -1,7 +1,8 @@
-package com.softwareberg.configurations
+package com.softwareberg.configuration
 
 import com.google.inject.Guice
 import com.google.inject.Injector
+import com.softwareberg.cron.CronModule
 
 object Configuration {
 
@@ -16,7 +17,8 @@ object Configuration {
             HttpServerModule(),
             JsonXmlModule(),
             DatabaseModule(),
-            HubModule()
+            HubModule(),
+            CronModule()
         )
     }
 }

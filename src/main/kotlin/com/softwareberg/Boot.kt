@@ -1,9 +1,9 @@
 package com.softwareberg
 
-import com.softwareberg.configurations.Configuration
+import com.softwareberg.configuration.Configuration
+import com.softwareberg.cron.FetchPositionsCronJobDefinition
 import com.softwareberg.web.HttpServer
 import org.flywaydb.core.Flyway
-import org.h2.tools.Server
 
 fun main(args: Array<String>) {
     Boot.start()
@@ -14,13 +14,13 @@ object Boot {
     fun start() {
         val injector = Configuration.injector
 
-        val h2DatabaseServer = injector.getInstance<Server>()
         val flyway = injector.getInstance<Flyway>()
+        val fetchPositionsCronJob = injector.getInstance<FetchPositionsCronJobDefinition>()
         val httpServer = injector.getInstance<HttpServer>()
 
-        h2DatabaseServer.start()
         flyway.clean()
         flyway.migrate()
+        fetchPositionsCronJob.start()
         httpServer.start()
     }
 }

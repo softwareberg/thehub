@@ -1,4 +1,4 @@
-package com.softwareberg.configurations
+package com.softwareberg.configuration
 
 import com.google.inject.AbstractModule
 import com.google.inject.Provides
@@ -115,8 +115,13 @@ class HubModule : AbstractModule() {
 
     @Singleton
     @Provides
-    private fun provideHubController(httpClient: HttpClient, jsonMapper: JsonMapper): HubController {
-        val hubFetcher = HubFetcher(httpClient, jsonMapper)
+    private fun provideHubFetcher(httpClient: HttpClient, jsonMapper: JsonMapper): HubFetcher {
+        return HubFetcher(httpClient, jsonMapper)
+    }
+
+    @Singleton
+    @Provides
+    private fun provideHubController(jsonMapper: JsonMapper, hubFetcher: HubFetcher): HubController {
         return HubController(jsonMapper, hubFetcher)
     }
 }

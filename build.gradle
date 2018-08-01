@@ -110,6 +110,7 @@ dependencies {
     compile 'org.postgresql:postgresql:42.2.4'
 
     compile 'org.jsoup:jsoup:1.11.3'
+    compile 'org.quartz-scheduler:quartz:2.3.0'
 
     compile "com.github.softwareberg.rinca:database:$rinca"
     compile "com.github.softwareberg.rinca:httpclient:$rinca"
