@@ -16,7 +16,7 @@ class HubController(private val jsonMapper: JsonMapper, private val hubFetcher: 
 
     private fun hubno(request: Request, response: Response): ListResponse<CompanyWithPositions> {
         response.type("application/json")
-        val companiesWithPositions = hubFetcher.fetchCompaniesWithPositions(14)
+        val companiesWithPositions = hubFetcher.fetchCompaniesWithPositions(1)
         return ListResponse(companiesWithPositions)
     }
 }

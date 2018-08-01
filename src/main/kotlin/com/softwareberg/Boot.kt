@@ -19,6 +19,7 @@ object Boot {
         val httpServer = injector.getInstance<HttpServer>()
 
         h2DatabaseServer.start()
+        flyway.clean()
         flyway.migrate()
         httpServer.start()
     }
