@@ -9,6 +9,6 @@ class FetchPositionsCronJob : Job {
     override fun execute(context: JobExecutionContext) {
         val jobDataMap = context.jobDetail.jobDataMap
         val hubFetcher = jobDataMap["hubFetcher"] as HubFetcher
-        hubFetcher.fetchCompaniesWithPositions(1)
+        hubFetcher.fetchCompaniesWithPositions()
     }
 }
