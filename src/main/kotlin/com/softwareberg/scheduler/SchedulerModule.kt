@@ -1,4 +1,4 @@
-package com.softwareberg.cron
+package com.softwareberg.scheduler
 
 import com.google.inject.AbstractModule
 import com.google.inject.Provides
@@ -7,7 +7,7 @@ import org.quartz.Scheduler
 import org.quartz.impl.StdSchedulerFactory
 import javax.inject.Singleton
 
-class CronModule : AbstractModule() {
+class SchedulerModule : AbstractModule() {
 
     @Singleton
     @Provides
@@ -20,7 +20,10 @@ class CronModule : AbstractModule() {
 
     @Singleton
     @Provides
-    private fun provideFetchPositionsCronJobDefinition(scheduler: Scheduler, hubFetcher: HubFetcher): FetchPositionsCronJobDefinition {
-        return FetchPositionsCronJobDefinition(scheduler, hubFetcher)
+    private fun provideFetchPositionsJobDefinition(
+        scheduler: Scheduler,
+        hubFetcher: HubFetcher
+    ): FetchPositionsJobDefinition {
+        return FetchPositionsJobDefinition(scheduler, hubFetcher)
     }
 }

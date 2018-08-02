@@ -1,4 +1,4 @@
-package com.softwareberg.cron
+package com.softwareberg.scheduler
 
 import com.softwareberg.hub.HubFetcher
 import org.quartz.JobBuilder.newJob
@@ -8,7 +8,7 @@ import org.quartz.SimpleScheduleBuilder.simpleSchedule
 import org.quartz.TriggerBuilder.newTrigger
 
 
-class FetchPositionsCronJobDefinition(private val scheduler: Scheduler, private val hubFetcher: HubFetcher) {
+class FetchPositionsJobDefinition(private val scheduler: Scheduler, private val hubFetcher: HubFetcher) {
 
     fun start() {
         // define the job and tie it to our HelloJob class
@@ -17,7 +17,7 @@ class FetchPositionsCronJobDefinition(private val scheduler: Scheduler, private 
         val jobDataMap = JobDataMap()
         jobDataMap["hubFetcher"] = hubFetcher
 
-        val job = newJob(FetchPositionsCronJob::class.java)
+        val job = newJob(FetchPositionsJob::class.java)
             .withIdentity("no", group)
             .usingJobData(jobDataMap)
             .build()

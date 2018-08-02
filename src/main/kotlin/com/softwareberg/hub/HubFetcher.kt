@@ -26,14 +26,16 @@ class HubFetcher(
 
     private fun fetchCompaniesPage(page: Int): CompaniesWrapper {
         val url = "https://thehub.dk/api/startups?other=recruiting&page=$page"
+        log.info("fetching $url...")
         val request = HttpRequest(GET, url)
         val response = http.execute(request).join().body ?: throw IllegalStateException("req: $request")
         return json.read(response)
     }
 
     private fun fetchPositions(company: Company): CompanyWithPositions {
-        log.info("fetching for ${company.name}...")
-        val doc = Jsoup.connect("https://thehub.dk/jobs/company/${company.key}").timeout(3000).get()
+        val url = "https://thehub.dk/jobs/company/${company.key}"
+        val doc = Jsoup.connect(url).timeout(3000).get()
+        log.info("fetching for ${company.name} using $url...")
         val positions = doc.select(".job-title").map { it.text() }
         return CompanyWithPositions(company.key, company.name, positions)
     }

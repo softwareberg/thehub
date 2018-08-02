@@ -1,10 +1,10 @@
-package com.softwareberg.cron
+package com.softwareberg.scheduler
 
 import com.softwareberg.hub.HubFetcher
 import org.quartz.Job
 import org.quartz.JobExecutionContext
 
-class FetchPositionsCronJob : Job {
+class FetchPositionsJob : Job {
 
     override fun execute(context: JobExecutionContext) {
         val jobDataMap = context.jobDetail.jobDataMap
