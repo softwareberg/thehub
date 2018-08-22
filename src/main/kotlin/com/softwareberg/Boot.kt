@@ -1,8 +1,9 @@
 package com.softwareberg
 
 import com.softwareberg.base.ApplicationContext
+import com.softwareberg.base.getInstance
 import com.softwareberg.scheduler.FetchPositionsJobDefinition
-import com.softwareberg.web.HttpServer
+import com.softwareberg.base.web.HttpServer
 import org.flywaydb.core.Flyway
 
 fun main(args: Array<String>) {

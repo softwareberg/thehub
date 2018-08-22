@@ -2,7 +2,7 @@ package com.softwareberg.scheduler
 
 import com.google.inject.AbstractModule
 import com.google.inject.Provides
-import com.softwareberg.hub.HubFetcher
+import com.softwareberg.companies.CompaniesFetcher
 import org.quartz.Scheduler
 import org.quartz.impl.StdSchedulerFactory
 import javax.inject.Singleton
@@ -22,8 +22,8 @@ class SchedulerModule : AbstractModule() {
     @Provides
     private fun provideFetchPositionsJobDefinition(
         scheduler: Scheduler,
-        hubFetcher: HubFetcher
+        companiesFetcher: CompaniesFetcher
     ): FetchPositionsJobDefinition {
-        return FetchPositionsJobDefinition(scheduler, hubFetcher)
+        return FetchPositionsJobDefinition(scheduler, companiesFetcher)
     }
 }

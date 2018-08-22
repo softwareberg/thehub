@@ -6,11 +6,11 @@ import com.softwareberg.base.modules.ConfigModule
 import com.softwareberg.base.modules.DatabaseModule
 import com.softwareberg.base.modules.JsonXmlModule
 import com.softwareberg.scheduler.SchedulerModule
-import com.softwareberg.hub.HubModule
-import com.softwareberg.web.ErrorsControllerModule
-import com.softwareberg.web.HttpClientModule
-import com.softwareberg.web.HttpServerModule
-import com.softwareberg.web.StaticFilesModule
+import com.softwareberg.companies.HubModule
+import com.softwareberg.base.web.ErrorsControllerModule
+import com.softwareberg.base.web.HttpClientModule
+import com.softwareberg.base.web.HttpServerModule
+import com.softwareberg.base.web.StaticFilesModule
 
 object ApplicationContext {
 

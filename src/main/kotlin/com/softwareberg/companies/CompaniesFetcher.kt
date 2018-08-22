@@ -1,4 +1,4 @@
-package com.softwareberg.hub
+package com.softwareberg.companies
 
 import com.softwareberg.HttpClient
 import com.softwareberg.HttpMethod.GET
@@ -7,12 +7,12 @@ import com.softwareberg.JsonMapper
 import org.jsoup.Jsoup
 import org.slf4j.LoggerFactory
 
-class HubFetcher(
+class CompaniesFetcher(
     private val http: HttpClient,
     private val json: JsonMapper
 ) {
 
-    private val log = LoggerFactory.getLogger(HubFetcher::class.java)
+    private val log = LoggerFactory.getLogger(CompaniesFetcher::class.java)
 
     fun fetchCompaniesWithPositions(): List<CompanyWithPositions> {
         val lastPage = fetchCompaniesPage(1).companies.pages

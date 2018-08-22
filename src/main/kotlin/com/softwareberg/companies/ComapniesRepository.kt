@@ -1,6 +1,6 @@
-package com.softwareberg.hub
+package com.softwareberg.companies
 
-class JobsRepository {
+class ComapniesRepository {
 
     fun findAll(): List<CompanyWithPositions> {
         TODO()

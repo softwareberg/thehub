@@ -1,12 +1,12 @@
-package com.softwareberg.web
+package com.softwareberg.base.web
 
 import com.google.inject.AbstractModule
 import com.google.inject.Provides
 import com.softwareberg.HttpClient
 import com.softwareberg.JsonMapper
 import com.softwareberg.SimpleHttpClient
-import com.softwareberg.hub.HubController
-import com.softwareberg.web.errors.ErrorsController
+import com.softwareberg.companies.HubController
+import com.softwareberg.base.web.errors.ErrorsController
 import com.typesafe.config.Config
 import org.asynchttpclient.DefaultAsyncHttpClient
 import javax.inject.Singleton

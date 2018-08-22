@@ -1,6 +1,6 @@
 package com.softwareberg.scheduler
 
-import com.softwareberg.hub.HubFetcher
+import com.softwareberg.companies.CompaniesFetcher
 import org.quartz.JobBuilder.newJob
 import org.quartz.JobDataMap
 import org.quartz.Scheduler
@@ -8,16 +8,15 @@ import org.quartz.SimpleScheduleBuilder.simpleSchedule
 import org.quartz.TriggerBuilder.newTrigger
 
 
-class FetchPositionsJobDefinition(private val scheduler: Scheduler, private val hubFetcher: HubFetcher) {
+class FetchPositionsJobDefinition(private val scheduler: Scheduler, private val companiesFetcher: CompaniesFetcher) {
 
     fun start() {
-        // define the job and tie it to our HelloJob class
-        val group = "fetchPositionsJob"
+        val group = "fetchCompanies"
 
         val jobDataMap = JobDataMap()
-        jobDataMap["hubFetcher"] = hubFetcher
+        jobDataMap["companiesFetcher"] = companiesFetcher
 
-        val job = newJob(FetchPositionsJob::class.java)
+        val job = newJob(FetchCompaniesJob::class.java)
             .withIdentity("no", group)
             .usingJobData(jobDataMap)
             .build()

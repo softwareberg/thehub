@@ -1,4 +1,4 @@
-package com.softwareberg.web.errors
+package com.softwareberg.base.web.errors
 
 class NotFoundException(
     override val message: String,

@@ -1,4 +1,4 @@
-package com.softwareberg.web
+package com.softwareberg.base.web
 
 import spark.Spark
 

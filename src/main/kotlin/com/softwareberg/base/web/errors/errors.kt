@@ -1,4 +1,4 @@
-package com.softwareberg.web.errors
+package com.softwareberg.base.web.errors
 
 import java.net.HttpURLConnection.HTTP_BAD_REQUEST
 import java.net.HttpURLConnection.HTTP_INTERNAL_ERROR

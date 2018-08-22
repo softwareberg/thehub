@@ -1,6 +1,6 @@
-package com.softwareberg.web.errors
+package com.softwareberg.base.web.errors
 
-import com.softwareberg.web.Controller
+import com.softwareberg.base.web.Controller
 import com.softwareberg.JsonMapper
 import org.slf4j.LoggerFactory
 import spark.Spark.exception

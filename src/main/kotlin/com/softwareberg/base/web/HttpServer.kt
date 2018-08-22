@@ -1,7 +1,7 @@
-package com.softwareberg.web
+package com.softwareberg.base.web
 
-import com.softwareberg.hub.HubController
-import com.softwareberg.web.errors.ErrorsController
+import com.softwareberg.companies.HubController
+import com.softwareberg.base.web.errors.ErrorsController
 import spark.Request
 import spark.Response
 import spark.Spark.get

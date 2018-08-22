@@ -1,4 +1,4 @@
-package com.softwareberg
+package com.softwareberg.base
 
 import com.google.inject.Injector
 
