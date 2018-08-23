@@ -7,18 +7,19 @@ import com.nhaarman.mockito_kotlin.whenever
 import com.softwareberg.HttpClient
 import com.softwareberg.HttpResponse
 import com.softwareberg.JsonMapper
+import com.softwareberg.jobs.JobApiFetcher.JobsWrapper
 import com.softwareberg.readFile
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.SoftAssertions
 import org.junit.jupiter.api.Test
 import java.net.HttpURLConnection.HTTP_OK
 import java.util.concurrent.CompletableFuture.completedFuture
-import org.assertj.core.api.SoftAssertions
 
-class JobFetcherTest {
+class JobApiFetcherTest {
 
     private val jsonMapper = JsonMapper.create()
     private val httpClient = mock<HttpClient>()
-    private val jobFetcher = JobFetcher(httpClient, jsonMapper)
+    private val jobFetcher = JobApiFetcher(httpClient, jsonMapper)
 
     @Test
     fun `it should fetch all jobs`() {
@@ -30,7 +31,7 @@ class JobFetcherTest {
         )
 
         // when
-        val jobs = jobFetcher.fetchJobs()
+        val jobs = jobFetcher.fetch()
 
         // then
         assertThatJobsHaveRightSize(jobs)

@@ -9,10 +9,10 @@ import org.assertj.core.api.Assertions.assertThat
 import org.jsoup.Jsoup
 import org.junit.jupiter.api.Test
 
-class JobDetailFetcherTest {
+class JobHtmlFetcherTest {
 
-    private val htmlFetcher = mock<HtmlFetcher>()
-    private val jobDetailFetcher = JobDetailFetcher(htmlFetcher)
+    private val htmlFetcher = mock<JsoupFetcher>()
+    private val jobDetailFetcher = JobHtmlFetcher(htmlFetcher)
 
     @Test
     fun `it should fetch job details`() {
@@ -28,6 +28,8 @@ class JobDetailFetcherTest {
         assertThat(job.equity).isEqualTo("To be negotiated")
         assertThat(job.keywords).hasSize(8).contains("Social Media")
         assertThat(job.description).contains("online strategy")
-        assertThat(job.perks).hasSize(8).contains("Free coffee / tea: Get your caffeine fix for free")
+        assertThat(job.perks).hasSize(8)
+        assertThat(job.perks.first().key).isEqualTo("coffee")
+        assertThat(job.perks.first().description).isEqualTo("Free coffee / tea: Get your caffeine fix for free")
     }
 }
