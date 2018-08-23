@@ -17,7 +17,7 @@ class FetchPositionsJobDefinition(private val scheduler: Scheduler, private val 
         jobDataMap["companiesFetcher"] = companiesFetcher
 
         val job = newJob(FetchCompaniesJob::class.java)
-            .withIdentity("no", group)
+            .withIdentity("norway", group)
             .usingJobData(jobDataMap)
             .build()
 
@@ -29,7 +29,6 @@ class FetchPositionsJobDefinition(private val scheduler: Scheduler, private val 
                 .repeatForever())
             .build()
 
-        // Tell quartz to schedule the job using our trigger
         scheduler.scheduleJob(job, trigger)
     }
 }

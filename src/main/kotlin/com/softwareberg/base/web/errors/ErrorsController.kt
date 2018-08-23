@@ -1,7 +1,7 @@
 package com.softwareberg.base.web.errors
 
-import com.softwareberg.base.web.Controller
 import com.softwareberg.JsonMapper
+import com.softwareberg.base.web.Controller
 import org.slf4j.LoggerFactory
 import spark.Spark.exception
 

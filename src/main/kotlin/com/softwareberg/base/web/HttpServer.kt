@@ -1,36 +1,16 @@
 package com.softwareberg.base.web
 
-import com.softwareberg.companies.HubController
-import com.softwareberg.base.web.errors.ErrorsController
-import spark.Request
-import spark.Response
-import spark.Spark.get
+import spark.Spark
 import spark.Spark.port
 
 class HttpServer(
     private val serverConfiguration: ServerConfiguration,
-    private val errorsController: ErrorsController,
-    private val staticFilesController: StaticFilesController,
-    private val hubController: HubController
+    private val controllers: List<Controller>
 ) {
 
     fun start() {
         port(serverConfiguration.port)
-        start(
-            staticFilesController,
-            errorsController,
-            hubController
-        )
-
-        get("/health", this::health)
-    }
-
-    private fun start(vararg controllers: Controller) {
+        Spark.staticFiles.location("/public")
         controllers.forEach { it.start() }
-    }
-
-    private fun health(request: Request, response: Response): String {
-        response.type("application/json")
-        return """{"health": "ok"}"""
     }
 }

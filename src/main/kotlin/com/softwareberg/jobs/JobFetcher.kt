@@ -38,6 +38,6 @@ class JobFetcher(
     }
 
     private fun fetchAllJobs(lastPage: Int): Deferred<List<JobsWrapper>> = async(CommonPool) {
-        (1..lastPage).map { fetchJobs(it).await() }
+        (1..lastPage).map { fetchJobs(it) }.map { it.await() }
     }
 }

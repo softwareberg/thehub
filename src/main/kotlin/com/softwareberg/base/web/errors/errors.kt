@@ -1,9 +1,7 @@
 package com.softwareberg.base.web.errors
 
-import java.net.HttpURLConnection.HTTP_BAD_REQUEST
-import java.net.HttpURLConnection.HTTP_INTERNAL_ERROR
-import java.net.HttpURLConnection.HTTP_NOT_FOUND
-import java.util.UUID
+import java.net.HttpURLConnection.*
+import java.util.*
 
 interface ServerError {
     val status: Int

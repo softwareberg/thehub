@@ -1,10 +1,10 @@
 package com.softwareberg
 
-import com.softwareberg.base.ApplicationContext
-import com.softwareberg.base.getInstance
-import com.softwareberg.scheduler.FetchPositionsJobDefinition
+import com.softwareberg.base.context
 import com.softwareberg.base.web.HttpServer
+import com.softwareberg.scheduler.FetchPositionsJobDefinition
 import org.flywaydb.core.Flyway
+import org.kodein.di.generic.instance
 
 fun main(args: Array<String>) {
     Boot.start()
@@ -13,11 +13,9 @@ fun main(args: Array<String>) {
 object Boot {
 
     fun start() {
-        val injector = ApplicationContext.injector
-
-        val flyway = injector.getInstance<Flyway>()
-        val fetchPositionsJob = injector.getInstance<FetchPositionsJobDefinition>()
-        val httpServer = injector.getInstance<HttpServer>()
+        val flyway: Flyway by context.instance()
+        val fetchPositionsJob: FetchPositionsJobDefinition by context.instance()
+        val httpServer: HttpServer by context.instance()
 
         flyway.clean()
         flyway.migrate()

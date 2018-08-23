@@ -1,0 +1,340 @@
+{
+  "jobs": {
+    "total": 30,
+    "limit": 10,
+    "page": "2",
+    "pages": 2,
+    "docs": [
+      {
+        "_id": "5b7540b7c2eb594570e77bc0",
+        "key": "co-founder-6",
+        "positionType": "full-time",
+        "locationShort": "oslo",
+        "title": "Co-Founder",
+        "company": {
+          "key": "tradingfoe-co-ltd",
+          "name": "TradingFoe Co., Ltd",
+          "logo": {
+            "filename": "5aaac2c12afde8750765d6a7/logo_upload-69c7fe31b5d89b13bcc6f29b4f24d43d.png",
+            "originalname": "Comp logo.png",
+            "path": "public/files",
+            "size": 43987,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-16T09:43:28.000Z",
+        "id": "5b7540b7c2eb594570e77bc0",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b7310a42e346871071e6092",
+        "key": "3d-scanning-of-construction-sites",
+        "positionType": "part-time",
+        "locationShort": "oslo",
+        "title": "3D Scanning of Construction sites",
+        "company": {
+          "key": "imerso",
+          "name": "Imerso",
+          "logo": {
+            "filename": "5804d837b01cdcbe5f47fb99/logo_upload-45b284bf67729ede73eeed4cacfe9c91.png",
+            "originalname": "Screen Shot 2018-01-16 at 17.47.46.png",
+            "path": "public/files",
+            "size": 301287,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-15T10:37:42.839Z",
+        "id": "5b7310a42e346871071e6092",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b72cdb22e346871071e603b",
+        "key": "backend-developer-for-mobile-game-application",
+        "positionType": "student",
+        "locationShort": "trondheim",
+        "title": "Backend developer for mobile game application",
+        "company": {
+          "key": "pineleaf-studio",
+          "name": "Pineleaf Studio",
+          "logo": {
+            "filename": "5b729d7d2e346871071e602b/logo_upload-4168567506f9e45c365690c6740bd3eb.png",
+            "originalname": "pineleafgrey.png",
+            "path": "public/files",
+            "size": 59952,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-14T12:49:17.041Z",
+        "id": "5b72cdb22e346871071e603b",
+        "domain": "hub.no",
+        "locationLabel": "Trondheim"
+      },
+      {
+        "_id": "5b72b36c2e346871071e602e",
+        "key": "server-side-developer",
+        "positionType": "full-time",
+        "locationShort": "oslo",
+        "title": "Server Side Developer",
+        "company": {
+          "key": "kahoot",
+          "name": "Kahoot!",
+          "logo": {
+            "filename": "589dbfed0da7d4216442bd20/logo_upload-2e726d1d8af69a7b97e152638788f6bd.png",
+            "originalname": "logo final.png",
+            "path": "public/files",
+            "size": 27233,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-14T12:49:17.000Z",
+        "id": "5b72b36c2e346871071e602e",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b729a382e346871071e6029",
+        "key": "full-stack-utvikler-til-nystartet-selskap",
+        "positionType": "cofounder",
+        "locationShort": "oslo",
+        "title": "Full-stack utvikler til nystartet selskap",
+        "company": {
+          "key": "nextmark-as",
+          "name": "NextMark AS",
+          "logo": {
+            "filename": "5b7161872e346871071e5fff/logo_upload-70b43369c7b508ce379c5d8dc256d208.jpg",
+            "originalname": "2.jpg",
+            "path": "public/files",
+            "size": 6574,
+            "filetype": "image/jpeg"
+          }
+        },
+        "approvedAt": "2018-08-14T09:56:58.000Z",
+        "id": "5b729a382e346871071e6029",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b728a122e346871071e6027",
+        "key": "lead-frontend-developer",
+        "positionType": "full-time",
+        "locationShort": "oslo",
+        "title": "Lead Frontend-Developer",
+        "company": {
+          "key": "spond",
+          "name": "Spond",
+          "logo": {
+            "filename": "5976473a3130a7f71d185c49/logo_upload-0394ebe8d5b89dddb511c9dbca5034cf.jpg",
+            "originalname": "10650023_723122311136383_8681277716750070321_n.jpg",
+            "path": "public/files",
+            "size": 6914,
+            "filetype": "image/jpeg"
+          }
+        },
+        "approvedAt": "2018-08-14T09:56:58.000Z",
+        "id": "5b728a122e346871071e6027",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b7149002e346871071e5ffb",
+        "key": "prosjektleder-2",
+        "company": {
+          "key": "mer-recordings",
+          "name": "MER Recordings",
+          "logo": {
+            "filename": "5b7144ad2e346871071e5ff7/logo_upload-189e95539cfa2d0dd89e63ffed7501d3.jpg",
+            "originalname": "2.jpg",
+            "path": "public/files",
+            "size": 60934,
+            "filetype": "image/jpeg"
+          }
+        },
+        "title": "Prosjektleder",
+        "locationShort": "oslo",
+        "positionType": "full-time",
+        "approvedAt": "2018-08-13T13:41:33.332Z",
+        "id": "5b7149002e346871071e5ffb",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b7155082e346871071e5ffc",
+        "key": "uiux-designer-3",
+        "positionType": "full-time",
+        "locationShort": "oslo",
+        "title": "UI/UX Designer",
+        "company": {
+          "key": "fjong-norge-as-2",
+          "name": "FJONG Norge AS",
+          "logo": {
+            "filename": "58ebde338f83da866bc47097/logo_upload-81285daa94049c5846e842c38080d5dd.png",
+            "originalname": "green copy.png",
+            "path": "public/files",
+            "size": 50746,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-13T10:15:16.000Z",
+        "id": "5b7155082e346871071e5ffc",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b713c312e346871071e5ff6",
+        "key": "wordpressjavascript-developer",
+        "positionType": "full-time",
+        "locationShort": "oslo",
+        "title": "WordPress/JavaScript Developer",
+        "company": {
+          "key": "kahoot",
+          "name": "Kahoot!",
+          "logo": {
+            "filename": "589dbfed0da7d4216442bd20/logo_upload-2e726d1d8af69a7b97e152638788f6bd.png",
+            "originalname": "logo final.png",
+            "path": "public/files",
+            "size": 27233,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-13T08:53:02.000Z",
+        "id": "5b713c312e346871071e5ff6",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b6d8260c3be40857bc85607",
+        "key": "internship-hos-unloc-et-norsk-startup-i-rask-vekst",
+        "positionType": "internship",
+        "locationShort": "oslo",
+        "title": "Internship hos Unloc: et norsk startup i rask vekst",
+        "company": {
+          "key": "unloc",
+          "name": "Unloc",
+          "logo": {
+            "filename": "5b6d7f7fc3be40857bc85606/logo_upload-376452eecd32c8d59d0d0443c46d89bc.png",
+            "originalname": "AppIcon-1024x1024@1x.png",
+            "path": "public/files",
+            "size": 33900,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-10T12:34:27.307Z",
+        "id": "5b6d8260c3be40857bc85607",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b6ca53bc3be40857bc855f4",
+        "key": "digital-strategist-graphic-designer-and-website-coordinator",
+        "positionType": "internship",
+        "locationShort": "oslo",
+        "title": "Digital Strategist (Graphic Designer and Website Coordinator)",
+        "company": {
+          "key": "global-counseling-solutions-as",
+          "name": "Global Counseling Solutions AS",
+          "logo": {
+            "filename": "5b28db293aa304fe63c14c29/logo_upload-bf3f51a6823d493e208b88dc44e85cde.png",
+            "originalname": "alicia_GLS_logo_final-01.png",
+            "path": "public/files",
+            "size": 66864,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-10T07:44:08.000Z",
+        "id": "5b6ca53bc3be40857bc855f4",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b6c9f72c3be40857bc855f3",
+        "key": "business-and-product-development-manager-intern",
+        "positionType": "internship",
+        "locationShort": "oslo",
+        "title": "Business & Product Development Manager (Intern)",
+        "company": {
+          "key": "global-counseling-solutions-as",
+          "name": "Global Counseling Solutions AS",
+          "logo": {
+            "filename": "5b28db293aa304fe63c14c29/logo_upload-bf3f51a6823d493e208b88dc44e85cde.png",
+            "originalname": "alicia_GLS_logo_final-01.png",
+            "path": "public/files",
+            "size": 66864,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-10T07:44:08.000Z",
+        "id": "5b6c9f72c3be40857bc855f3",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b6ae324c3be40857bc855c3",
+        "key": "backend-developer-11",
+        "positionType": "full-time",
+        "locationShort": "oslo",
+        "title": "Backend developer",
+        "company": {
+          "key": "fjong-norge-as-2",
+          "name": "FJONG Norge AS",
+          "logo": {
+            "filename": "58ebde338f83da866bc47097/logo_upload-81285daa94049c5846e842c38080d5dd.png",
+            "originalname": "green copy.png",
+            "path": "public/files",
+            "size": 50746,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-09T08:02:13.461Z",
+        "id": "5b6ae324c3be40857bc855c3",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b6ae337c3be40857bc855c4",
+        "key": "growth-hacker-4",
+        "positionType": "internship",
+        "locationShort": "trondheim",
+        "title": "Growth-hacker",
+        "company": {
+          "key": "flare-3",
+          "name": "Flare ",
+          "logo": {
+            "filename": "5b48b2698baa6dae0db6ff16/logo_upload-f246fb27feb689b8a4f45b7c4881c46d.png",
+            "originalname": "logo.png",
+            "path": "public/files",
+            "size": 22296,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-09T08:02:13.270Z",
+        "id": "5b6ae337c3be40857bc855c4",
+        "domain": "hub.no",
+        "locationLabel": "Trondheim"
+      },
+      {
+        "_id": "5b6ae4bcc3be40857bc855c5",
+        "key": "frontend-developer-20",
+        "positionType": "full-time",
+        "locationShort": "oslo",
+        "title": "Frontend developer",
+        "company": {
+          "key": "fjong-norge-as-2",
+          "name": "FJONG Norge AS",
+          "logo": {
+            "filename": "58ebde338f83da866bc47097/logo_upload-81285daa94049c5846e842c38080d5dd.png",
+            "originalname": "green copy.png",
+            "path": "public/files",
+            "size": 50746,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-08-09T08:02:12.915Z",
+        "id": "5b6ae4bcc3be40857bc855c5",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      }
+    ]
+  }
+}
