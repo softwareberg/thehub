@@ -1,4 +1,4 @@
-package com.softwareberg.jobs
+package com.softwareberg.jobs.sync
 
 data class Job(
     val key: String,
@@ -10,7 +10,8 @@ data class Job(
     val equity: String?,
     val keywords: List<String>,
     val description: String,
-    val perks: List<Perk>
+    val perks: List<Perk>,
+    val host: String
 )
 
 data class Company(val key: String, val name: String, val logo: Logo)

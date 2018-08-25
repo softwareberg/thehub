@@ -1,15 +1,15 @@
-package com.softwareberg.jobs
+package com.softwareberg.jobs.sync
 
 class JobFetcher(private val jonFetcher: JobApiFetcher, private val jobHtmlFetcher: JobHtmlFetcher) {
 
-    fun featch(): List<Job> {
-        val pages = jonFetcher.fetch()
+    fun fetch(host: String): List<Job> {
+        val pages = jonFetcher.fetch(host)
         val jobsFromApi = pages.flatMap { it.jobs.docs }
         return jobsFromApi.map { api ->
-            val html = jobHtmlFetcher.fetchDetails(api.key)
+            val html = jobHtmlFetcher.fetchDetails(host, api.key)
             Job(
                 api.key,
-                api.positionType,
+                api.positionType ?: "unknown",
                 api.locationLabel,
                 api.title,
                 api.company,
@@ -17,7 +17,8 @@ class JobFetcher(private val jonFetcher: JobApiFetcher, private val jobHtmlFetch
                 html.equity,
                 html.keywords,
                 html.description,
-                html.perks
+                html.perks,
+                host
             )
         }
     }

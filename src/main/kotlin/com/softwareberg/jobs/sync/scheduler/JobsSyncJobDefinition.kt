@@ -1,31 +1,30 @@
-package com.softwareberg.scheduler
+package com.softwareberg.jobs.sync.scheduler
 
-import com.softwareberg.companies.CompaniesFetcher
+import com.softwareberg.jobs.sync.JobsSyncService
 import org.quartz.JobBuilder.newJob
 import org.quartz.JobDataMap
 import org.quartz.Scheduler
 import org.quartz.SimpleScheduleBuilder.simpleSchedule
 import org.quartz.TriggerBuilder.newTrigger
 
-
-class FetchPositionsJobDefinition(private val scheduler: Scheduler, private val companiesFetcher: CompaniesFetcher) {
+class JobsSyncJobDefinition(private val scheduler: Scheduler, private val jobsSyncService: JobsSyncService) {
 
     fun start() {
-        val group = "fetchCompanies"
+        val group = "theHub"
 
         val jobDataMap = JobDataMap()
-        jobDataMap["companiesFetcher"] = companiesFetcher
+        jobDataMap["jobsSyncService"] = jobsSyncService
 
-        val job = newJob(FetchCompaniesJob::class.java)
-            .withIdentity("norway", group)
+        val job = newJob(JobsSyncCronJob::class.java)
+            .withIdentity("theHubSync", group)
             .usingJobData(jobDataMap)
             .build()
 
         val trigger = newTrigger()
-            .withIdentity("fetchPositionsJobTrigger", group)
+            .withIdentity("theHubSyncTrigger", group)
             .startNow()
             .withSchedule(simpleSchedule()
-                .withIntervalInMinutes(3)
+                .withIntervalInMinutes(15)
                 .repeatForever())
             .build()
 

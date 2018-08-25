@@ -1,4 +1,4 @@
-package com.softwareberg.jobs
+package com.softwareberg.jobs.sync
 
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
@@ -17,11 +17,12 @@ class JobHtmlFetcherTest {
     @Test
     fun `it should fetch job details`() {
         // given
+        val host = "hub.no"
         whenever(htmlFetcher.get(any())).doReturn(Jsoup.parse(readFile("/http/jobs/job.html")))
         val key = "social-media-specialist-wanted"
 
         // when
-        val job = jobDetailFetcher.fetchDetails(key)
+        val job = jobDetailFetcher.fetchDetails(host, key)
 
         // then
         assertThat(job.monthlySalary).isEqualTo("Competitive")

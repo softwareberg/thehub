@@ -2,8 +2,8 @@ package com.softwareberg.base
 
 import com.softwareberg.base.web.httpClientModule
 import com.softwareberg.base.web.httpServerModule
-import com.softwareberg.companies.hubModule
-import com.softwareberg.scheduler.schedulerModule
+import com.softwareberg.jobs.jobModule
+import com.softwareberg.jobs.sync.jobSyncModule
 import org.kodein.di.Kodein
 
 val context = Kodein {
@@ -12,6 +12,7 @@ val context = Kodein {
     import(databaseModule)
     import(httpServerModule)
     import(httpClientModule)
-    import(hubModule)
-    import(schedulerModule)
+    import(cronModule)
+    import(jobSyncModule)
+    import(jobModule)
 }

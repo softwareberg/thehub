@@ -2,7 +2,7 @@ package com.softwareberg
 
 import com.softwareberg.base.context
 import com.softwareberg.base.web.HttpServer
-import com.softwareberg.scheduler.FetchPositionsJobDefinition
+import com.softwareberg.jobs.sync.scheduler.JobsSyncJobDefinition
 import org.flywaydb.core.Flyway
 import org.kodein.di.generic.instance
 
@@ -14,12 +14,11 @@ object Boot {
 
     fun start() {
         val flyway: Flyway by context.instance()
-        val fetchPositionsJob: FetchPositionsJobDefinition by context.instance()
+        val jobsSyncJobDefinition: JobsSyncJobDefinition by context.instance()
         val httpServer: HttpServer by context.instance()
 
-        flyway.clean()
         flyway.migrate()
-        fetchPositionsJob.start()
+        jobsSyncJobDefinition.start()
         httpServer.start()
     }
 }

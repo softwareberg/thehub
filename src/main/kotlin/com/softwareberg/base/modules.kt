@@ -12,6 +12,8 @@ import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
+import org.quartz.Scheduler
+import org.quartz.impl.StdSchedulerFactory
 import javax.sql.DataSource
 
 val configModule = Kodein.Module("configModule") {
@@ -40,4 +42,13 @@ val databaseModule = Kodein.Module("databaseModule") {
 val jsonXmlModule = Kodein.Module("jsonXmlModule") {
     bind<JsonMapper>() with singleton { JsonMapper.create() }
     bind<XmlMapper>() with singleton { XmlMapper.create() }
+}
+
+val cronModule = Kodein.Module("cronModule") {
+    bind<Scheduler>() with singleton {
+        val schedulerFactory = StdSchedulerFactory()
+        val scheduler = schedulerFactory.scheduler
+        scheduler.start()
+        scheduler
+    }
 }

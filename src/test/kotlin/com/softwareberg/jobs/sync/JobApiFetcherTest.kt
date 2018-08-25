@@ -1,4 +1,4 @@
-package com.softwareberg.jobs
+package com.softwareberg.jobs.sync
 
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
@@ -7,7 +7,7 @@ import com.nhaarman.mockito_kotlin.whenever
 import com.softwareberg.HttpClient
 import com.softwareberg.HttpResponse
 import com.softwareberg.JsonMapper
-import com.softwareberg.jobs.JobApiFetcher.JobsWrapper
+import com.softwareberg.jobs.sync.JobApiFetcher.JobsWrapper
 import com.softwareberg.readFile
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.SoftAssertions
@@ -24,6 +24,7 @@ class JobApiFetcherTest {
     @Test
     fun `it should fetch all jobs`() {
         // given
+        val host = "hub.no"
         whenever(httpClient.execute(any())).doReturn(
             responseWithBodyFromFile("/http/jobs/no_page_1.json"),
             responseWithBodyFromFile("/http/jobs/no_page_1.json"),
@@ -31,7 +32,7 @@ class JobApiFetcherTest {
         )
 
         // when
-        val jobs = jobFetcher.fetch()
+        val jobs = jobFetcher.fetch(host)
 
         // then
         assertThatJobsHaveRightSize(jobs)

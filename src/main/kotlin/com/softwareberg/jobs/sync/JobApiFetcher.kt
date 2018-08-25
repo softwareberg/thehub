@@ -1,4 +1,4 @@
-package com.softwareberg.jobs
+package com.softwareberg.jobs.sync
 
 import com.softwareberg.HttpClient
 import com.softwareberg.HttpMethod
@@ -11,25 +11,22 @@ import kotlinx.coroutines.experimental.future.await
 import kotlinx.coroutines.experimental.runBlocking
 import org.slf4j.LoggerFactory
 
-class JobApiFetcher(
-    private val http: HttpClient,
-    private val json: JsonMapper
-) {
+class JobApiFetcher(private val http: HttpClient, private val json: JsonMapper) {
 
     private val log = LoggerFactory.getLogger(JobApiFetcher::class.java)
 
-    fun fetch(): List<JobsWrapper> = runBlocking(CommonPool) {
-        fetchAsync().await()
+    fun fetch(host: String): List<JobsWrapper> = runBlocking(CommonPool) {
+        fetchAsync(host).await()
     }
 
-    private fun fetchAsync(): Deferred<List<JobsWrapper>> = async(CommonPool) {
-        val firstJobsPage = fetchOnePage(1).await()
+    private fun fetchAsync(host: String): Deferred<List<JobsWrapper>> = async(CommonPool) {
+        val firstJobsPage = fetchOnePage(host, 1).await()
         val lastPage = firstJobsPage.jobs.pages
-        fetchPageRange(lastPage).await()
+        fetchPageRange(host, lastPage).await()
     }
 
-    private fun fetchOnePage(page: Int): Deferred<JobsWrapper> = async(CommonPool) {
-        val url = "https://thehub.dk/api/jobs?page=$page"
+    private fun fetchOnePage(host: String, page: Int): Deferred<JobsWrapper> = async(CommonPool) {
+        val url = "https://$host/api/jobs?page=$page"
         log.info("fetching $url...")
         val request = HttpRequest(HttpMethod.GET, url)
         val response = http.execute(request).await()
@@ -37,15 +34,15 @@ class JobApiFetcher(
         json.read<JobsWrapper>(body)
     }
 
-    private fun fetchPageRange(lastPage: Int): Deferred<List<JobsWrapper>> = async(CommonPool) {
-        (1..lastPage).map { fetchOnePage(it) }.map { it.await() }
+    private fun fetchPageRange(host: String, lastPage: Int): Deferred<List<JobsWrapper>> = async(CommonPool) {
+        (1..lastPage).map { fetchOnePage(host, it) }.map { it.await() }
     }
 
     data class JobsWrapper(val jobs: Jobs)
     data class Jobs(val pages: Int, val docs: List<Job>)
     data class Job(
         val key: String,
-        val positionType: String,
+        val positionType: String?,
         val locationLabel: String,
         val title: String,
         val company: Company

@@ -11,7 +11,7 @@ CREATE TABLE locations (
 );
 
 CREATE TABLE companies (
-  comapny_id    VARCHAR(255)             NOT NULL PRIMARY KEY,
+  company_id    VARCHAR(255)             NOT NULL PRIMARY KEY,
   name          VARCHAR(255)             NOT NULL,
   logo          VARCHAR(255)             NOT NULL,
   domain        VARCHAR(255)             NOT NULL,
@@ -34,9 +34,21 @@ CREATE TABLE job_keywords (
   date_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
+CREATE TABLE equities (
+  equity        VARCHAR(255)             NOT NULL PRIMARY KEY,
+  date_created  TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  date_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+CREATE TABLE monthly_salaries (
+  monthly_salary VARCHAR(255)             NOT NULL PRIMARY KEY,
+  date_created   TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  date_modified  TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
 CREATE TABLE jobs (
   job_id         VARCHAR(255)             NOT NULL PRIMARY KEY,
-  comapny_id     VARCHAR(255)             NOT NULL,
+  company_id     VARCHAR(255)             NOT NULL,
   title          VARCHAR(255)             NOT NULL,
   monthly_salary VARCHAR(255),
   equity         VARCHAR(255),
@@ -44,8 +56,10 @@ CREATE TABLE jobs (
   position_type  VARCHAR(255)             NOT NULL,
   date_created   TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   date_modified  TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
-  FOREIGN KEY (comapny_id) REFERENCES companies (comapny_id),
-  FOREIGN KEY (position_type) REFERENCES positions_types (position_type)
+  FOREIGN KEY (company_id) REFERENCES companies (company_id),
+  FOREIGN KEY (position_type) REFERENCES positions_types (position_type),
+  FOREIGN KEY (equity) REFERENCES equities (equity),
+  FOREIGN KEY (monthly_salary) REFERENCES monthly_salaries (monthly_salary)
 );
 
 CREATE TABLE jobs_job_keywords (
