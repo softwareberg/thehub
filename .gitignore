@@ -1,8 +1,15 @@
 .DS_Store
 
+
+
 .idea/
-/out/
+out/
 .idea_modules/
+node_modules
+dist/
+src/main/generated/
+generated/
+
 *.iml
 modules.xml
 *.ipr
@@ -15,16 +22,15 @@ modules.xml
 *.tar.gz
 *.rar
 
-target/
 
 hs_err_pid*
 
 .gradle/
 build/
+target/
 classes/
 gradle-app.setting
 !gradle-wrapper.jar
 .gradletasknamecache
 tmp.json
-/src/main/generated/
-/generated/
+

@@ -1,0 +1,24 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.app {
+  min-width: 320px;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.container {
+  max-width: 1600px;
+  padding: 0;
+}
+
+.row {
+  margin: 0;
+}
