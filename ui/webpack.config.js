@@ -11,7 +11,7 @@ const prod = process.env.NODE_ENV === 'production';
 
 module.exports = {
   devtool: prod ? '' : 'source-map',
-  entry: './src/index.js',
+  entry: './src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -37,7 +37,7 @@ module.exports = {
   ],
   module: {
     rules: [{
-      test: /\.js$/,
+      test: /\.jsx?$/,
       exclude: /node_modules/,
       use: [{
         loader: 'babel-loader'

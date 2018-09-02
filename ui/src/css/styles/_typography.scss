@@ -1,73 +1,12 @@
 @font-face {
   font-display: swap;
   font-family: "Praktika Bold";
-  src:
-    url("fonts/praktika-boldextended-webfont.eot"),
-    url("fonts/praktika-boldextended-webfont.eot?#iefix") format("embedded-opentype"),
-    url("fonts/praktika-boldextended-webfont.woff2") format("woff2"),
-    url("fonts/praktika-boldextended-webfont.woff") format("woff"),
-    url("fonts/praktika-boldextended-webfont.ttf") format("truetype"),
-    url("fonts/praktika-boldextended-webfont.svg#praktikabold_extended") format("svg");
   font-style: normal;
   font-weight: normal;
 }
 
 @font-face {
   font-display: swap;
-  font-family: "Praktika Medium";
-  src:
-    url("fonts/praktika-medium-webfont.eot"),
-    url("fonts/praktika-medium-webfont.eot?#iefix") format("embedded-opentype"),
-    url("fonts/praktika-medium-webfont.woff2") format("woff2"),
-    url("fonts/praktika-medium-webfont.woff") format("woff"),
-    url("fonts/praktika-medium-webfont.ttf") format("truetype"),
-    url("fonts/praktika-medium-webfont.svg#praktikamedium") format("svg");
   font-style: normal;
   font-weight: normal;
-}
-
-.nav-link,
-.h-header {
-  font-family: "Praktika Bold", "Source Sans Pro", "Lucida Grande", sans-serif;
-}
-
-.app,
-.nav-link--mobile-kontakt,
-.h-txt-thin {
-  font-family: "Praktika Medium", "Source Sans Pro", "Lucida Grande", sans-serif;
-}
-
-.h-header {
-  line-height: 100%;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.h-txt-bold {
-  font-weight: 700;
-}
-
-.h-txt-thin {
-  font-weight: 500;
-}
-
-.h-h1 {
-  margin-bottom: 3rem;
-  font-size: 3.5rem;
-}
-
-.h-txt24 {
-  font-size: 1.6rem;
-}
-
-.h-txt16 {
-  font-size: 1rem;
-}
-
-.h-txt10 {
-  font-size: 0.8rem;
-}
-
-.h-txt9 {
-  font-size: 0.6rem;
 }
