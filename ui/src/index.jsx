@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { h, app } from 'hyperapp';
+import thehub from 'thehub';
 
 require('css/main.scss');
 
@@ -7,20 +7,13 @@ window.jQuery = $;
 window.$ = $;
 
 const state = {
-  count: 0
+  count: 3
 };
 
-const actions = {
-  down: value => state => ({ count: state.count - value }),
-  up: value => state => ({ count: state.count + value })
-};
+let actions = thehub(state);
 
-const view = (state, actions) => (
-  <div>
-    <h1>{state.count}</h1>
-    <button type="button" onclick={() => actions.down(1)}>-</button>
-    <button type="button" onclick={() => actions.up(1)}>+</button>
-  </div>
-);
-
-app(state, actions, view, document.body);
+if (module.hot) {
+  module.hot.accept('thehub', () => {
+    actions = thehub(actions.getState());
+  });
+}
