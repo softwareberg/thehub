@@ -903,7 +903,7 @@ babel-plugin-transform-object-rest-spread@^6.22.0:
     babel-plugin-syntax-object-rest-spread "^6.8.0"
     babel-runtime "^6.26.0"
 
-babel-plugin-transform-react-jsx@^6.24.1:
+babel-plugin-transform-react-jsx@6.24.x:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-jsx/-/babel-plugin-transform-react-jsx-6.24.1.tgz#840a028e7df460dfc3a2d29f0c0d91f6376e66a3"
   dependencies:
@@ -3375,6 +3375,10 @@ ignore@^3.2.0, ignore@^3.3.3, ignore@^3.3.5:
 ignore@^4.0.0, ignore@^4.0.2:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
+
+immutable@4.0.0-rc.9:
+  version "4.0.0-rc.9"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.0.0-rc.9.tgz#1e6e0094e649013ec3742d2b5aeeca5eeda4f0bf"
 
 import-cwd@^2.0.0:
   version "2.1.0"

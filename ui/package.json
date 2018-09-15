@@ -43,6 +43,7 @@
   "dependencies": {
     "bootstrap": "4.1.x",
     "hyperapp": "1.2.x",
+    "immutable": "4.0.0-rc.9",
     "jquery": "3.3.x",
     "lodash": "4.17.x"
   }

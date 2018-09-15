@@ -11,3 +11,7 @@
 @include media-breakpoint-down(xs) {
   background-color: #fff;
 }
+
+.done {
+  text-decoration: line-through;
+}

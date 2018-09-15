@@ -1,19 +1,16 @@
 import $ from 'jquery';
-import thehub from 'thehub';
+import main from 'main';
+import { state } from 'state';
 
 require('css/main.scss');
 
 window.jQuery = $;
 window.$ = $;
 
-const state = {
-  count: 3
-};
-
-let actions = thehub(state);
+let actions = main(state);
 
 if (module.hot) {
-  module.hot.accept('thehub', () => {
-    actions = thehub(actions.getState());
+  module.hot.accept('main', () => {
+    actions = main(actions.getState());
   });
 }
