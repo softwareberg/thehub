@@ -11,7 +11,7 @@ const prod = process.env.NODE_ENV === 'production';
 
 module.exports = {
   devtool: prod ? '' : 'source-map',
-  entry: './src/index.jsx',
+  entry: ['whatwg-fetch', './src/index.jsx'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -79,7 +79,11 @@ module.exports = {
   devServer: {
     host: 'localhost',
     port,
+    proxy: {
+      '/api': 'http://localhost:8080'
+    },
     contentBase: path.resolve(__dirname, 'src'),
-    open: true
+    open: true,
+    historyApiFallback: true
   }
 };

@@ -5,6 +5,8 @@
   },
   "rules": {
     "comma-dangle": ["error", "never"],
+    "import/prefer-default-export": "ignore",
+    "object-curly-newline": ["error", {"ImportDeclaration": "never"}],
     "import/no-unresolved": "ignore",
     "react/react-in-jsx-scope": "ignore",
     "react/no-unknown-property": "ignore",
