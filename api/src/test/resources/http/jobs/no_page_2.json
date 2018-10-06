@@ -1,0 +1,440 @@
+{
+  "jobs": {
+    "total": 136,
+    "limit": 10,
+    "page": "2",
+    "pages": 2,
+    "docs": [
+      {
+        "_id": "5b9fd7cf7696cb4f55ae8be6",
+        "key": "senior-project-coordinator-for-kff19",
+        "company": {
+          "key": "katapult-future-fest",
+          "name": "Katapult Future Fest",
+          "logo": {
+            "filename": "588c8643b139b19f12d779bf/logo_upload-e1b9e63c2af83e0b1dcad5c2d957cbef.png",
+            "originalname": "KFF19 logo_KFF19 logo.png",
+            "path": "public/files",
+            "size": 39804,
+            "filetype": "image/png"
+          }
+        },
+        "title": "Senior Project Coordinator for KFF19 ",
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4a9",
+            "name": "Full-time",
+            "__v": 0
+          }
+        ],
+        "locationShort": "oslo",
+        "approvedAt": "2018-09-17T16:53:50.000Z",
+        "id": "5b9fd7cf7696cb4f55ae8be6",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b9fa08a7696cb4f55ae8bdd",
+        "key": "part-time-developer",
+        "locationShort": "restoftheworld",
+        "title": "Part-time Developer",
+        "company": {
+          "key": "new-wave-media-limited",
+          "name": "New Wave Media Limited",
+          "logo": {
+            "filename": "5b754b2ac2eb594570e77bc4/logo_upload-671efcabe1746ba8fd52c2357d05645e.jpg",
+            "originalname": "2.jpg",
+            "path": "public/files",
+            "size": 13118,
+            "filetype": "image/jpeg"
+          }
+        },
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4aa",
+            "name": "Part-time",
+            "__v": 0
+          }
+        ],
+        "approvedAt": "2018-09-17T13:16:12.887Z",
+        "id": "5b9fa08a7696cb4f55ae8bdd",
+        "domain": "hub.no",
+        "locationLabel": "Rest of the world"
+      },
+      {
+        "_id": "5b9b550b7696cb4f55ae8b37",
+        "approvedAt": "2018-09-14T13:27:27.714Z",
+        "company": {
+          "key": "eatkind",
+          "name": "EatKind",
+          "logo": {
+            "filename": "5b3f203b3aa304fe63c14f44/logo_upload-b5d559a8a6de24b20f2f8bde34ced9e7.jpg",
+            "originalname": "EatKind final.jpg",
+            "path": "public/files",
+            "size": 47449,
+            "filetype": "image/jpeg"
+          }
+        },
+        "title": "Marketing and Brand Lead",
+        "locationShort": "oslo",
+        "key": "marketing-and-brand-lead",
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4ac",
+            "name": "Internship",
+            "__v": 0
+          },
+          {
+            "_id": "5b8e47c58f5c9c9e168db4aa",
+            "name": "Part-time",
+            "__v": 0
+          }
+        ],
+        "id": "5b9b550b7696cb4f55ae8b37",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b97d04299d2be7e51871b1f",
+        "approvedAt": "2018-09-13T13:24:45.058Z",
+        "company": {
+          "key": "integralix-helse-norge",
+          "name": "INTEGRALIX HELSE NORGE",
+          "logo": {
+            "filename": "5b85c1bbb3fc1bcf1ff6a6ff/logo_upload-0536ce79662b811eab01e4874e1478d4.png",
+            "originalname": "integralix.black.png",
+            "path": "public/files",
+            "size": 38386,
+            "filetype": "image/png"
+          }
+        },
+        "title": "Psychologist ",
+        "locationShort": "oslo",
+        "key": "psychologist",
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4a9",
+            "name": "Full-time",
+            "__v": 0
+          },
+          {
+            "_id": "5b8e47c58f5c9c9e168db4aa",
+            "name": "Part-time",
+            "__v": 0
+          }
+        ],
+        "id": "5b97d04299d2be7e51871b1f",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b99057c99d2be7e51871b3d",
+        "key": "co-founder-8",
+        "locationShort": "oslo",
+        "title": "Co-founder",
+        "company": {
+          "key": "dear-city",
+          "name": "Dear City ",
+          "logo": {
+            "filename": "5b326dc13aa304fe63c14dca/logo_upload-ece57525457d011b65f2d6c36332150b.jpg",
+            "originalname": "dear city right size.jpg",
+            "path": "public/files",
+            "size": 32784,
+            "filetype": "image/jpeg"
+          }
+        },
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4ad",
+            "name": "Cofounder",
+            "__v": 0
+          }
+        ],
+        "approvedAt": "2018-09-13T13:24:45.040Z",
+        "id": "5b99057c99d2be7e51871b3d",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b97cde799d2be7e51871b1e",
+        "approvedAt": "2018-09-13T13:24:44.478Z",
+        "company": {
+          "key": "integralix-helse-norge",
+          "name": "INTEGRALIX HELSE NORGE",
+          "logo": {
+            "filename": "5b85c1bbb3fc1bcf1ff6a6ff/logo_upload-0536ce79662b811eab01e4874e1478d4.png",
+            "originalname": "integralix.black.png",
+            "path": "public/files",
+            "size": 38386,
+            "filetype": "image/png"
+          }
+        },
+        "title": "Personal Trainer - Physiotherapist",
+        "locationShort": "oslo",
+        "key": "personal-trainer-physiotherapist",
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4aa",
+            "name": "Part-time",
+            "__v": 0
+          }
+        ],
+        "id": "5b97cde799d2be7e51871b1e",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b962d1352288d2707b48c62",
+        "key": "full-stack-utvikler",
+        "locationShort": "oslo",
+        "title": "Full-stack Utvikler",
+        "company": {
+          "key": "bidra-as",
+          "name": "Bidra AS",
+          "logo": {
+            "filename": "58c0198d4911ce10315bbd4a/logo_upload-017aba828570c1d0b62762206d082206.png",
+            "originalname": "logo right size.png",
+            "path": "public/files",
+            "size": 6542,
+            "filetype": "image/png"
+          }
+        },
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4a9",
+            "name": "Full-time",
+            "__v": 0
+          }
+        ],
+        "approvedAt": "2018-09-10T13:49:54.000Z",
+        "id": "5b962d1352288d2707b48c62",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b8e947fec9c52292241c3b7",
+        "key": "clinical-nutritionist",
+        "locationShort": "oslo",
+        "title": "Clinical nutritionist",
+        "company": {
+          "key": "integralix-helse-norge",
+          "name": "INTEGRALIX HELSE NORGE",
+          "logo": {
+            "filename": "5b85c1bbb3fc1bcf1ff6a6ff/logo_upload-0536ce79662b811eab01e4874e1478d4.png",
+            "originalname": "integralix.black.png",
+            "path": "public/files",
+            "size": 38386,
+            "filetype": "image/png"
+          }
+        },
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4aa",
+            "name": "Part-time",
+            "__v": 0
+          }
+        ],
+        "approvedAt": "2018-09-10T07:57:38.234Z",
+        "id": "5b8e947fec9c52292241c3b7",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b90e78c9a747adb0b933c2d",
+        "key": "sales-executive-wanted-for-nordics",
+        "locationShort": "oslo",
+        "title": "Sales executive wanted for Nordics",
+        "company": {
+          "key": "glocal-view-as",
+          "name": "Glocal View AS",
+          "logo": {
+            "filename": "59f1e3d9e7422eae72254be9/logo_upload-8a273f66d9468c2e8d65ce7067736986.jpg",
+            "originalname": "1.jpg",
+            "path": "public/files",
+            "size": 16297,
+            "filetype": "image/jpeg"
+          }
+        },
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4a9",
+            "name": "Full-time",
+            "__v": 0
+          }
+        ],
+        "approvedAt": "2018-09-06T08:51:40.322Z",
+        "id": "5b90e78c9a747adb0b933c2d",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b9040ac98c0f6f012ad4dbb",
+        "key": "cto-in-a-fast-growing-saas",
+        "locationShort": "oslo",
+        "title": "CTO in a fast growing SaaS",
+        "company": {
+          "key": "socialboards",
+          "name": "SocialBoards",
+          "logo": {
+            "filename": "57fdd9b2a989cf7a76c87aff/logo_upload-7a25cef4672f424874bcec85e9ff6bc8.png",
+            "originalname": "SocialBoards_Logo.png",
+            "path": "public/files",
+            "size": 5776,
+            "filetype": "image/png"
+          }
+        },
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4a9",
+            "name": "Full-time",
+            "__v": 0
+          }
+        ],
+        "approvedAt": "2018-09-06T07:43:12.000Z",
+        "id": "5b9040ac98c0f6f012ad4dbb",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b8d1db461cb99e00fa4829f",
+        "key": "prosjektassistent-1",
+        "locationShort": "oslo",
+        "title": "Prosjektassistent",
+        "company": {
+          "key": "banduro-ai",
+          "name": "Banduro AI",
+          "logo": {
+            "filename": "5b8d1d1661cb99e00fa4829e/logo_upload-39d42224617419a2008c9d8b60e057be.png",
+            "originalname": "Logo JYB.png",
+            "path": "public/files",
+            "size": 67796,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-09-03T15:56:40.255Z",
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4aa",
+            "name": "Part-time",
+            "__v": 0
+          }
+        ],
+        "id": "5b8d1db461cb99e00fa4829f",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b8d025361cb99e00fa48294",
+        "approvedAt": "2018-09-03T15:52:14.316Z",
+        "company": {
+          "key": "payr",
+          "name": "payr",
+          "logo": {
+            "filename": "57f619be51dc75ee0ed9ab73/logo_upload-1ea0e315696d04448bd271895afdfe28.png",
+            "originalname": "Payr_logo_square_white.png",
+            "path": "public/files",
+            "size": 7999,
+            "filetype": "image/png"
+          }
+        },
+        "title": "Kundekonsulent POPS",
+        "locationShort": "oslo",
+        "key": "kundekonsulent-pops",
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4aa",
+            "name": "Part-time",
+            "__v": 0
+          }
+        ],
+        "id": "5b8d025361cb99e00fa48294",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b89de9461cb99e00fa4823c",
+        "key": "chief-operational-officer-a-genius-mind-1",
+        "locationShort": "oslo",
+        "title": "Chief Operational Officer– A Genius Mind",
+        "company": {
+          "key": "bimm-technologies",
+          "name": "BIMM TECHNOLOGIES ",
+          "logo": {
+            "filename": "58147df59ccab18e2ea9a98e/logo_upload-46799cd83424048ad3aba2ed421e56ee.png",
+            "originalname": "BIMM_iconbit_crcl_M_400x400.png",
+            "path": "public/files",
+            "size": 61388,
+            "filetype": "image/png"
+          }
+        },
+        "approvedAt": "2018-09-02T09:15:45.699Z",
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4a9",
+            "name": "Full-time",
+            "__v": 0
+          }
+        ],
+        "id": "5b89de9461cb99e00fa4823c",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b89538b61cb99e00fa48231",
+        "key": "nodejs-neo4j",
+        "locationShort": "oslo",
+        "title": "Node.js / Neo4j",
+        "company": {
+          "key": "jodacare-as-1",
+          "name": "JodaCare AS",
+          "logo": {
+            "filename": "5b34e8bd3aa304fe63c14e04/logo_upload-d3ec63a4a7f37e11af9a65cd45ad19a3.jpg",
+            "originalname": "11.jpg",
+            "path": "public/files",
+            "size": 15687,
+            "filetype": "image/jpeg"
+          }
+        },
+        "approvedAt": "2018-09-02T09:15:45.621Z",
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4ac",
+            "name": "Internship",
+            "__v": 0
+          }
+        ],
+        "id": "5b89538b61cb99e00fa48231",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      },
+      {
+        "_id": "5b88f15d61cb99e00fa4821c",
+        "key": "digital-product-manager",
+        "locationShort": "oslo",
+        "title": "Digital Product Manager",
+        "company": {
+          "key": "gelato",
+          "name": "Gelato",
+          "logo": {
+            "filename": "5a5cbacce5a381f9645a57b0/logo_upload-ecce63719de74951328de1f19818f2d5.JPG",
+            "originalname": "1.JPG",
+            "path": "public/files",
+            "size": 13009,
+            "filetype": "image/jpeg"
+          }
+        },
+        "approvedAt": "2018-08-31T10:00:15.351Z",
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e47c58f5c9c9e168db4a9",
+            "name": "Full-time",
+            "__v": 0
+          }
+        ],
+        "id": "5b88f15d61cb99e00fa4821c",
+        "domain": "hub.no",
+        "locationLabel": "Oslo"
+      }
+    ]
+  }
+}
