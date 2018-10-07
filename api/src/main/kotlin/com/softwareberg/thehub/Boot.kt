@@ -1,4 +1,4 @@
-package com.softwareberg.thehub.base
+package com.softwareberg.thehub
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
