@@ -89,8 +89,8 @@ repositories {
 dependencies {
     ext.kotlinxcoroutines = '0.30.1'
 
-    compile 'org.springframework.boot:spring-boot-starter-webflux'
-    compile 'org.springframework.data:spring-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70'
     compile 'org.jetbrains.kotlin:kotlin-reflect:1.2.70'
@@ -98,9 +98,10 @@ dependencies {
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinxcoroutines"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$kotlinxcoroutines"
 
-    compile 'org.flywaydb:flyway-core:5.2.0'
     compile 'org.postgresql:postgresql:42.2.5'
+    compile 'org.hibernate:hibernate-core'
     compile 'javax.validation:validation-api:2.0.1.Final'
+    compile 'org.flywaydb:flyway-core:5.2.0'
 
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
     compile 'org.jsoup:jsoup:1.11.3'
