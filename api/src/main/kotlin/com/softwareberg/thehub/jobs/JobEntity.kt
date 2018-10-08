@@ -20,23 +20,11 @@ class JobEntity {
     @Column(name = "title", nullable = false)
     lateinit var title: String
 
-    @Column(name = "monthly_salary", nullable = false)
-    lateinit var monthlySalary: String
-
-    @Column(name = "equity", nullable = false)
-    lateinit var equity: String
-
     @Column(name = "description", nullable = false)
     lateinit var description: String
 
-    @Column(name = "position_type", nullable = false)
-    lateinit var positionType: String
-
     @Column(name = "has_star", nullable = false)
     var hasStar: Boolean = false
-
-    @Column(name = "is_deleted", nullable = false)
-    var isDeleted: Boolean = false
 
     @ManyToOne
     @JoinColumn(

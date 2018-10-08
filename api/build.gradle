@@ -1,7 +1,8 @@
 plugins {
     id 'org.springframework.boot' version '2.0.5.RELEASE'
     id 'org.jetbrains.kotlin.jvm' version '1.2.70'
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.2.71'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.2.70'
+    id 'org.jetbrains.kotlin.kapt' version '1.2.70'
     id 'com.github.ben-manes.versions' version '0.20.0'
     id 'org.jmailen.kotlinter' version '1.20.0'
 }
@@ -9,6 +10,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'idea'
 
 defaultTasks 'bootRun'
 
@@ -77,6 +79,16 @@ check {
     dependsOn = check.dependsOn + [ktLint, integrationTest]
 }
 
+idea {
+    module {
+        sourceDirs += file('build/generated/source/kapt/main')
+        generatedSourceDirs += file('build/generated/source/kapt/main')
+
+        sourceDirs += file('src/main/generated/')
+        generatedSourceDirs += file('src/main/generated/')
+    }
+}
+
 repositories {
     mavenCentral()
     jcenter()
@@ -88,12 +100,14 @@ repositories {
 
 dependencies {
     ext.kotlinxcoroutines = '0.30.1'
+    ext.querydsl = '4.2.1'
 
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70'
     compile 'org.jetbrains.kotlin:kotlin-reflect:1.2.70'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib-common:1.2.70'
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxcoroutines"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinxcoroutines"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$kotlinxcoroutines"
@@ -102,6 +116,8 @@ dependencies {
     compile 'org.hibernate:hibernate-core'
     compile 'javax.validation:validation-api:2.0.1.Final'
     compile 'org.flywaydb:flyway-core:5.2.0'
+    compile "com.querydsl:querydsl-jpa:$querydsl"
+    kapt "com.querydsl:querydsl-apt:$querydsl:jpa"
 
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
     compile 'org.jsoup:jsoup:1.11.3'

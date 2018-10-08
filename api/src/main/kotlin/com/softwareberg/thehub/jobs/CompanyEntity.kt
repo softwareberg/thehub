@@ -8,7 +8,6 @@ import javax.persistence.JoinColumn
 import javax.persistence.OneToMany
 import javax.persistence.Table
 
-
 @Entity
 @Table(name = "companies")
 class CompanyEntity {
@@ -17,8 +16,8 @@ class CompanyEntity {
     @Column(name = "company_id", nullable = false)
     lateinit var companyId: String
 
-    @Column(name = "name", nullable = false)
-    lateinit var name: String
+    @Column(name = "domain", nullable = false)
+    lateinit var domain: String
 
     @OneToMany
     @JoinColumn(
