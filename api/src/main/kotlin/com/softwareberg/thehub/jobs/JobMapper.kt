@@ -1,5 +1,6 @@
 package com.softwareberg.thehub.jobs
 
+import com.softwareberg.thehub.jobs.model.JobEntity
 import org.springframework.stereotype.Component
 
 @Component

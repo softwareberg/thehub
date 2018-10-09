@@ -21,3 +21,6 @@ logging:
     org.springframework.web.servlet: DEBUG
     org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor: INFO
     org.hibernate.SQL: DEBUG
+
+thehub:
+  schdeuling.sync.fixedRate-in-milliseconds: 900000

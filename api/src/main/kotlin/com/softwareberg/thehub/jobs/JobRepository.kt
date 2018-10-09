@@ -1,7 +1,7 @@
 package com.softwareberg.thehub.jobs
 
+import com.softwareberg.thehub.jobs.model.JobEntity
 import org.springframework.data.querydsl.QuerydslPredicateExecutor
 import org.springframework.data.repository.PagingAndSortingRepository
-import java.util.UUID
 
-interface JobRepository : PagingAndSortingRepository<JobEntity, UUID>, QuerydslPredicateExecutor<JobEntity>
+interface JobRepository : PagingAndSortingRepository<JobEntity, String>, QuerydslPredicateExecutor<JobEntity>

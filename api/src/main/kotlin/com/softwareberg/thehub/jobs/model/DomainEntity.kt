@@ -1,4 +1,4 @@
-package com.softwareberg.thehub.jobs
+package com.softwareberg.thehub.jobs.model
 
 import java.util.ArrayList
 import javax.persistence.Column
@@ -9,22 +9,19 @@ import javax.persistence.OneToMany
 import javax.persistence.Table
 
 @Entity
-@Table(name = "companies")
-class CompanyEntity {
+@Table(name = "domains")
+class DomainEntity {
 
     @Id
-    @Column(name = "company_id", nullable = false)
-    lateinit var companyId: String
-
     @Column(name = "domain", nullable = false)
     lateinit var domain: String
 
     @OneToMany
     @JoinColumn(
-        name = "company_id",
-        referencedColumnName = "company_id",
-        insertable = true,
-        updatable = true
+        name = "domain",
+        referencedColumnName = "domain",
+        insertable = false,
+        updatable = false
     )
-    var jobs: MutableList<JobEntity> = ArrayList()
+    var companies: MutableList<CompanyEntity> = ArrayList()
 }

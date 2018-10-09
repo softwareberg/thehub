@@ -4,11 +4,11 @@ import com.querydsl.core.BooleanBuilder
 import com.querydsl.core.types.Predicate
 import com.softwareberg.thehub.base.containsIgnoreCaseOrNull
 import com.softwareberg.thehub.base.equalsIgnoreCaseOrNull
-import com.softwareberg.thehub.jobs.QJobEntity.jobEntity
+import com.softwareberg.thehub.jobs.model.JobEntity
+import com.softwareberg.thehub.jobs.model.QJobEntity.jobEntity
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-
 
 @Service
 class JobQueryService(private val jobsRepository: JobRepository) {
