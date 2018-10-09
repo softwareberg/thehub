@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class JobsCommandController {
+class JobCommandController {
 
     @ResponseStatus(NO_CONTENT)
     @DeleteMapping("/api/jobs/{jobId}")

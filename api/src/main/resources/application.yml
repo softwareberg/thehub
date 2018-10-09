@@ -1,5 +1,5 @@
 server:
-  port: 9090
+  port: 8080
 
 spring:
   application.name: the-hub
@@ -16,7 +16,8 @@ spring:
 
 logging:
   level:
-    tech.viacom: DEBUG
+    com.softwareberg: DEBUG
     org.springframework.web.client: DEBUG
     org.springframework.web.servlet: DEBUG
+    org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor: INFO
     org.hibernate.SQL: DEBUG
