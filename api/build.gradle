@@ -117,7 +117,6 @@ dependencies {
     compile 'javax.validation:validation-api:2.0.1.Final'
     compile 'org.flywaydb:flyway-core:5.2.0'
     compile "com.querydsl:querydsl-jpa:$querydsl"
-    compile "com.querydsl:querydsl-sql-spring:$querydsl"
     kapt "com.querydsl:querydsl-apt:$querydsl:jpa"
 
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
