@@ -1,6 +1,6 @@
 package com.softwareberg.thehub.jobs.sync
 
-import com.softwareberg.thehub.jobs.JobRepository
+import com.softwareberg.thehub.jobs.CompanyRepository
 import com.softwareberg.thehub.jobs.model.CompanyEntity
 import com.softwareberg.thehub.jobs.model.DomainEntity
 import com.softwareberg.thehub.jobs.model.EquityEntity
@@ -14,17 +14,18 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class JobHubToDatabaseService(private val jobRepository: JobRepository) {
+class JobHubToDatabaseService(private val repository: CompanyRepository) {
 
     @Transactional
     fun upsertJob(source: Job) {
+        val company = repository.findById(source.company.key).orElse(CompanyEntity())
+
         val location = LocationEntity()
         location.location = source.locationLabel
 
         val domain = DomainEntity()
         domain.domain = source.host
 
-        val company = CompanyEntity()
         company.companyId = source.company.key
         company.name = source.company.name
         company.logo = source.company.logo.filename
@@ -47,17 +48,20 @@ class JobHubToDatabaseService(private val jobRepository: JobRepository) {
         val positionType = PositionsTypeEntity()
         positionType.positionType = source.positionType
 
-        val job = JobEntity()
+        val job = company.jobs.find { it.jobId == source.key } ?: JobEntity()
+
         job.jobId = source.key
         job.title = source.title
         job.description = source.description
-        job.company = company
         job.positionType = positionType
         job.equity = equity
         job.monthlySalary = monthlySalary
-        job.keywords = keywords.toMutableList()
-        job.perks = perks.toMutableList()
+        job.keywords.clear()
+        job.keywords.addAll(keywords)
+        job.perks.clear()
+        job.perks.addAll(perks)
 
-        jobRepository.save(job)
+        company.jobs.add(job)
+        repository.save(company)
     }
 }

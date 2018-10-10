@@ -4,6 +4,7 @@ import java.util.ArrayList
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
@@ -19,6 +20,9 @@ class JobEntity {
     @Column(name = "job_id", nullable = false)
     lateinit var jobId: String
 
+    @Column(name = "company_id", nullable = false)
+    lateinit var companyId: String
+
     @Column(name = "title", nullable = false)
     lateinit var title: String
 
@@ -28,16 +32,17 @@ class JobEntity {
     @Column(name = "has_star", nullable = false)
     var hasStar: Boolean = false
 
-    @ManyToOne(cascade = [(CascadeType.MERGE)])
+    @ManyToOne
     @JoinColumn(
         name = "company_id",
         referencedColumnName = "company_id",
-        insertable = true,
-        updatable = true
+        insertable = false,
+        updatable = false,
+        nullable = false
     )
     lateinit var company: CompanyEntity
 
-    @ManyToOne(cascade = [(CascadeType.MERGE)])
+    @ManyToOne(cascade = [CascadeType.MERGE])
     @JoinColumn(
         name = "equity",
         referencedColumnName = "equity",
@@ -47,7 +52,7 @@ class JobEntity {
     )
     var equity: EquityEntity? = null
 
-    @ManyToOne(cascade = [(CascadeType.MERGE)])
+    @ManyToOne(cascade = [CascadeType.MERGE])
     @JoinColumn(
         name = "monthly_salary",
         referencedColumnName = "monthly_salary",
@@ -57,28 +62,29 @@ class JobEntity {
     )
     var monthlySalary: MonthlySalaryEntity? = null
 
-    @ManyToOne(cascade = [(CascadeType.MERGE)])
+    @ManyToOne(cascade = [CascadeType.MERGE])
     @JoinColumn(
         name = "position_type",
         referencedColumnName = "position_type",
         insertable = true,
-        updatable = true
+        updatable = true,
+        nullable = false
     )
     lateinit var positionType: PositionsTypeEntity
 
-    @ManyToMany(cascade = [(CascadeType.ALL)])
+    @ManyToMany(cascade = [CascadeType.MERGE])
     @JoinTable(
         name = "jobs_job_keywords",
         joinColumns = [JoinColumn(name = "job_id", referencedColumnName = "job_id")],
         inverseJoinColumns = [JoinColumn(name = "keyword", referencedColumnName = "keyword")]
     )
-    var keywords: MutableList<JobKeywordEntity> = ArrayList()
+    val keywords: MutableList<JobKeywordEntity> = ArrayList()
 
-    @ManyToMany(cascade = [(CascadeType.ALL)])
+    @ManyToMany(cascade = [CascadeType.MERGE])
     @JoinTable(
         name = "jobs_job_perks",
         joinColumns = [JoinColumn(name = "job_id", referencedColumnName = "job_id")],
         inverseJoinColumns = [JoinColumn(name = "job_perk_id", referencedColumnName = "job_perk_id")]
     )
-    var perks: MutableList<JobPerkEntity> = ArrayList()
+    val perks: MutableList<JobPerkEntity> = ArrayList()
 }

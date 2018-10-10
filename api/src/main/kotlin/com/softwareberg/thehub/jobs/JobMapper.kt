@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 @Component
 class JobMapper {
     fun map(job: JobEntity): JobDto {
-        val href = "https://${job.company.domain}/jobs/${job.jobId}"
+        val href = "https://${job.company.domain.domain}/jobs/${job.jobId}"
         val keywords = job.keywords.map { it.keyword }
         return JobDto(
             jobId = job.jobId,

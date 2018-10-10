@@ -16,5 +16,5 @@ class JobKeywordEntity {
     lateinit var keyword: String
 
     @ManyToMany(mappedBy = "keywords")
-    var jobs: MutableList<JobEntity> = ArrayList()
+    val jobs: MutableList<JobEntity> = ArrayList()
 }

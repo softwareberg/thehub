@@ -19,5 +19,5 @@ class JobPerkEntity {
     lateinit var description: String
 
     @ManyToMany(mappedBy = "perks")
-    var jobs: MutableList<JobEntity> = ArrayList()
+    val jobs: MutableList<JobEntity> = ArrayList()
 }

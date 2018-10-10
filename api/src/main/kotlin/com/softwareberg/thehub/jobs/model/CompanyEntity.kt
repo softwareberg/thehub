@@ -24,30 +24,32 @@ class CompanyEntity {
     @Column(name = "logo", nullable = false)
     lateinit var logo: String
 
-    @OneToMany
+    @OneToMany(cascade = [CascadeType.MERGE])
     @JoinColumn(
         name = "company_id",
         referencedColumnName = "company_id",
-        insertable = false,
-        updatable = false
+        insertable = true,
+        updatable = true
     )
-    var jobs: MutableList<JobEntity> = ArrayList()
+    val jobs: MutableList<JobEntity> = ArrayList()
 
-    @ManyToOne(cascade = [(CascadeType.MERGE)])
+    @ManyToOne(cascade = [CascadeType.MERGE])
     @JoinColumn(
         name = "domain",
         referencedColumnName = "domain",
         insertable = true,
-        updatable = true
+        updatable = true,
+        nullable = false
     )
     lateinit var domain: DomainEntity
 
-    @ManyToOne(cascade = [(CascadeType.MERGE)])
+    @ManyToOne(cascade = [CascadeType.MERGE])
     @JoinColumn(
         name = "location",
         referencedColumnName = "location",
         insertable = true,
-        updatable = true
+        updatable = true,
+        nullable = false
     )
     lateinit var location: LocationEntity
 }

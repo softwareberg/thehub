@@ -23,5 +23,5 @@ class EquityEntity {
         insertable = false,
         updatable = false
     )
-    var jobs: MutableList<JobEntity> = ArrayList()
+    val jobs: MutableList<JobEntity> = ArrayList()
 }

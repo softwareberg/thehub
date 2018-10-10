@@ -23,5 +23,5 @@ class LocationEntity {
         insertable = false,
         updatable = false
     )
-    var companies: MutableList<CompanyEntity> = ArrayList()
+    val companies: MutableList<CompanyEntity> = ArrayList()
 }

@@ -22,6 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 @RunWith(SpringRunner::class)
 @SpringBootTest
 class JobRepositoryTest {
@@ -30,25 +31,25 @@ class JobRepositoryTest {
     private lateinit var databaseSetup: DatabaseSetup
 
     @Autowired
-    private lateinit var jobRepository: JobRepository
+    private lateinit var repository: CompanyRepository
 
     @Test
-    fun `it should insert job`() {
+    fun `it should create company with jobs`() {
         // given
         databaseSetup.prepareDatabase(
             deleteAll()
         )
-        val job = createJob()
+        val company = createCompany()
 
         // when
-        jobRepository.save(job)
+        repository.save(company)
 
         // then
-        assertThat(jobRepository.count()).isEqualTo(1)
+        assertThat(repository.count()).isEqualTo(1)
     }
 
     @Test
-    fun `it should reuse company in job creation`() {
+    fun `it should create company with jobs (reusing)`() {
         // given
         databaseSetup.prepareDatabase(
             deleteAll(),
@@ -56,17 +57,16 @@ class JobRepositoryTest {
             insertDomain(domain = "pl"),
             insertCompany(companyId = "company.companyId", domain = "pl", location = "Warszawa")
         )
-        val job = createJob()
+        val company = createCompany()
 
         // when
-        jobRepository.save(job)
+        repository.save(company)
 
         // then
-        jobRepository.findById("job.jobId").get().company.domain.domain
-        assertThat(jobRepository.findById("job.jobId").get().company.domain.domain).isEmpty()
+        assertThat(repository.findById("company.companyId").get().domain.domain).isEmpty()
     }
 
-    private fun createJob(): JobEntity {
+    private fun createCompany(): CompanyEntity {
         val location = LocationEntity()
         location.location = "location.location"
 
@@ -83,9 +83,9 @@ class JobRepositoryTest {
         val keyword = JobKeywordEntity()
         keyword.keyword = "keyword.keyword"
 
-        val jobPerk = JobPerkEntity()
-        jobPerk.jobPerkId = "jobPerk.jobPerkId"
-        jobPerk.description = "jobPerk.description"
+        val perk = JobPerkEntity()
+        perk.jobPerkId = "jobPerk.jobPerkId"
+        perk.description = "jobPerk.description"
 
         val equity = EquityEntity()
         equity.equity = "equity.equity"
@@ -100,13 +100,16 @@ class JobRepositoryTest {
         job.jobId = "job.jobId"
         job.title = "job.title"
         job.description = "job.description"
-        job.company = company
+        job.companyId = company.companyId
         job.positionType = positionType
         job.equity = equity
         job.monthlySalary = monthlySalary
-        job.keywords = mutableListOf(keyword)
-        job.perks = mutableListOf(jobPerk)
+        job.keywords.clear()
+        job.keywords.add(keyword)
+        job.perks.clear()
+        job.perks.add(perk)
 
-        return job
+        company.jobs.add(job)
+        return company
     }
 }
