@@ -24,4 +24,14 @@ class EquityEntity {
         updatable = false
     )
     val jobs: MutableList<JobEntity> = ArrayList()
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is EquityEntity) return false
+        return this.equity == other.equity
+    }
+
+    override fun hashCode(): Int {
+        return equity.hashCode()
+    }
 }

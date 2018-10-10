@@ -10,6 +10,8 @@ spring:
   jpa:
     open-in-view: true
     hibernate.ddl-auto: validate
+    properties.hibernate.enable_lazy_load_no_trans: true
+    properties.hibernate.event.merge.entity_copy_observer: allow
     properties.hibernate.format_sql: true
     properties.hibernate.use_sql_comments: true
     properties.org.hibernate.envers.store_data_at_delete: true
@@ -26,6 +28,6 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 thehub:
-  schdeuling:
-    enable: true
+  scheduling:
+    enable: false
     sync.fixedRate-in-milliseconds: 900000

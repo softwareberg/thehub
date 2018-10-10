@@ -11,9 +11,9 @@ class JobQueryController(private val jobQueryService: JobQueryService, private v
 
     @GetMapping("/api/jobs")
     fun jobs(
-        @RequestParam(required = false) title: String?,
-        @RequestParam(required = false) keyword: String?,
-        @RequestParam(required = false) q: String?,
+        @RequestParam title: String?,
+        @RequestParam keyword: String?,
+        @RequestParam q: String?,
         pageable: Pageable
     ): PageResponse<JobDto> {
         val jobs = jobQueryService.findAll(title, keyword, q, pageable)

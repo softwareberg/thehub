@@ -35,10 +35,10 @@ class JobHubToDatabaseService(private val repository: CompanyRepository) {
         val keywords = source.keywords.map { JobKeywordEntity().apply { keyword = it } }
 
         val perks = source.perks.map {
-            val jobPerk = JobPerkEntity()
-            jobPerk.jobPerkId = it.key
-            jobPerk.description = it.description
-            jobPerk
+            val perk = JobPerkEntity()
+            perk.jobPerkId = it.key
+            perk.description = it.description
+            perk
         }
 
         val equity = if (source.equity != null) EquityEntity().apply { equity = source.equity } else null
@@ -48,9 +48,9 @@ class JobHubToDatabaseService(private val repository: CompanyRepository) {
         val positionType = PositionsTypeEntity()
         positionType.positionType = source.positionType
 
-        val job = company.jobs.find { it.jobId == source.key } ?: JobEntity()
-
+        val job = JobEntity()
         job.jobId = source.key
+        job.companyId = source.company.key
         job.title = source.title
         job.description = source.description
         job.positionType = positionType

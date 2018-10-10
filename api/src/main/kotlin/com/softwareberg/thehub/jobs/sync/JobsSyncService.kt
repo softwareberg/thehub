@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 @Service
 class JobsSyncService(private val jobFetcher: JobFetcher, private val jobHubToDatabaseService: JobHubToDatabaseService) {
 
-    @Scheduled(fixedRateString = "\${thehub.schdeuling.sync.fixedRate-in-milliseconds}")
+    @Scheduled(fixedRateString = "\${thehub.scheduling.sync.fixedRate-in-milliseconds}")
     fun sync() {
         sync("thehub.dk")
     }

@@ -2,9 +2,6 @@ package com.softwareberg.thehub.jobs
 
 import com.softwareberg.thehub.base.DatabaseSetup
 import com.softwareberg.thehub.base.deleteAll
-import com.softwareberg.thehub.base.insertCompany
-import com.softwareberg.thehub.base.insertDomain
-import com.softwareberg.thehub.base.insertLocation
 import com.softwareberg.thehub.jobs.model.CompanyEntity
 import com.softwareberg.thehub.jobs.model.DomainEntity
 import com.softwareberg.thehub.jobs.model.EquityEntity
@@ -49,58 +46,72 @@ class JobRepositoryTest {
     }
 
     @Test
-    fun `it should create company with jobs (reusing)`() {
+    fun `it should create company with jobs - fix multiple representations of the same entity error`() {
         // given
         databaseSetup.prepareDatabase(
-            deleteAll(),
-            insertLocation(location = "Warszawa"),
-            insertDomain(domain = "pl"),
-            insertCompany(companyId = "company.companyId", domain = "pl", location = "Warszawa")
+            deleteAll()
         )
-        val company = createCompany()
 
         // when
-        repository.save(company)
+        repository.save(createCompany(companyId = "foo", jobId = "bar"))
+        repository.save(createCompany(companyId = "foo", jobId = "baz"))
 
         // then
-        assertThat(repository.findById("company.companyId").get().domain.domain).isEmpty()
+        assertThat(repository.count()).isEqualTo(1)
+        assertThat(repository.findById("foo").get().jobs).hasSize(2)
     }
 
-    private fun createCompany(): CompanyEntity {
+    private fun createCompany(
+        companyId: String = "companyId",
+        companyName: String = "companyName",
+        companyLogo: String = "companyLogo",
+        companyDomain: String = "companyDomain",
+        companyLocation: String = "companyLocation",
+        jobId: String = "jobId",
+        jobTitle: String = "jobTitle",
+        jobDescription: String = "jobDescription",
+        jobKeyword: String = "jobKeyword",
+        jobPerkId: String = "jobPerkId",
+        jobPerkDescription: String = "jobPerkDescription",
+        jobEquity: String = "jobEquity",
+        jobMonthlySalary: String = "jobMonthlySalary",
+        jobPositionType: String = "jobPositionType"
+    ): CompanyEntity {
+        val company = repository.findById(companyId).orElse(CompanyEntity())
+
         val location = LocationEntity()
-        location.location = "location.location"
+        location.location = companyLocation
 
         val domain = DomainEntity()
-        domain.domain = "domain.domain"
+        domain.domain = companyDomain
 
-        val company = CompanyEntity()
-        company.companyId = "company.companyId"
-        company.name = "company.name"
-        company.logo = "company.logo"
+        company.companyId = companyId
+        company.name = companyName
+        company.logo = companyLogo
         company.location = location
         company.domain = domain
 
         val keyword = JobKeywordEntity()
-        keyword.keyword = "keyword.keyword"
+        keyword.keyword = jobKeyword
 
         val perk = JobPerkEntity()
-        perk.jobPerkId = "jobPerk.jobPerkId"
-        perk.description = "jobPerk.description"
+        perk.jobPerkId = jobPerkId
+        perk.description = jobPerkDescription
 
         val equity = EquityEntity()
-        equity.equity = "equity.equity"
+        equity.equity = jobEquity
 
         val monthlySalary = MonthlySalaryEntity()
-        monthlySalary.monthlySalary = "monthlySalary.monthlySalary"
+        monthlySalary.monthlySalary = jobMonthlySalary
 
         val positionType = PositionsTypeEntity()
-        positionType.positionType = "positionType.positionType"
+        positionType.positionType = jobPositionType
 
         val job = JobEntity()
-        job.jobId = "job.jobId"
-        job.title = "job.title"
-        job.description = "job.description"
-        job.companyId = company.companyId
+        job.jobId = jobId
+        job.companyId = companyId
+        job.title = jobTitle
+        job.description = jobDescription
         job.positionType = positionType
         job.equity = equity
         job.monthlySalary = monthlySalary
@@ -110,6 +121,7 @@ class JobRepositoryTest {
         job.perks.add(perk)
 
         company.jobs.add(job)
+
         return company
     }
 }

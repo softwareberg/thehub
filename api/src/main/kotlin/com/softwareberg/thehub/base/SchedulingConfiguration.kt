@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableScheduling
 
 @ConditionalOnProperty(
-    name = ["thehub.scheduling.enable"], havingValue = "true", matchIfMissing = true
+    prefix = "thehub.scheduling", name = ["enable"], havingValue = "true", matchIfMissing = true
 )
 @Configuration
 @EnableScheduling
