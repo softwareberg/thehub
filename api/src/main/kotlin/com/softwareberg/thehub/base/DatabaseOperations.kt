@@ -1,20 +1,20 @@
-package com.softwareberg.thehub.jobs
+package com.softwareberg.thehub.base
 
 import com.softwareberg.thehub.jooq.Tables.COMPANIES
 import com.softwareberg.thehub.jooq.Tables.DOMAINS
 import com.softwareberg.thehub.jooq.Tables.EQUITIES
 import com.softwareberg.thehub.jooq.Tables.JOBS
 import com.softwareberg.thehub.jooq.Tables.JOBS_JOB_KEYWORDS
+import com.softwareberg.thehub.jooq.Tables.JOBS_JOB_PERKS
 import com.softwareberg.thehub.jooq.Tables.JOB_KEYWORDS
+import com.softwareberg.thehub.jooq.Tables.JOB_PERKS
 import com.softwareberg.thehub.jooq.Tables.LOCATIONS
 import com.softwareberg.thehub.jooq.Tables.MONTHLY_SALARIES
 import com.softwareberg.thehub.jooq.Tables.POSITIONS_TYPES
 import org.jooq.DSLContext
-import org.springframework.stereotype.Component
 import java.time.OffsetDateTime
 import java.time.ZoneOffset.UTC
 
-@Component
 class DatabaseOperations(private val db: DSLContext, private val now: () -> OffsetDateTime = { OffsetDateTime.now(UTC) }) {
 
     fun upsertMonthlySalary(monthlySalary: String) {
@@ -62,13 +62,7 @@ class DatabaseOperations(private val db: DSLContext, private val now: () -> Offs
         record.store()
     }
 
-    fun upsertCompany(
-        companyId: String,
-        name: String,
-        logo: String,
-        domain: String,
-        location: String
-    ) {
+    fun upsertCompany(companyId: String, name: String, logo: String, domain: String, location: String) {
         val record = db.fetchOne(COMPANIES, COMPANIES.COMPANY_ID.eq(companyId)) ?: db.newRecord(COMPANIES)
         record.companyId = companyId
         record.name = name
@@ -90,14 +84,29 @@ class DatabaseOperations(private val db: DSLContext, private val now: () -> Offs
         record.store()
     }
 
-    fun upsertJobKeyword(
-        keyword: String,
-        jobId: String,
-        dateCreated: OffsetDateTime? = null,
-        dateModified: OffsetDateTime? = null
-    ) {
-        val record = db.fetchOne(JOBS_JOB_KEYWORDS, JOBS_JOB_KEYWORDS.JOB_ID.eq(jobId).and(JOB_KEYWORDS.KEYWORD.eq(keyword))) ?: db.newRecord(JOBS_JOB_KEYWORDS)
+    fun upsertJobKeyword(keyword: String, jobId: String) {
+        val record = db.fetchOne(JOBS_JOB_KEYWORDS, JOBS_JOB_KEYWORDS.JOB_ID.eq(jobId).and(JOBS_JOB_KEYWORDS.KEYWORD.eq(keyword))) ?: db.newRecord(JOBS_JOB_KEYWORDS)
         record.keyword = keyword
+        record.jobId = jobId
+        if (record != record.original()) {
+            record.dateModified = now()
+        }
+        record.store()
+    }
+
+    fun upsertPerk(perkId: String, description: String) {
+        val record = db.fetchOne(JOB_PERKS, JOB_PERKS.JOB_PERK_ID.eq(perkId)) ?: db.newRecord(JOB_PERKS)
+        record.jobPerkId = perkId
+        record.description = description
+        if (record != record.original()) {
+            record.dateModified = now()
+        }
+        record.store()
+    }
+
+    fun upsertJobPerk(perkId: String, jobId: String) {
+        val record = db.fetchOne(JOBS_JOB_PERKS, JOBS_JOB_PERKS.JOB_PERK_ID.eq(perkId).and(JOBS_JOB_PERKS.JOB_ID.eq(jobId))) ?: db.newRecord(JOBS_JOB_PERKS)
+        record.jobPerkId = perkId
         record.jobId = jobId
         if (record != record.original()) {
             record.dateModified = now()
@@ -109,14 +118,12 @@ class DatabaseOperations(private val db: DSLContext, private val now: () -> Offs
         jobId: String,
         companyId: String,
         title: String,
-        monthlySalary: String,
-        equity: String,
         description: String,
+        monthlySalary: String?,
+        equity: String?,
         positionType: String,
-        dateCreated: OffsetDateTime? = null,
-        dateModified: OffsetDateTime? = null,
-        hasStar: Boolean = false,
-        isDeleted: Boolean = false
+        hasStar: Boolean,
+        isDeleted: Boolean
     ) {
         val record = db.fetchOne(JOBS, JOBS.JOB_ID.eq(jobId)) ?: db.newRecord(JOBS)
         record.jobId = jobId

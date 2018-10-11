@@ -19,7 +19,7 @@ class JobFetcher(private val jonFetcher: JobApiFetcher, private val jobHtmlFetch
             val html = jobHtmlFetcher.fetchDetails(host, api.key)
             return Job(
                 api.key,
-                api.jobPositionTypes.firstOrNull()?.name ?: "unknown",
+                api.jobPositionTypes?.firstOrNull()?.name ?: "unknown",
                 api.locationLabel,
                 api.title,
                 api.company,

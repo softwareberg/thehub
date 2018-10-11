@@ -1,5 +1,6 @@
 package com.softwareberg.thehub.jobs.sync
 
+import org.apache.commons.text.StringEscapeUtils.unescapeHtml4
 import org.jsoup.Jsoup
 import org.jsoup.Jsoup.clean
 import org.jsoup.nodes.Document
@@ -22,7 +23,7 @@ class JobHtmlFetcher(private val jsoupFetcher: JsoupFetcher) {
         val monthlySalary = compensation.getOrNull(0)
         val equity = compensation.getOrNull(1)
         val keyword = document.select(".keywords mark").eachText()
-        val description = document.select(".text-body").wholeText()
+        val description = unescapeHtml4((document.select(".text-body").wholeText()))
         val perks = extractPerks(document)
         return Job(
             monthlySalary,

@@ -1,5 +1,6 @@
 package com.softwareberg.thehub.jobs
 
+import com.softwareberg.thehub.base.DatabaseOperations
 import com.softwareberg.thehub.base.DatabaseSetup
 import com.softwareberg.thehub.base.DatabaseSetupOperations.deleteAll
 import com.softwareberg.thehub.base.DatabaseSetupOperations.insertCompany
@@ -27,8 +28,9 @@ class DatabaseOperationsTest {
     @Autowired
     private lateinit var databaseSetup: DatabaseSetup
 
-    @Autowired
-    private lateinit var databaseOperations: DatabaseOperations
+    private val databaseOperations: DatabaseOperations by lazy {
+        DatabaseOperations(db)
+    }
 
     @Test
     fun `it should not modify keyword when value is the same`() {

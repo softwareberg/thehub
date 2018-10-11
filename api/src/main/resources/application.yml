@@ -28,7 +28,9 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
+
 thehub:
-  scheduling:
-    enable: false
-    sync.fixedRate-in-milliseconds: 900000
+  scheduling.enable: true
+  sync:
+    domains: hub.no, thehub.dk, thehub.se, thehub.fi
+    scheduling.fixedRate-in-milliseconds: 900000

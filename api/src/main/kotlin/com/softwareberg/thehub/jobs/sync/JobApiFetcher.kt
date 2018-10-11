@@ -32,7 +32,7 @@ class JobApiFetcher(private val http: RestTemplate) {
     }
 
     private fun fetchPageRange(host: String, lastPage: Int): Deferred<List<JobsWrapper>> = GlobalScope.async {
-        (2..2).map { fetchOnePage(host, it) }.awaitAll()
+        (1..lastPage).map { fetchOnePage(host, it) }.awaitAll()
     }
 
     data class JobsWrapper(val jobs: Jobs)
@@ -40,7 +40,7 @@ class JobApiFetcher(private val http: RestTemplate) {
     data class Jobs(val pages: Int, val docs: List<Job>)
     data class Job(
         val key: String,
-        val jobPositionTypes: List<JobPositionTypes>,
+        val jobPositionTypes: List<JobPositionTypes>?,
         val locationLabel: String,
         val title: String,
         val company: Company
