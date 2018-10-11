@@ -1,7 +1,7 @@
 package com.softwareberg.thehub.jobs
 
 import com.softwareberg.thehub.base.DatabaseSetup
-import com.softwareberg.thehub.base.deleteAll
+import com.softwareberg.thehub.base.DatabaseSetupOperations.deleteAll
 import com.softwareberg.thehub.jobs.model.CompanyEntity
 import com.softwareberg.thehub.jobs.model.DomainEntity
 import com.softwareberg.thehub.jobs.model.EquityEntity
