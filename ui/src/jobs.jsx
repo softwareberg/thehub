@@ -126,10 +126,10 @@ export const StarredJobs = () => (state, actions) => (
   </div>
 );
 
-const Search = ({ searchByKeyword }) => {
+const Search = ({ search }) => {
   function onEnterDown(event) {
     if (event.keyCode === 13) {
-      searchByKeyword(event.target.value);
+      search(event.target.value);
     }
   }
 
@@ -144,10 +144,23 @@ const Search = ({ searchByKeyword }) => {
   );
 };
 
-export const SearchJobs = () => (state, actions) => (
+export const SearchJobsByKeyword = () => (state, actions) => (
   <div oncreate={actions.jobs.resetSearchResult}>
     <h1>Search Jobs by keyword</h1>
-    <Search searchByKeyword={actions.jobs.searchByKeyword} />
+    <Search search={actions.jobs.searchByKeyword} />
+    <Jobs
+      jobs={state.jobs.search.map(job => state.jobs.byId[job])}
+      onStarClick={jobId => actions.jobs.toggleStart(jobId)}
+      onDelete={jobId => actions.jobs.deleteJob(jobId)}
+      onDescriptionUnwrap={jobId => actions.jobs.toggleDescriptionUnwrap(jobId)}
+    />
+  </div>
+);
+
+export const SearchJobs = () => (state, actions) => (
+  <div oncreate={actions.jobs.resetSearchResult}>
+    <h1>Search Jobs</h1>
+    <Search search={actions.jobs.search} />
     <Jobs
       jobs={state.jobs.search.map(job => state.jobs.byId[job])}
       onStarClick={jobId => actions.jobs.toggleStart(jobId)}

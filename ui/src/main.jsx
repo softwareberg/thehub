@@ -1,6 +1,6 @@
 import { h, app } from 'hyperapp';
 import { actions } from 'actions';
-import { AllJobs, StarredJobs, SearchJobs } from 'jobs';
+import { AllJobs, StarredJobs, SearchJobs, SearchJobsByKeyword } from 'jobs';
 import { Link, Route, location } from '@hyperapp/router';
 import { withLogger } from '@hyperapp/logger';
 
@@ -20,13 +20,17 @@ export default function main(state) {
               <Link to="/starred">Starred Jobs</Link>
             </li>
             <li>
-              <Link to="/search">Search by keyword</Link>
+              <Link to="/search">Search</Link>
+            </li>
+            <li>
+              <Link to="/keywords">Search by keyword</Link>
             </li>
           </ul>
           <Route path="/" render={() => <h1>Hello!</h1>} />
           <Route path="/all" render={AllJobs} />
           <Route path="/starred" render={StarredJobs} />
           <Route path="/search" render={SearchJobs} />
+          <Route path="/keywords" render={SearchJobsByKeyword} />
         </div>
       </div>
     </div>

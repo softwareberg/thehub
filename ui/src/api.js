@@ -24,8 +24,14 @@ export function fetchStarredJobs() {
     .then(jobs => jobs.data.map(transformJob));
 }
 
-export function findJobs(keyword) {
+export function findJobsByKeyword(keyword) {
   return fetch(`/api/jobs?keyword=${keyword}&pageSize=100`)
+    .then(response => response.json())
+    .then(jobs => jobs.data.map(transformJob));
+}
+
+export function findJobs(q) {
+  return fetch(`/api/jobs?q=${q}&pageSize=100`)
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob));
 }

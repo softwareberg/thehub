@@ -1,4 +1,4 @@
-import { startJob, fetchJobs, findJobs, fetchStarredJobs } from 'api';
+import { startJob, fetchJobs, findJobsByKeyword, fetchStarredJobs, findJobs } from 'api';
 import { location } from '@hyperapp/router';
 
 export const actions = {
@@ -31,7 +31,15 @@ export const actions = {
         .then(actions.addJobs);
     },
     searchByKeyword: keyword => (state, actions) => {
-      findJobs(keyword)
+      findJobsByKeyword(keyword)
+        .then((jobs) => {
+          actions.addJobs(jobs);
+          actions.setJobsSearch(jobs);
+          return jobs;
+        });
+    },
+    search: q => (state, actions) => {
+      findJobs(q)
         .then((jobs) => {
           actions.addJobs(jobs);
           actions.setJobsSearch(jobs);

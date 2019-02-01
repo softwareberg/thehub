@@ -16,17 +16,17 @@ spring:
     properties.hibernate.use_sql_comments: true
     properties.org.hibernate.envers.store_data_at_delete: true
     properties.hibernate.jdbc.lob.non_contextual_creation: true
-  jackson.default-property-inclusion: non_empty
+  jackson.default-property-inclusion: non_null
 
 logging:
   level:
     com.softwareberg: DEBUG
-    org.jooq: DEBUG
+    org.jooq: INFO
     org.springframework.web.client: DEBUG
     org.springframework.web.servlet: DEBUG
     org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor: INFO
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.SQL: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
 
 
 thehub:
