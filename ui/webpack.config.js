@@ -83,7 +83,6 @@ module.exports = {
       '/api': 'http://localhost:8080'
     },
     contentBase: path.resolve(__dirname, 'src'),
-    open: true,
     historyApiFallback: true
   }
 };

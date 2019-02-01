@@ -1,28 +1,33 @@
 plugins {
+    id 'org.springframework.boot' version '2.0.5.RELEASE'
     id 'org.jetbrains.kotlin.jvm' version '1.2.70'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.2.70'
+    id 'org.jetbrains.kotlin.kapt' version '1.2.70'
     id 'com.github.ben-manes.versions' version '0.20.0'
-    id 'org.jmailen.kotlinter' version '1.18.0'
+    id 'org.jmailen.kotlinter' version '1.20.0'
     id 'nu.studer.jooq' version '3.0.2'
 }
 
 apply plugin: 'java'
-apply plugin: 'application'
 apply plugin: 'jacoco'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'idea'
 
-defaultTasks 'run'
+defaultTasks 'bootRun'
 
-mainClassName = 'com.softwareberg.BootKt'
-jar {
-    manifest {
-        attributes 'Main-Class': mainClassName
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileKotlin {
+    kotlinOptions{
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
     }
 }
-
-task fatJar(type: Jar) {
-    baseName = "${project.name}-assembly"
-    manifest = jar.manifest
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
 }
 
 sourceSets {
@@ -47,13 +52,10 @@ configurations {
     integrationTestRuntime.extendsFrom testRuntime
 }
 
-task stage(dependsOn: ['fatJar', 'build', 'clean'])
-build.mustRunAfter clean
-fatJar.mustRunAfter build
-stage.dependsOn(fatJar)
+task stage(dependsOn: ['assemble'])
 
 jacoco {
-    toolVersion = '0.8.0'
+    toolVersion = '0.8.2'
 }
 
 jacocoTestReport {
@@ -75,14 +77,21 @@ kotlinter {
     continuationIndentSize = 4
 }
 
-test {
-    useJUnitPlatform()
-}
-
 check {
     dependsOn = check.dependsOn + [ktLint, integrationTest]
 }
 
+idea {
+    module {
+        sourceDirs += file('build/generated/source/kapt/main')
+        generatedSourceDirs += file('build/generated/source/kapt/main')
+
+        sourceDirs += file('src/main/generated/')
+        generatedSourceDirs += file('src/main/generated/')
+    }
+}
+
+ext['jooq.version'] = '3.11.5'
 jooq {
     softwareberg(sourceSets.main) {
         jdbc {
@@ -115,12 +124,11 @@ jooq {
                 relations = true
                 deprecated = false
                 records = true
-                immutablePojos = true
                 fluentSetters = true
                 validationAnnotations = true
             }
             target {
-                packageName = 'com.softwareberg.database'
+                packageName = 'com.softwareberg.thehub.jooq'
                 directory = 'src/generated/java'
             }
         }
@@ -132,52 +140,47 @@ repositories {
     jcenter()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'http://dl.bintray.com/kotlin/kotlinx.coroutines' }
+    maven { url 'http://dl.bintray.com/kotlin/kotlin-eap' }
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    ext.kotlinxcoroutines = '0.26.1'
-    ext.rinca = '0.10.1'
+    ext.kotlinxcoroutines = '0.30.1'
+    ext.querydsl = '4.2.1'
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70'
     compile 'org.jetbrains.kotlin:kotlin-reflect:1.2.70'
-
-    compile 'org.slf4j:slf4j-api:1.7.25'
-    compile 'ch.qos.logback:logback-classic:1.2.3'
-
-    compile 'com.sparkjava:spark-core:2.8.0'
-    compile 'org.kodein.di:kodein-di-generic-jvm:5.2.0'
-    compile 'com.typesafe:config:1.3.3'
-    compile 'com.github.kittinunf.result:result:1.5.0'
-
-    compile 'com.zaxxer:HikariCP:3.2.0'
-    compile 'org.flywaydb:flyway-core:5.1.4'
-    compile 'org.postgresql:postgresql:42.2.5'
-    jooqRuntime 'org.postgresql:postgresql:42.2.5'
-    compile 'org.jooq:jooq:3.11.5'
-    compile 'org.jooq:jooq-meta:3.11.5'
-    compile 'org.jooq:jooq-codegen:3.11.5'
-    compile 'javax.validation:validation-api:2.0.1.Final'
-
-    compile 'org.jsoup:jsoup:1.11.3'
-    compile 'org.quartz-scheduler:quartz:2.3.0'
-
-    compile "com.github.softwareberg.rinca:database:$rinca"
-    compile "com.github.softwareberg.rinca:httpclient:$rinca"
-    compile "com.github.softwareberg.rinca:json:$rinca"
-    compile "com.github.softwareberg.rinca:xml:$rinca"
-
+    compile 'org.jetbrains.kotlin:kotlin-stdlib-common:1.2.70'
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxcoroutines"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinxcoroutines"
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-nio:$kotlinxcoroutines"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$kotlinxcoroutines"
 
-    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    compile 'org.postgresql:postgresql:42.2.5'
+    compile 'org.hibernate:hibernate-core'
+    compile 'javax.validation:validation-api:2.0.1.Final'
+    compile 'org.flywaydb:flyway-core:5.2.0'
+    compile "com.querydsl:querydsl-jpa:$querydsl"
+    kapt "com.querydsl:querydsl-apt:$querydsl:jpa"
+    jooqRuntime 'org.postgresql:postgresql:42.2.5'
+    compile 'org.jooq:jooq'
+    compile 'org.jooq:jooq-meta'
+    compile 'org.jooq:jooq-codegen'
+
+    compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    compile 'org.jsoup:jsoup:1.11.3'
+    compile 'org.apache.commons:commons-text:1.5'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'io.projectreactor:reactor-test'
     testCompile 'com.nhaarman:mockito-kotlin:1.6.0'
     testCompile 'org.powermock:powermock-api-mockito2:2.0.0-beta.5'
     testCompile 'org.assertj:assertj-core:3.11.1'
 
     integrationTestCompile 'com.despegar:spark-test:1.1.8'
-    integrationTestCompile 'com.jayway.jsonpath:json-path:2.3.0'
+    integrationTestCompile 'com.jayway.jsonpath:json-path:2.4.0'
 }
 
 task wrapper(type: Wrapper) {
