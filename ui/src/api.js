@@ -13,7 +13,7 @@ function transformJob({ jobId, title, description, hasStar, keywords, href }) {
 }
 
 export function fetchJobs() {
-  return fetch('/api/jobs?pageSize=100')
+  return fetch('/api/jobs?size=100')
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob));
 }
@@ -25,13 +25,13 @@ export function fetchStarredJobs() {
 }
 
 export function findJobsByKeyword(keyword) {
-  return fetch(`/api/jobs?keyword=${keyword}&pageSize=100`)
+  return fetch(`/api/jobs?keyword=${keyword}&size=100`)
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob));
 }
 
 export function findJobs(q) {
-  return fetch(`/api/jobs?q=${q}&pageSize=100`)
+  return fetch(`/api/jobs?q=${q}&size=100`)
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob));
 }
