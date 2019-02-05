@@ -1,7 +1,7 @@
 package com.softwareberg.thehub.jobs.sync
 
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.scheduling.annotation.Scheduled
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 
 @Service
@@ -10,8 +10,12 @@ class JobsSyncService(private val jobFetcher: JobFetcher, private val jobHubToDa
     @Value("\${thehub.sync.domains}")
     private lateinit var domains: Array<String>
 
-    @Scheduled(fixedRateString = "\${thehub.sync.scheduling.fixedRate-in-milliseconds}")
-    fun sync() {
+    fun synchronizeJobs() {
+        domains.forEach(this::sync)
+    }
+
+    @Async
+    fun synchronizeJobsAsync() {
         domains.forEach(this::sync)
     }
 
