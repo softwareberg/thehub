@@ -1,0 +1,8 @@
+{
+  "name": "The Hub",
+  "buildpacks": [
+    {
+      "url": "heroku/heroku-buildpack-multi-procfile"
+    }
+  ]
+}
