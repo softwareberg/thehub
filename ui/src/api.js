@@ -36,9 +36,16 @@ export function findJobs(q) {
     .then(jobs => jobs.data.map(transformJob));
 }
 
-export function deleteJob() {
+export function deleteJob(jobId) {
+  return fetch(`/api/jobs/${jobId}`, { method: 'DELETE' });
 }
 
 export function startJob(jobId, hasStar) {
-  return fetch(`/api/jobs/${jobId}`, { method: 'PATCH', body: JSON.stringify({ hasStar }) });
+  return fetch(`/api/jobs/${jobId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ hasStar })
+  });
 }

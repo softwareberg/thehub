@@ -31,6 +31,9 @@ class JobEntity {
     @Column(name = "has_star", nullable = false)
     var hasStar: Boolean = false
 
+    @Column(name = "is_deleted", nullable = false)
+    var isDeleted: Boolean = false
+
     @ManyToOne
     @JoinColumn(
         name = "company_id",

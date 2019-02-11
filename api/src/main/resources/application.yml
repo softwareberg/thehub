@@ -24,8 +24,8 @@ logging:
     org.springframework.web.client: DEBUG
     org.springframework.web.servlet: DEBUG
     org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor: INFO
-    org.hibernate.SQL: INFO
-    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 
 thehub:

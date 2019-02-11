@@ -13,20 +13,23 @@ import org.springframework.stereotype.Service
 @Service
 class JobQueryService(private val jobsRepository: JobRepository) {
 
-    fun findAll(title: String?, keyword: String?, q: String?, pageable: Pageable): Page<JobEntity> {
-        val predicate = createPredicate(title, keyword, q)
+    fun findAll(title: String?, keyword: String?, q: String?, hasStar: Boolean?, pageable: Pageable): Page<JobEntity> {
+        val predicate = createPredicate(title, keyword, q, hasStar)
         return jobsRepository.findAll(predicate, pageable)
     }
 
-    private fun createPredicate(title: String?, keyword: String?, q: String?): Predicate {
+    private fun createPredicate(title: String?, keyword: String?, q: String?, hasStar: Boolean?): Predicate {
         val containsTitle = containsInTitle(title)
         val containsKeyword = hasKeyword(keyword)
-        val search = searchInAllPredicate(q)
-        return BooleanBuilder().and(containsTitle).and(containsKeyword).and(search)
+        val search = searchPredicate(q)
+        val hasStarPredicate = hasStarPredicate(hasStar)
+        return BooleanBuilder().and(containsTitle).and(containsKeyword).and(search).and(hasStarPredicate).and(notDeleted())
     }
 
-    private fun searchInAllPredicate(q: String?): Predicate = BooleanBuilder().or(containsInTitle(q)).or(containsInDescription(q)).or(hasKeyword(q))
+    private fun searchPredicate(q: String?): Predicate = BooleanBuilder().or(containsInTitle(q)).or(containsInDescription(q)).or(hasKeyword(q))
     private fun containsInDescription(description: String?): Predicate? = jobEntity.description.containsIgnoreCaseOrNull(description)
     private fun containsInTitle(title: String?): Predicate? = jobEntity.title.containsIgnoreCaseOrNull(title)
     private fun hasKeyword(keyword: String?): Predicate? = jobEntity.keywords.any().keyword.equalsIgnoreCaseOrNull(keyword)
+    private fun hasStarPredicate(hasStar: Boolean?): Predicate? = if (hasStar == null) null else jobEntity.hasStar.eq(hasStar)
+    private fun notDeleted(): Predicate? = jobEntity.isDeleted.isFalse
 }

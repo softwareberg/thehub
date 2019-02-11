@@ -14,9 +14,10 @@ class JobQueryController(private val jobQueryService: JobQueryService, private v
         @RequestParam title: String?,
         @RequestParam keyword: String?,
         @RequestParam q: String?,
+        @RequestParam hasStar: Boolean?,
         pageable: Pageable
     ): PageResponse<JobDto> {
-        val jobs = jobQueryService.findAll(title, keyword, q, pageable)
+        val jobs = jobQueryService.findAll(title, keyword, q, hasStar, pageable)
         val jobsDto = jobs.map(jobMapper::map)
         return PageResponse.of(jobsDto)
     }

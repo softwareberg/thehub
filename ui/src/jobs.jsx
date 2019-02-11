@@ -106,7 +106,7 @@ export const AllJobs = () => (state, actions) => (
   <div oncreate={actions.jobs.fetchJobs}>
     <h1>All Jobs</h1>
     <Jobs
-      jobs={state.jobs.list.map(job => state.jobs.byId[job])}
+      jobs={state.jobs.display.map(job => state.jobs.byId[job])}
       onStarClick={jobId => actions.jobs.toggleStart(jobId)}
       onDelete={jobId => actions.jobs.deleteJob(jobId)}
       onDescriptionUnwrap={jobId => actions.jobs.toggleDescriptionUnwrap(jobId)}
@@ -145,11 +145,11 @@ const Search = ({ search }) => {
 };
 
 export const SearchJobsByKeyword = () => (state, actions) => (
-  <div oncreate={actions.jobs.resetSearchResult}>
+  <div oncreate={actions.jobs.resetDisplayJobs}>
     <h1>Search Jobs by keyword</h1>
     <Search search={actions.jobs.searchByKeyword} />
     <Jobs
-      jobs={state.jobs.search.map(job => state.jobs.byId[job])}
+      jobs={state.jobs.display.map(job => state.jobs.byId[job])}
       onStarClick={jobId => actions.jobs.toggleStart(jobId)}
       onDelete={jobId => actions.jobs.deleteJob(jobId)}
       onDescriptionUnwrap={jobId => actions.jobs.toggleDescriptionUnwrap(jobId)}
@@ -158,11 +158,11 @@ export const SearchJobsByKeyword = () => (state, actions) => (
 );
 
 export const SearchJobs = () => (state, actions) => (
-  <div oncreate={actions.jobs.resetSearchResult}>
+  <div oncreate={actions.jobs.resetDisplayJobs}>
     <h1>Search Jobs</h1>
     <Search search={actions.jobs.search} />
     <Jobs
-      jobs={state.jobs.search.map(job => state.jobs.byId[job])}
+      jobs={state.jobs.display.map(job => state.jobs.byId[job])}
       onStarClick={jobId => actions.jobs.toggleStart(jobId)}
       onDelete={jobId => actions.jobs.deleteJob(jobId)}
       onDescriptionUnwrap={jobId => actions.jobs.toggleDescriptionUnwrap(jobId)}

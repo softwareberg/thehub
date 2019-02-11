@@ -1,4 +1,4 @@
-import { startJob, fetchJobs, findJobsByKeyword, fetchStarredJobs, findJobs } from 'api';
+import { startJob, fetchJobs, findJobsByKeyword, fetchStarredJobs, findJobs, deleteJob } from 'api';
 import { location } from '@hyperapp/router';
 
 export const actions = {
@@ -15,14 +15,18 @@ export const actions = {
       newState.byId[jobId].description.isUnwrapped = !newState.byId[jobId].description.isUnwrapped;
       return newState;
     },
-    deleteJob: jobId => () => (
-      console.warn(`Not implemented ${jobId}`) // eslint-disable-line
-    ),
+    deleteJob: jobId => (state) => {
+      deleteJob(jobId);
+      return {
+        ...state,
+        display: state.display.filter(currentJobId => currentJobId !== jobId)
+      };
+    },
     fetchJobs: () => (state, actions) => {
       fetchJobs()
         .then((jobs) => {
           actions.addJobs(jobs);
-          actions.setJobsList(jobs);
+          actions.setDisplayJobs(jobs);
           return jobs;
         });
     },
@@ -34,7 +38,7 @@ export const actions = {
       findJobsByKeyword(keyword)
         .then((jobs) => {
           actions.addJobs(jobs);
-          actions.setJobsSearch(jobs);
+          actions.setDisplayJobs(jobs);
           return jobs;
         });
     },
@@ -42,7 +46,7 @@ export const actions = {
       findJobs(q)
         .then((jobs) => {
           actions.addJobs(jobs);
-          actions.setJobsSearch(jobs);
+          actions.setDisplayJobs(jobs);
           return jobs;
         });
     },
@@ -55,22 +59,16 @@ export const actions = {
       });
       return newState;
     },
-    setJobsSearch: jobs => state => (
+    setDisplayJobs: jobs => state => (
       {
         ...state,
-        search: jobs.map(job => job.jobId)
+        display: jobs.map(job => job.jobId)
       }
     ),
-    setJobsList: jobs => state => (
+    resetDisplayJobs: () => state => (
       {
         ...state,
-        list: jobs.map(job => job.jobId)
-      }
-    ),
-    resetSearchResult: () => state => (
-      {
-        ...state,
-        search: []
+        display: []
       }
     )
   },
