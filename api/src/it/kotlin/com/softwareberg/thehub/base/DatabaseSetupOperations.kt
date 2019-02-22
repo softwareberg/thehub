@@ -102,6 +102,7 @@ object DatabaseSetupOperations {
         record.store()
     }
 
+    @SuppressWarnings("LongParameterList")
     fun insertCompany(
         companyId: String = this.companyId,
         name: String = "Nice Company",
@@ -148,6 +149,7 @@ object DatabaseSetupOperations {
         record.store()
     }
 
+    @SuppressWarnings("LongParameterList")
     fun insertJob(
         jobId: String = this.jobId,
         companyId: String = this.companyId,

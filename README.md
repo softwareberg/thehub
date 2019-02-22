@@ -8,5 +8,21 @@
 ## Backend
 
 ```
+cd docker; docker-compose up -d; cd ..
+./gradlew check
+./gradlew bootRun
+http POST http://localhost:8080/api/jobs/sync
+open http://localhost:8080/api/jobs
+```
+
+```
 ./gradlew generateSoftwarebergJooqSchemaSource
+```
+
+## Frontend
+
+```
+yarn
+yarn start
+open http://localhost:3000
 ```

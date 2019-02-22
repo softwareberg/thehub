@@ -61,6 +61,7 @@ class JobRepositoryTest {
         assertThat(repository.findById("foo").get().jobs).hasSize(2)
     }
 
+    @SuppressWarnings("LongParameterList")
     private fun createCompany(
         companyId: String = "companyId",
         companyName: String = "companyName",
