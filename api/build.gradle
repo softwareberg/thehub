@@ -173,7 +173,7 @@ dependencies {
     testCompile "io.projectreactor:reactor-test"
     testCompile "com.nhaarman:mockito-kotlin:1.6.0"
     testCompile "org.powermock:powermock-api-mockito2:2.0.0-beta.5"
-    testCompile "org.amshove.kluent:kluent:1.47"
+    testCompile "org.assertj:assertj-core:3.11.1"
 
     integrationTestCompile "com.despegar:spark-test:1.1.8"
     integrationTestCompile "com.jayway.jsonpath:json-path:2.4.0"
