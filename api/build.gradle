@@ -1,19 +1,19 @@
 plugins {
-    id 'org.springframework.boot' version '2.0.5.RELEASE'
-    id 'org.jetbrains.kotlin.jvm' version '1.2.70'
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.2.70'
-    id 'org.jetbrains.kotlin.kapt' version '1.2.70'
-    id 'com.github.ben-manes.versions' version '0.20.0'
-    id 'org.jmailen.kotlinter' version '1.20.0'
-    id 'nu.studer.jooq' version '3.0.2'
+    id "org.springframework.boot" version "2.1.3.RELEASE"
+    id "org.jetbrains.kotlin.jvm" version "1.3.21"
+    id "org.jetbrains.kotlin.plugin.spring" version "1.3.21"
+    id "org.jetbrains.kotlin.kapt" version "1.3.21"
+    id "com.github.ben-manes.versions" version "0.20.0"
+    id "io.gitlab.arturbosch.detekt" version "1.0.0-RC13"
+    id "nu.studer.jooq" version "3.0.2"
 }
 
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'idea'
+apply plugin: "java"
+apply plugin: "jacoco"
+apply plugin: "io.spring.dependency-management"
+apply plugin: "idea"
 
-defaultTasks 'bootRun'
+defaultTasks "bootRun"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -35,16 +35,16 @@ compileTestKotlin {
 sourceSets {
     integrationTest {
         kotlin {
-            srcDirs += 'src/it/kotlin'
+            srcDirs += "src/it/kotlin"
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
         }
-        resources.srcDirs += 'src/it/resources'
+        resources.srcDirs += "src/it/resources"
     }
-    main.java.srcDirs += 'src/main/generated'
+    main.java.srcDirs += "src/main/generated"
 }
 
-task integrationTest(group: 'verification', type: Test, description: 'Runs integration tests.') {
+task integrationTest(group: "verification", type: Test, description: "Runs integration tests.") {
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
 }
@@ -54,10 +54,10 @@ configurations {
     integrationTestRuntime.extendsFrom testRuntime
 }
 
-task stage(dependsOn: ['assemble'])
+task stage(dependsOn: ["assemble"])
 
 jacoco {
-    toolVersion = '0.8.2'
+    toolVersion = "0.8.2"
 }
 
 jacocoTestReport {
@@ -69,57 +69,53 @@ jacocoTestReport {
     dependsOn test
 }
 
-task ktLint(type: org.jmailen.gradle.kotlinter.tasks.LintTask, group: 'verification', description: 'Kotlin lint') {
-    source = file('src')
-    continuationIndentSize = 4
-    reports = [:]
+detekt {
+    config = files("detekt.yml")
+    input = files(
+        "src/main/kotlin",
+        "src/test/kotlin"
+    )
 }
 
-kotlinter {
-    continuationIndentSize = 4
-}
-
-check {
-    dependsOn = check.dependsOn + [ktLint, integrationTest]
-}
+check.dependsOn integrationTest
 
 idea {
     module {
-        sourceDirs += file('build/generated/source/kapt/main')
-        generatedSourceDirs += file('build/generated/source/kapt/main')
+        sourceDirs += file("build/generated/source/kapt/main")
+        generatedSourceDirs += file("build/generated/source/kapt/main")
 
-        sourceDirs += file('src/main/generated/')
-        generatedSourceDirs += file('src/main/generated/')
+        sourceDirs += file("src/main/generated/")
+        generatedSourceDirs += file("src/main/generated/")
     }
 }
 
-ext['jooq.version'] = '3.11.5'
+ext["jooq.version"] = "3.11.5"
 jooq {
     softwareberg(sourceSets.main) {
         jdbc {
-            driver = 'org.postgresql.Driver'
-            url = 'jdbc:postgresql://localhost:5432/softwareberg'
-            user = 'softwareberg'
-            password = 'softwareberg'
+            driver = "org.postgresql.Driver"
+            url = "jdbc:postgresql://localhost:5432/softwareberg"
+            user = "softwareberg"
+            password = "softwareberg"
         }
         generator {
             database {
-                name = 'org.jooq.meta.postgres.PostgresDatabase'
-                inputSchema = 'public'
+                name = "org.jooq.meta.postgres.PostgresDatabase"
+                inputSchema = "public"
                 forcedTypes {
                     forcedType {
-                        name = 'varchar'
-                        expression = '.*'
-                        types = 'JSONB?'
+                        name = "varchar"
+                        expression = ".*"
+                        types = "JSONB?"
                     }
                     forcedType {
-                        name = 'varchar'
-                        expression = '.*'
-                        types = 'INET'
+                        name = "varchar"
+                        expression = ".*"
+                        types = "INET"
                     }
                 }
                 properties{
-                    excludes = 'flyway_schema_history'
+                    excludes = "flyway_schema_history"
                 }
             }
             generate {
@@ -130,8 +126,8 @@ jooq {
                 validationAnnotations = true
             }
             target {
-                packageName = 'com.softwareberg.thehub.jooq'
-                directory = 'src/generated/java'
+                packageName = "com.softwareberg.thehub.jooq"
+                directory = "src/generated/java/"
             }
         }
     }
@@ -140,51 +136,51 @@ jooq {
 repositories {
     mavenCentral()
     jcenter()
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    maven { url 'http://dl.bintray.com/kotlin/kotlinx.coroutines' }
-    maven { url 'http://dl.bintray.com/kotlin/kotlin-eap' }
-    maven { url 'https://jitpack.io' }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "http://dl.bintray.com/kotlin/kotlinx.coroutines" }
+    maven { url "http://dl.bintray.com/kotlin/kotlin-eap" }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
-    ext.kotlinxcoroutines = '0.30.1'
-    ext.querydsl = '4.2.1'
+    ext.kotlinxcoroutines = "0.30.1"
+    ext.querydsl = "4.2.1"
 
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
 
-    compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70'
-    compile 'org.jetbrains.kotlin:kotlin-reflect:1.2.70'
-    compile 'org.jetbrains.kotlin:kotlin-stdlib-common:1.2.70'
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxcoroutines"
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$kotlinxcoroutines"
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-reactor:$kotlinxcoroutines"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.21"
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.3.21"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-common:1.3.21"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
 
-    compile 'org.postgresql:postgresql:42.2.5'
-    compile 'org.hibernate:hibernate-core'
-    compile 'javax.validation:validation-api:2.0.1.Final'
-    compile 'org.flywaydb:flyway-core:5.2.0'
+    compile "org.postgresql:postgresql:42.2.5"
+    compile "org.hibernate:hibernate-core"
+    compile "javax.validation:validation-api:2.0.1.Final"
+    compile "org.flywaydb:flyway-core:5.2.0"
     compile "com.querydsl:querydsl-jpa:$querydsl"
     kapt "com.querydsl:querydsl-apt:$querydsl:jpa"
-    jooqRuntime 'org.postgresql:postgresql:42.2.5'
-    compile 'org.jooq:jooq'
-    compile 'org.jooq:jooq-meta'
-    compile 'org.jooq:jooq-codegen'
+    jooqRuntime "org.postgresql:postgresql:42.2.5"
+    compile "org.jooq:jooq"
+    compile "org.jooq:jooq-meta"
+    compile "org.jooq:jooq-codegen"
 
-    compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
-    compile 'org.jsoup:jsoup:1.11.3'
-    compile 'org.apache.commons:commons-text:1.5'
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin"
+    compile "org.jsoup:jsoup:1.11.3"
+    compile "org.apache.commons:commons-text:1.5"
 
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
-    testCompile 'io.projectreactor:reactor-test'
-    testCompile 'com.nhaarman:mockito-kotlin:1.6.0'
-    testCompile 'org.powermock:powermock-api-mockito2:2.0.0-beta.5'
-    testCompile 'org.assertj:assertj-core:3.11.1'
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile "io.projectreactor:reactor-test"
+    testCompile "com.nhaarman:mockito-kotlin:1.6.0"
+    testCompile "org.powermock:powermock-api-mockito2:2.0.0-beta.5"
+    testCompile "org.amshove.kluent:kluent:1.47"
 
-    integrationTestCompile 'com.despegar:spark-test:1.1.8'
-    integrationTestCompile 'com.jayway.jsonpath:json-path:2.4.0'
+    integrationTestCompile "com.despegar:spark-test:1.1.8"
+    integrationTestCompile "com.jayway.jsonpath:json-path:2.4.0"
+
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.0.0-RC13"
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.10.2'
+wrapper {
+    gradleVersion = "5.2.1"
 }

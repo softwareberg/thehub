@@ -1,0 +1,21 @@
+failFast: true
+
+style:
+  MaxLineLength:
+    maxLineLength: 160
+
+potential-bugs:
+  LateinitUsage:
+    excludeAnnotatedProperties: "Column, Value"
+
+comments:
+  UndocumentedPublicClass:
+    active: false
+  UndocumentedPublicFunction:
+    active: false
+
+formatting:
+  MaximumLineLength:
+    maxLineLength: 160
+  ImportOrdering:
+    active: false

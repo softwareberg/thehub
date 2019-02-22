@@ -13,6 +13,7 @@ data class PageResponse<T>(
     val numberOfElements: Int
 ) {
     companion object {
+        @SuppressWarnings("FunctionMinLength")
         fun <T> of(page: Page<T>): PageResponse<T> {
             return PageResponse(
                 data = page.content,

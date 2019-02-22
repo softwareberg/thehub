@@ -31,7 +31,5 @@ class EquityEntity {
         return this.equity == other.equity
     }
 
-    override fun hashCode(): Int {
-        return equity.hashCode()
-    }
+    override fun hashCode(): Int = equity.hashCode()
 }

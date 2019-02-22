@@ -1,10 +1,10 @@
 package com.softwareberg.thehub.jobs.sync
 
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.awaitAll
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
@@ -19,20 +19,20 @@ class JobApiFetcher(private val http: RestTemplate) {
     }
 
     private fun fetchAsync(host: String): Deferred<List<JobsWrapper>> = GlobalScope.async {
-        val firstJobsPage = fetchOnePage(host, 1).await()
+        val firstJobsPage = fetchOnePageAsync(host, 1).await()
         val lastPage = firstJobsPage.jobs.pages
-        fetchPageRange(host, lastPage).await()
+        fetchPageRangeAsync(host, lastPage).await()
     }
 
-    private fun fetchOnePage(host: String, page: Int): Deferred<JobsWrapper> = GlobalScope.async {
+    private fun fetchOnePageAsync(host: String, page: Int): Deferred<JobsWrapper> = GlobalScope.async {
         val url = "https://$host/api/jobs?page=$page"
         log.info("fetching $url...")
         val response = http.getForEntity(url, JobsWrapper::class.java).body
         response ?: throw IllegalStateException("req: $url")
     }
 
-    private fun fetchPageRange(host: String, lastPage: Int): Deferred<List<JobsWrapper>> = GlobalScope.async {
-        (1..lastPage).map { fetchOnePage(host, it) }.awaitAll()
+    private fun fetchPageRangeAsync(host: String, lastPage: Int): Deferred<List<JobsWrapper>> = GlobalScope.async {
+        (1..lastPage).map { fetchOnePageAsync(host, it) }.awaitAll()
     }
 
     data class JobsWrapper(val jobs: Jobs)

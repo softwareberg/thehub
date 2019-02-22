@@ -4,3 +4,9 @@
 * https://thehub.se/
 * https://thehub.fi/
 * http://hub.no/
+
+## Backend
+
+```
+./gradlew generateSoftwarebergJooqSchemaSource
+```

@@ -20,7 +20,8 @@ class JobHubToDatabaseService(private val db: DSLContext) {
             databaseOperations.upsertCompany(job.company.key, job.company.name, job.company.logo.filename, job.host, job.locationLabel)
             job.equity?.also(databaseOperations::upsertEquity)
             job.monthlySalary?.also(databaseOperations::upsertMonthlySalary)
-            databaseOperations.upsertJob(job.key, job.company.key, job.title, job.description, job.monthlySalary, job.equity, job.positionType, hasStar = false, isDeleted = false)
+            databaseOperations.upsertJob(
+                job.key, job.company.key, job.title, job.description, job.monthlySalary, job.equity, job.positionType, hasStar = false, isDeleted = false)
             job.keywords.forEach { keyword -> databaseOperations.upsertJobKeyword(keyword, job.key) }
             job.perks.forEach { perk -> databaseOperations.upsertJobPerk(perk.key, job.key) }
         }

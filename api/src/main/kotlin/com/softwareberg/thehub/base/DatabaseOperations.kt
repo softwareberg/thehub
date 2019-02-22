@@ -15,7 +15,11 @@ import org.jooq.DSLContext
 import java.time.OffsetDateTime
 import java.time.ZoneOffset.UTC
 
-class DatabaseOperations(private val db: DSLContext, private val now: () -> OffsetDateTime = { OffsetDateTime.now(UTC) }) {
+@SuppressWarnings("TooManyFunctions")
+class DatabaseOperations(
+    private val db: DSLContext,
+    private val now: () -> OffsetDateTime = { OffsetDateTime.now(UTC) }
+) {
 
     fun upsertMonthlySalary(monthlySalary: String) {
         val record = db.fetchOne(MONTHLY_SALARIES, MONTHLY_SALARIES.MONTHLY_SALARY.eq(monthlySalary)) ?: db.newRecord(MONTHLY_SALARIES)
@@ -85,7 +89,8 @@ class DatabaseOperations(private val db: DSLContext, private val now: () -> Offs
     }
 
     fun upsertJobKeyword(keyword: String, jobId: String) {
-        val record = db.fetchOne(JOBS_JOB_KEYWORDS, JOBS_JOB_KEYWORDS.JOB_ID.eq(jobId).and(JOBS_JOB_KEYWORDS.KEYWORD.eq(keyword))) ?: db.newRecord(JOBS_JOB_KEYWORDS)
+        val record = db.fetchOne(JOBS_JOB_KEYWORDS, JOBS_JOB_KEYWORDS.JOB_ID.eq(jobId).and(JOBS_JOB_KEYWORDS.KEYWORD.eq(keyword)))
+            ?: db.newRecord(JOBS_JOB_KEYWORDS)
         record.keyword = keyword
         record.jobId = jobId
         if (record != record.original()) {
@@ -114,6 +119,7 @@ class DatabaseOperations(private val db: DSLContext, private val now: () -> Offs
         record.store()
     }
 
+    @SuppressWarnings("LongParameterList")
     fun upsertJob(
         jobId: String,
         companyId: String,

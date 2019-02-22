@@ -14,6 +14,7 @@ class JobFetcher(private val jonFetcher: JobApiFetcher, private val jobHtmlFetch
         return jobsFromApi.mapNotNull { api -> fetch(host, api) }
     }
 
+    @SuppressWarnings("TooGenericExceptionCaught")
     private fun fetch(host: String, api: JobApiFetcher.Job): Job? {
         try {
             val html = jobHtmlFetcher.fetchDetails(host, api.key)

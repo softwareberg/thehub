@@ -9,6 +9,7 @@ import org.jsoup.safety.Whitelist
 import org.jsoup.select.Elements
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import java.util.concurrent.TimeUnit
 
 @Service
 class JobHtmlFetcher(private val jsoupFetcher: JsoupFetcher) {
@@ -23,22 +24,16 @@ class JobHtmlFetcher(private val jsoupFetcher: JsoupFetcher) {
         val monthlySalary = compensation.getOrNull(0)
         val equity = compensation.getOrNull(1)
         val keyword = document.select(".keywords mark").eachText()
-        val description = unescapeHtml4((document.select(".text-body").wholeText()))
+        val description = unescapeHtml4(document.select(".text-body").wholeText())
         val perks = extractPerks(document)
-        return Job(
-            monthlySalary,
-            equity,
-            keyword,
-            description,
-            perks
-        )
+        return Job(monthlySalary, equity, keyword, description, perks)
     }
 
     private fun extractPerks(document: Document): List<Perk> {
-        return document.select(".perk").mapNotNull {
-            val className = it.selectFirst(".icon").className().split(" ").lastOrNull()
+        return document.select(".perk").mapNotNull { perk ->
+            val className = perk.selectFirst(".icon").className().split(" ").lastOrNull()
             val key = className?.removePrefix("icon-")
-            val description = it.text()
+            val description = perk.text()
             if (key == null) {
                 null
             } else {
@@ -47,9 +42,7 @@ class JobHtmlFetcher(private val jsoupFetcher: JsoupFetcher) {
         }
     }
 
-    private fun Elements.wholeText(): String {
-        return clean(this.html(), "", Whitelist.none(), OutputSettings().prettyPrint(false))
-    }
+    private fun Elements.wholeText(): String = clean(this.html(), "", Whitelist.none(), OutputSettings().prettyPrint(false))
 
     data class Job(
         val monthlySalary: String?,
@@ -62,5 +55,10 @@ class JobHtmlFetcher(private val jsoupFetcher: JsoupFetcher) {
 
 @Service
 class JsoupFetcher {
-    fun get(url: String): Document = Jsoup.connect(url).timeout(10000).get()
+
+    fun get(url: String): Document = Jsoup.connect(url).timeout(timeout).get()
+
+    companion object {
+        private val timeout = TimeUnit.SECONDS.convert(10, TimeUnit.MILLISECONDS).toInt()
+    }
 }

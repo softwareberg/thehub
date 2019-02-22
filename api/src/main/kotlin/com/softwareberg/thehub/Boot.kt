@@ -21,6 +21,7 @@ class JpaConfiguration
 @SpringBootApplication
 class Boot
 
+@SuppressWarnings("SpreadOperator")
 fun main(args: Array<String>) {
     runApplication<Boot>(*args)
 }
