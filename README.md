@@ -22,6 +22,7 @@ open http://localhost:8080/api/jobs
 ## Frontend
 
 ```
+nvm install 10.8.0
 yarn
 yarn start
 open http://localhost:3000
