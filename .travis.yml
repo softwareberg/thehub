@@ -1,0 +1,26 @@
+matrix:
+  include:
+    - language: java
+      services:
+        - postgresql
+      env:
+        - POSTGRES_HOST=127.0.0.1
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASS=
+      jdk:
+        - oraclejdk8
+      before_script:
+        - psql -c 'create database softwareberg;' -U postgres
+      script:
+        - cd api/
+        - ./gradlew check
+        - ./gradlew jacocoTestReport
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
+
+    - language: node_js
+      node_js:
+        - "10.8.0"
+      script:
+        - cd ui/
+        - yarn install
