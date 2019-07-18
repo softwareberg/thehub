@@ -4,9 +4,9 @@ server:
 spring:
   application.name: the-hub
   datasource:
-    url: jdbc:postgresql://localhost:5432/softwareberg
-    username: softwareberg
-    password: softwareberg
+    url: jdbc:postgresql://localhost:5432/codeloop
+    username: codeloop
+    password: codeloop
   jpa:
     open-in-view: true
     hibernate.ddl-auto: validate
