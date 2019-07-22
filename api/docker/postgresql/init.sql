@@ -1,8 +1,8 @@
-CREATE USER softwareberg WITH PASSWORD 'softwareberg';
-ALTER USER softwareberg WITH SUPERUSER;
+CREATE USER codeloop WITH PASSWORD 'codeloop';
+ALTER USER codeloop WITH SUPERUSER;
 
-CREATE DATABASE softwareberg;
-CREATE DATABASE softwareberg_test;
+CREATE DATABASE codeloop;
+CREATE DATABASE codeloop_test;
 
-GRANT ALL PRIVILEGES ON DATABASE softwareberg TO softwareberg;
-GRANT ALL PRIVILEGES ON DATABASE softwareberg_test TO softwareberg;
+GRANT ALL PRIVILEGES ON DATABASE codeloop TO codeloop;
+GRANT ALL PRIVILEGES ON DATABASE codeloop_test TO codeloop;

@@ -92,12 +92,12 @@ idea {
 
 jooq {
     version = "3.11.11"
-    softwareberg(sourceSets.main) {
+    codeloop(sourceSets.main) {
         jdbc {
             driver = "org.postgresql.Driver"
-            url = "jdbc:postgresql://localhost:5432/softwareberg"
-            user = "softwareberg"
-            password = "softwareberg"
+            url = "jdbc:postgresql://localhost:5432/codeloop"
+            user = "codeloop"
+            password = "codeloop"
         }
         generator {
             database {
@@ -127,14 +127,14 @@ jooq {
                 validationAnnotations = true
             }
             target {
-                packageName = "com.softwareberg.thehub.jooq"
+                packageName = "eu.codeloop.thehub.jooq"
                 directory = "src/generated/java/"
             }
         }
     }
 }
 
-generateSoftwarebergJooqSchemaSource.enabled = System.getenv("GENERATE_SCHEMA")?.toBoolean() ?: false
+generateCodeloopJooqSchemaSource.enabled = System.getenv("GENERATE_SCHEMA")?.toBoolean() ?: false
 
 repositories {
     mavenCentral()
