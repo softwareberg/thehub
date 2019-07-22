@@ -4,19 +4,15 @@ matrix:
       services:
         - postgresql
       env:
-        - POSTGRES_HOST=127.0.0.1
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASS=
+        - PGPORT=5432
       jdk:
         - oraclejdk8
       before_script:
-        - psql -c 'create database softwareberg;' -U postgres
+        - psql -f 'api/docker/postgresql/init.sql' -U postgres
       script:
         - cd api/
         - ./gradlew check
         - ./gradlew jacocoTestReport
-      after_success:
-        - bash <(curl -s https://codecov.io/bash)
 
     - language: node_js
       node_js:
@@ -24,3 +20,6 @@ matrix:
       script:
         - cd ui/
         - yarn install
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
