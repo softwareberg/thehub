@@ -2,13 +2,18 @@ matrix:
   include:
     - language: java
       services:
-        - postgresql
+        - docker
       env:
-        - PGPORT=5432
+        global:
+          - PGPORT=5432
+          - GENERATE_SCHEMA=false
       jdk:
         - oraclejdk8
-      before_script:
-        - psql -f 'api/docker/postgresql/init.sql' -U postgres
+      before_install:
+        - sudo /etc/init.d/postgresql stop
+        - cd api/docker/
+        - docker-compose up -d
+        - cd ../../
       script:
         - cd api/
         - ./gradlew check

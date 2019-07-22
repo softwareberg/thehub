@@ -95,26 +95,9 @@ jooq {
     softwareberg(sourceSets.main) {
         jdbc {
             driver = "org.postgresql.Driver"
-
-            // environment variables: https://stackoverflow.com/a/9856769
-            if (System.getenv('POSTGRES_HOST') == null) {
-                url = "jdbc:postgresql://localhost:5432/softwareberg"
-            } else {
-                url = "jdbc:postgresql://$System.env.POSTGRES_HOST:5432/softwareberg"
-            }
-
-            if (System.getenv('POSTGRES_USER') == null) {
-                user = "softwareberg"
-            } else {
-                user = "$System.env.POSTGRES_USER"
-            }
-
-            if (System.getenv('POSTGRES_PASS') == null) {
-                password = "softwareberg"
-            } else {
-                password = "$System.env.POSTGRES_PASS"
-            }
-
+            url = "jdbc:postgresql://localhost:5432/softwareberg"
+            user = "softwareberg"
+            password = "softwareberg"
         }
         generator {
             database {
@@ -150,7 +133,8 @@ jooq {
         }
     }
 }
-generateSoftwarebergJooqSchemaSource.enabled =  System.getenv("GENERATE_SCHEMA")?.toBoolean() ?: false
+
+generateSoftwarebergJooqSchemaSource.enabled = System.getenv("GENERATE_SCHEMA")?.toBoolean() ?: false
 
 repositories {
     mavenCentral()
