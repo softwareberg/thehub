@@ -15,7 +15,7 @@ http POST http://localhost:8080/api/jobs/sync
 open http://localhost:8080/api/jobs
 ```
 
-We are using [jOOQ](https://www.jooq.org) for generating code that deals with SQL. If you change something related to databse you will need to regenerate this code. You can generate it explicitly:
+We use [jOOQ](https://www.jooq.org) for generating code that deals with SQL. If you change something related to databse you will need to regenerate this code. You can generate it explicitly:
 
 ```
 ./gradlew generateSoftwarebergJooqSchemaSource
