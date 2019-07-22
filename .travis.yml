@@ -1,0 +1,28 @@
+matrix:
+  include:
+    - language: java
+      services:
+        - docker
+      env:
+        global:
+          - PGPORT=5432
+          - GENERATE_SCHEMA=false
+      jdk:
+        - oraclejdk8
+      before_install:
+        - sudo /etc/init.d/postgresql stop
+        - cd api/docker/
+        - docker-compose up -d
+        - cd ../../
+      script:
+        - cd api/
+        - ./gradlew check
+        - ./gradlew jacocoTestReport
+    - language: node_js
+      node_js:
+        - "10.8.0"
+      script:
+        - cd ui/
+        - yarn install
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

@@ -90,8 +90,8 @@ idea {
     }
 }
 
-ext["jooq.version"] = "3.11.5"
 jooq {
+    version = "3.11.11"
     softwareberg(sourceSets.main) {
         jdbc {
             driver = "org.postgresql.Driver"
@@ -133,6 +133,8 @@ jooq {
         }
     }
 }
+
+generateSoftwarebergJooqSchemaSource.enabled = System.getenv("GENERATE_SCHEMA")?.toBoolean() ?: false
 
 repositories {
     mavenCentral()
