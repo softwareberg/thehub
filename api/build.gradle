@@ -134,7 +134,7 @@ jooq {
     }
 }
 
-generateSoftwarebergJooqSchemaSource.enabled = System.getenv("GENERATE_SCHEMA")?.toBoolean() ?: false
+generateCodeloopJooqSchemaSource.enabled = System.getenv("GENERATE_SCHEMA")?.toBoolean() ?: false
 
 repositories {
     mavenCentral()
