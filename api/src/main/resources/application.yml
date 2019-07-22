@@ -19,7 +19,7 @@ spring:
 
 logging:
   level:
-    com.softwareberg: DEBUG
+    eu.codeloop: DEBUG
     org.jooq: INFO
     org.springframework.web.client: DEBUG
     org.springframework.web.servlet: DEBUG
