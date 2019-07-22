@@ -1,5 +1,8 @@
 # The Hub App
 
+[![Build Status](https://travis-ci.org/codeloopeu/thehub.svg?branch=master)](https://travis-ci.org/codeloopeu/thehub)
+[![codecov](https://codecov.io/gh/codeloopeu/thehub/branch/master/graph/badge.svg)](https://codecov.io/gh/codeloopeu/thehub)
+
 * https://thehub.dk/
 * https://thehub.se/
 * https://thehub.fi/
