@@ -1,11 +1,20 @@
 import React, {Component} from 'react';
 import {fetchJobs} from "../utils/api";
+import {connect} from 'react-redux';
+import {CLEAR_JOBS, SET_JOBS} from '../redux/actions';
+import Job from './Job';
 
 class AllJobs extends Component {
   refreshJobs() {
+    this.props.dispatch({type: CLEAR_JOBS});
+
     fetchJobs().then((jobs) => {
-      // TODO save in redux
-      console.debug(jobs)
+      console.debug(jobs); // TODO DEBUG
+
+      this.props.dispatch({
+        type: SET_JOBS,
+        jobs: jobs
+      });
     })
   }
 
@@ -14,10 +23,20 @@ class AllJobs extends Component {
   }
 
   render() {
+    const jobs = this.props.jobs;
+    const renderedJobs = jobs.map((job) => <Job job={job}/>);
+
     return (
-      <h1>All Jobs</h1>
+      <React.Fragment>
+        <h1>All Jobs</h1>
+        {renderedJobs}
+      </React.Fragment>
     );
   }
 }
 
-export default AllJobs;
+const mapStateToProps = (state) => ({
+  jobs: state.jobs,
+});
+
+export default connect(mapStateToProps)(AllJobs);

@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from "react-redux";
 import {Route, Switch, BrowserRouter as Router} from "react-router-dom";
 import AllJobs from "./AllJobs";
 import Home from "./Home";
@@ -25,8 +24,4 @@ const App = (props) => (
   </React.Fragment>
 );
 
-const mapStateToProps = (state) => ({
-  x: state.x,
-});
-
-export default withRedux(connect(mapStateToProps)(App));
+export default withRedux(App);
