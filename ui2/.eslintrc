@@ -1,0 +1,21 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "comma-dangle": ["error", "never"],
+    "import/prefer-default-export": "ignore",
+    "object-curly-newline": ["error", {"ImportDeclaration": "never"}],
+    "import/no-unresolved": "ignore",
+    "react/react-in-jsx-scope": "ignore",
+    "react/no-unknown-property": "ignore",
+    "react/prop-types": "ignore",
+    "jsx-a11y/click-events-have-key-events": "ignore",
+    "jsx-a11y/no-noninteractive-element-interactions": "ignore",
+    "no-shadow": ["error", {"allow": ["state", "actions"]}],
+    "no-unused-vars": ["error", { "varsIgnorePattern": "h" }],
+    "no-param-reassign": ["error", {"props": false}],
+    "linebreak-style": 0
+  }
+}
