@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
-import {Link} from "react-router-dom";
+import React from 'react';
+import {NavLink} from "react-router-dom";
 
 const Menu = (props) => (
   <React.Fragment>
     <ul>
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="/all">All Jobs</Link></li>
-      <li><Link to="/starred">Starred Jobs</Link></li>
-      <li><Link to="/search">Search</Link></li>
-      <li><Link to="/keywords">Search by keyword</Link></li>
+      <li><NavLink to="/">Home</NavLink></li>
+      <li><NavLink to="/all">All Jobs</NavLink></li>
+      <li><NavLink to="/starred">Starred Jobs</NavLink></li>
+      <li><NavLink to="/search">Search</NavLink></li>
+      <li><NavLink to="/keywords">Search by keyword</NavLink></li>
     </ul>
   </React.Fragment>
 );

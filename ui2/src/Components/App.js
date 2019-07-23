@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from "react-redux";
 import {Route, Switch, BrowserRouter as Router} from "react-router-dom";
 import AllJobs from "./AllJobs";
 import Home from "./Home";
@@ -7,6 +8,7 @@ import NotFound from "./NotFound";
 import Search from "./Search";
 import SearchByKeyword from "./SearchByKeyword";
 import StarredJobs from "./StarredJobs";
+import withRedux from "./withRedux";
 
 const App = (props) => (
   <React.Fragment>
@@ -23,4 +25,8 @@ const App = (props) => (
   </React.Fragment>
 );
 
-export default App;
+const mapStateToProps = (state) => ({
+  x: state.x,
+});
+
+export default withRedux(connect(mapStateToProps)(App));
