@@ -2,6 +2,7 @@ import React from 'react';
 import {Route, Switch, BrowserRouter as Router} from "react-router-dom";
 import AllJobs from "./AllJobs";
 import Home from "./Home";
+import Layout from "./Layout";
 import NotFound from "./NotFound";
 import Search from "./Search";
 import SearchByKeyword from "./SearchByKeyword";
@@ -11,12 +12,12 @@ const App = (props) => (
   <React.Fragment>
     <Router>
       <Switch>
-        <Route path='/' exact component={() => <Home {...props}/>}/>
-        <Route path='/all' exact component={() => <AllJobs {...props}/>}/>
-        <Route path='/starred' exact component={() => <StarredJobs {...props}/>}/>
-        <Route path='/search' exact component={() => <Search {...props}/>}/>
-        <Route path='/keywords' exact component={() => <SearchByKeyword {...props}/>}/>
-        <Route component={() => <NotFound {...props}/>}/>
+        <Route path='/' exact component={(props) => <Layout component={Home} {...props}/>}/>
+        <Route path='/all' exact component={() => <Layout component={AllJobs} {...props}/>}/>
+        <Route path='/starred' exact component={() => <Layout component={StarredJobs} {...props}/>}/>
+        <Route path='/search' exact component={() => <Layout component={Search} {...props}/>}/>
+        <Route path='/keywords' exact component={() => <Layout component={SearchByKeyword} {...props}/>}/>
+        <Route component={() => <Layout component={NotFound} {...props}/>}/>
       </Switch>
     </Router>
   </React.Fragment>
