@@ -1,4 +1,4 @@
-import {CLEAR_JOBS, SET_JOBS, SET_UNWRAP} from '../actions';
+import {CLEAR_JOBS, DELETE_JOB, SET_JOBS, SET_STAR, SET_UNWRAP} from '../actions';
 
 // TODO DEBUG hardcoded job
 const initialState = [
@@ -40,6 +40,17 @@ const setUnwrap = (job, jobId, isUnwrapped) => {
   return job;
 };
 
+const setStar = (job, jobId, hasStar) => {
+  if (job.jobId === jobId) {
+    return {
+      ...job,
+      hasStar: hasStar
+    };
+  }
+
+  return job;
+};
+
 const jobs = (state = initialState, action) => {
   switch (action.type) {
     case (SET_JOBS):
@@ -50,6 +61,12 @@ const jobs = (state = initialState, action) => {
 
     case (SET_UNWRAP):
       return state.map((job) => (setUnwrap(job, action.jobId, action.isUnwrapped)));
+
+    case (SET_STAR):
+      return state.map((job) => (setStar(job, action.jobId, action.hasStar)));
+
+    case (DELETE_JOB):
+      return state.filter((job) => (job.jobId !== action.jobId));
 
     default:
       return state;

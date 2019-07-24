@@ -4,7 +4,9 @@ import Menu from "./Menu";
 const Layout = ({component: Component, ...props}) => (
   <React.Fragment>
     <Menu/>
-    <Component {...props}/>
+    <main>
+      <Component {...props}/>
+    </main>
   </React.Fragment>
 );
 

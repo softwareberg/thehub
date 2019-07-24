@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 
 const Menu = (props) => (
-  <React.Fragment>
+  <nav>
     <ul>
       <li><NavLink to="/">Home</NavLink></li>
       <li><NavLink to="/all">All Jobs</NavLink></li>
@@ -10,7 +10,7 @@ const Menu = (props) => (
       <li><NavLink to="/search">Search</NavLink></li>
       <li><NavLink to="/keywords">Search by keyword</NavLink></li>
     </ul>
-  </React.Fragment>
+  </nav>
 );
 
 export default Menu;
