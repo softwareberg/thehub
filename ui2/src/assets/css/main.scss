@@ -1,0 +1,13 @@
+@import "styles/bootstrap";
+@import "styles/typography";
+@import "styles/general";
+
+@include media-breakpoint-down(md) {
+  .app {
+    background-color: #fff;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  background-color: #fff;
+}
