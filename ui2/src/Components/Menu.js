@@ -1,16 +1,15 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
+import Nav from 'react-bootstrap/Nav';
 
 const Menu = (props) => (
-  <nav>
-    <ul>
-      <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/all">All Jobs</NavLink></li>
-      <li><NavLink to="/starred">Starred Jobs</NavLink></li>
-      <li><NavLink to="/search">Search</NavLink></li>
-      <li><NavLink to="/keywords">Search by keyword</NavLink></li>
-    </ul>
-  </nav>
+  <Nav as='ul' navbar>
+    <Nav.Item as='li'><Link to="/">Home</Link></Nav.Item>
+    <Nav.Item as='li'><Link to="/all">All Jobs</Link></Nav.Item>
+    <Nav.Item as='li'><Link to="/starred">Starred Jobs</Link></Nav.Item>
+    <Nav.Item as='li'><Link to="/search">Search</Link></Nav.Item>
+    <Nav.Item as='li'><Link to="/keywords">Search by keyword</Link></Nav.Item>
+  </Nav>
 );
 
 export default Menu;

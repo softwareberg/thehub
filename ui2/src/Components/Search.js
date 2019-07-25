@@ -1,22 +1,28 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import Form from 'react-bootstrap/Form';
 import Job from './Job';
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      inputText: this.props.match.params.searchText ? decodeURIComponent(this.props.match.params.searchText) : '',
       searchText: this.props.match.params.searchText ? decodeURIComponent(this.props.match.params.searchText) : ''
     }
   }
 
   render() {
     const jobs = this.props.jobs;
-    const searchText = this.state.searchText;
+    const inputText = this.state.inputText;
     return (
       <React.Fragment>
-        <header><h1>Search Jobs</h1></header>
-        <SearchInput inputText={searchText} handleChange={this.handleChange.bind(this)}/>
+        <h1>Search Jobs</h1>
+        <SearchInput
+          inputText={inputText}
+          handleChange={this.handleChange.bind(this)}
+          handleEnter={this.handleEnter.bind(this)}
+        />
         {jobs.filter(this.criteria).map((job) => <Job key={job.jobId} job={job}/>)}
       </React.Fragment>
     );
@@ -27,20 +33,29 @@ class Search extends Component {
   );
 
   handleChange(e) {
-    const newText = e.target.value;
-    this.setState({searchText: newText});
-    this.props.history.push('/search/' + encodeURIComponent(newText))
+    const nextSearchText = e.target.value;
+    this.setState({inputText: nextSearchText});
+  }
+
+  handleEnter() {
+    const nextSearchText = this.state.inputText;
+    this.setState({searchText: nextSearchText});
+    this.props.history.push('/search/' + encodeURIComponent(nextSearchText));
   }
 }
 
-const SearchInput = ({inputText, handleChange, ...props}) => (
-  <React.Fragment>
-    <input
+const SearchInput = ({inputText, handleChange, handleEnter, ...props}) => (
+  <Form onSubmit={(e) => {e.preventDefault(); handleEnter()}}>
+    <Form.Control
+      placeholder='Type and press enter...'
       autoFocus
+      size="lg"
+      type="text"
       value={inputText}
       onChange={handleChange}
+      style={{marginBottom: 8}}
     />
-  </React.Fragment>
+  </Form>
 );
 
 const mapStateToProps = (state) => ({

@@ -1,13 +1,14 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
 import Menu from "./Menu";
 
 const Layout = ({component: Component, ...props}) => (
-  <React.Fragment>
+  <Container>
     <Menu/>
     <main>
       <Component {...props}/>
     </main>
-  </React.Fragment>
+  </Container>
 );
 
 export default Layout;
