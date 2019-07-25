@@ -1,5 +1,4 @@
 import {CLEAR_JOBS, DELETE_JOB, APPEND_JOBS, SET_STAR, SET_UNWRAP} from '../actions';
-import {REDUX_JOBS_LIMIT} from '../conf';
 
 const initialState = [
   // {
@@ -43,11 +42,7 @@ const setStar = (job, jobId, hasStar) => {
 const jobs = (state = initialState, action) => {
   switch (action.type) {
     case (APPEND_JOBS):
-      if (state.size > REDUX_JOBS_LIMIT) {
-        return action.jobs;
-      } else {
-        return [].concat(state, action.jobs);
-      }
+      return [].concat(state, action.jobs);
 
     case (CLEAR_JOBS):
       return initialState;

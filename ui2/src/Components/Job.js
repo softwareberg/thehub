@@ -82,16 +82,22 @@ const Title = ({title, hasStar, setStar, ...props}) => (
 );
 
 const Description = ({description, isUnwrapped, setUnwrap, ...props}) => {
-  const renderedDescription = isUnwrapped ? description : description.substring(0, 300);
-  const moreToggle = (<span>... <a href='#more' onClick={(e) => {e.preventDefault();setUnwrap(true)}}>more</a></span>);
-  const hideToggle = (<span> <a href='#hide' onClick={(e) => {e.preventDefault();setUnwrap(false)}}>hide</a></span>);
-  return (
-    <Card.Text style={{whiteSpace: 'pre-line'}}>
-      {renderedDescription}
-      {!isUnwrapped && moreToggle}
-      {isUnwrapped && hideToggle}
-    </Card.Text>
-  )
+  if (isUnwrapped) {
+    return (
+      <Card.Text style={{whiteSpace: 'pre-line'}}>
+        {description}
+        <span> <a href='#hide' onClick={(e) => {e.preventDefault();setUnwrap(false)}}>hide</a></span>
+      </Card.Text>
+    )
+  } else {
+    return (
+      <Card.Text>
+        {description.substring(0, 300)}
+        <span>... <a href='#more' onClick={(e) => {e.preventDefault();setUnwrap(true)}}>more</a></span>
+      </Card.Text>
+    )
+  }
+
 };
 
 const Keywords = ({keywords, ...props}) => (
