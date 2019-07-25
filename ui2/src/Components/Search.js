@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
+import {APPEND_JOBS} from '../redux/actions';
 import {connect} from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Job from './Job';
+import {findJobs} from '../utils/api';
 
 class Search extends Component {
+  componentDidMount() {
+    this.downloadJobs(this.state.searchText);
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -29,8 +35,23 @@ class Search extends Component {
   }
 
   criteria = (job) => (
-    this.state.searchText.length >= 2 && job.description.value.includes(this.state.searchText)
+    job.title.toLowerCase().includes(this.state.searchText.toLowerCase())
+    || job.keywords.some((k) => (k.toLowerCase().includes(this.state.searchText.toLowerCase())))
+    // || job.href.toLowerCase().includes(this.state.searchText.toLowerCase())
+    || job.description.value.toLowerCase().includes(this.state.searchText.toLowerCase())
   );
+
+  downloadJobs(query) {
+    const jobsIds = this.props.jobsIds;
+    if (query.length > 0) {
+      findJobs(query).then((jobs) => {
+        this.props.dispatch({
+          type: APPEND_JOBS,
+          jobs: jobs.filter((job) => (!jobsIds.has(job.jobId)))
+        });
+      })
+    }
+  }
 
   handleChange(e) {
     const nextSearchText = e.target.value;
@@ -41,6 +62,7 @@ class Search extends Component {
     const nextSearchText = this.state.inputText;
     this.setState({searchText: nextSearchText});
     this.props.history.push('/search/' + encodeURIComponent(nextSearchText));
+    this.downloadJobs(nextSearchText);
   }
 }
 
@@ -60,6 +82,7 @@ const SearchInput = ({inputText, handleChange, handleEnter, ...props}) => (
 
 const mapStateToProps = (state) => ({
   jobs: state.jobs,
+  jobsIds: state.jobsIds
 });
 
 export default connect(mapStateToProps)(Search);

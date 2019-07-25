@@ -3,6 +3,7 @@ import {DELETE_JOB, SET_STAR, SET_UNWRAP} from '../redux/actions';
 import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import {connect} from 'react-redux';
+import {deleteJob, startJob} from '../utils/api';
 import StarRegular from '../assets/img/star-regular.svg'
 import StarSolid from '../assets/img/star-solid.svg'
 
@@ -49,6 +50,7 @@ class Job extends Component {
       jobId: this.state.jobId,
       hasStar: hasStar
     });
+    startJob(this.state.jobId, hasStar);  // TODO ignore or not to ignore?
   }
 
   deleteJob() {
@@ -56,6 +58,7 @@ class Job extends Component {
       type: DELETE_JOB,
       jobId: this.state.jobId,
     });
+    deleteJob(this.state.jobId);  // TODO ignore or not to ignore?
   }
 }
 

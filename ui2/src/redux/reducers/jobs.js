@@ -1,6 +1,7 @@
-import {CLEAR_JOBS, DELETE_JOB, SET_JOBS, SET_STAR, SET_UNWRAP} from '../actions';
+import {CLEAR_JOBS, DELETE_JOB, APPEND_JOBS, SET_STAR, SET_UNWRAP} from '../actions';
+import {REDUX_JOBS_LIMIT} from '../conf';
 
-// TODO DEBUG hardcoded job
+// TODO DEBUG hardcoded jobs
 const initialState = [
   {
     jobId: 'product-manager-9',
@@ -53,20 +54,24 @@ const setStar = (job, jobId, hasStar) => {
 
 const jobs = (state = initialState, action) => {
   switch (action.type) {
-    case (SET_JOBS):
-      return action.jobs;
+    case (APPEND_JOBS):
+      if (state.size > REDUX_JOBS_LIMIT) {
+        return action.jobs;
+      } else {
+        return [].concat(state, action.jobs);
+      }
 
     case (CLEAR_JOBS):
       return initialState;
+
+    case (DELETE_JOB):
+      return state.filter((job) => (job.jobId !== action.jobId));
 
     case (SET_UNWRAP):
       return state.map((job) => (setUnwrap(job, action.jobId, action.isUnwrapped)));
 
     case (SET_STAR):
       return state.map((job) => (setStar(job, action.jobId, action.hasStar)));
-
-    case (DELETE_JOB):
-      return state.filter((job) => (job.jobId !== action.jobId));
 
     default:
       return state;
