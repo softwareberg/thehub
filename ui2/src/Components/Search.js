@@ -29,16 +29,17 @@ class Search extends Component {
           handleChange={this.handleChange.bind(this)}
           handleEnter={this.handleEnter.bind(this)}
         />
-        {jobs.filter(this.criteria).map((job) => <Job key={job.jobId} job={job}/>)}
+        {jobs.filter(this.criteria).map((job) => <Job job={job}/>)}
       </React.Fragment>
     );
   }
 
   criteria = (job) => (
-    job.title.toLowerCase().includes(this.state.searchText.toLowerCase())
-    || job.keywords.some((k) => (k.toLowerCase().includes(this.state.searchText.toLowerCase())))
-    // || job.href.toLowerCase().includes(this.state.searchText.toLowerCase())
-    || job.description.value.toLowerCase().includes(this.state.searchText.toLowerCase())
+    this.state.searchText.length > 0 && (
+      job.title.toLowerCase().includes(this.state.searchText.toLowerCase())
+      || job.keywords.some((k) => (k.toLowerCase().includes(this.state.searchText.toLowerCase())))
+      || job.description.value.toLowerCase().includes(this.state.searchText.toLowerCase())
+    )
   );
 
   downloadJobs(query) {

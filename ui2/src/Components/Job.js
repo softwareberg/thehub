@@ -16,7 +16,7 @@ class Job extends Component {
   render() {
     const job = this.props.job;
     return (
-      <Card body key={this.props.job.jobId} style={{marginBottom: 8}}>
+      <Card body style={{marginBottom: 8}}>
         <Title
           title={job.title}
           hasStar={job.hasStar}
@@ -86,7 +86,7 @@ const Description = ({description, isUnwrapped, setUnwrap, ...props}) => {
   const moreToggle = (<span>... <a href='#more' onClick={(e) => {e.preventDefault();setUnwrap(true)}}>more</a></span>);
   const hideToggle = (<span> <a href='#hide' onClick={(e) => {e.preventDefault();setUnwrap(false)}}>hide</a></span>);
   return (
-    <Card.Text>
+    <Card.Text style={{whiteSpace: 'pre-line'}}>
       {renderedDescription}
       {!isUnwrapped && moreToggle}
       {isUnwrapped && hideToggle}

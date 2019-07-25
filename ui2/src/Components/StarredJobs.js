@@ -14,7 +14,7 @@ class StarredJobs extends Component {
     return (
       <React.Fragment>
         <h1>Starred Jobs</h1>
-        {jobs.map((job) => <Job key={job.jobId} job={job}/>)}
+        {jobs.map((job) => <Job job={job}/>)}
       </React.Fragment>
     );
   }

@@ -29,13 +29,13 @@ class SearchByKeyword extends Component {
           handleChange={this.handleChange.bind(this)}
           handleEnter={this.handleEnter.bind(this)}
         />
-        {jobs.filter(this.criteria).map((job) => <Job key={job.jobId} job={job}/>)}
+        {jobs.filter(this.criteria).map((job) => <Job job={job}/>)}
       </React.Fragment>
     );
   }
 
   criteria = (job) => (
-    this.state.searchText.length >= 2 && job.keywords.some((k) => (k === this.state.searchText))
+    this.state.searchText.length > 0 && job.keywords.some((k) => (k.toLowerCase() === this.state.searchText.toLowerCase()))
   );
 
   downloadJobs(keyword) {

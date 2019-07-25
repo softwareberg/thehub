@@ -14,7 +14,7 @@ class AllJobs extends Component {
     return (
       <React.Fragment>
         <h1>All Jobs</h1>
-        {jobs.map((job) => <Job key={job.jobId} job={job}/>)}
+        {jobs.map((job) => <Job job={job}/>)}
       </React.Fragment>
     );
   }

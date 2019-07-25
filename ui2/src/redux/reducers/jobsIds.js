@@ -1,8 +1,7 @@
 import {CLEAR_JOBS, DELETE_JOB, APPEND_JOBS} from '../actions';
 import {REDUX_JOBS_LIMIT} from '../conf';
 
-// TODO DEBUG hardcoded jobs
-const initialState = new Set(['product-manager-9', 'product-manager-99']);
+const initialState = new Set();
 
 const jobsIds = (state = initialState, action) => {
   let newState;

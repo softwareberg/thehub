@@ -2,7 +2,7 @@ const transformJob = ({ jobId, title, description, hasStar, keywords, href }) =>
     jobId,
     title: title.replace(/&amp;/g, '&'),
     description: {
-      isUnwrapped: true,
+      isUnwrapped: false,
       value: description.replace(/&nbsp;/g, '').replace(/&amp;/g, '&'),
     },
     hasStar,
