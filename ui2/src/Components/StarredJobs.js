@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {APPEND_JOBS} from '../redux/actions';
+import {CLEAR_JOBS, SET_JOBS} from '../redux/actions';
 import {connect} from 'react-redux';
 import {fetchStarredJobs} from '../utils/api';
 import Job from './Job';
 
 class StarredJobs extends Component {
   componentDidMount() {
+    this.props.dispatch({type: CLEAR_JOBS});
     this.downloadJobs();
   }
 
@@ -14,25 +15,23 @@ class StarredJobs extends Component {
     return (
       <React.Fragment>
         <h1>Starred Jobs</h1>
-        {jobs.map((job) => <Job job={job}/>)}
+        {jobs.map((job) => <Job key={job.jobId} job={job}/>)}
       </React.Fragment>
     );
   }
 
   downloadJobs() {
-    const jobsIds = this.props.jobsIds;
     fetchStarredJobs().then((jobs) => {
       this.props.dispatch({
-        type: APPEND_JOBS,
-        jobs: jobs.filter((job) => (!jobsIds.has(job.jobId)))
+        type: SET_JOBS,
+        jobs: jobs
       });
     })
   }
 }
 
 const mapStateToProps = (state) => ({
-  jobs: state.jobs.filter((job) => job.hasStar),
-  jobsIds: state.jobsIds
+  jobs: state.jobs.filter((job) => job.hasStar)
 });
 
 export default connect(mapStateToProps)(StarredJobs);

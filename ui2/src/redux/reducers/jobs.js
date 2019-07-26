@@ -1,4 +1,4 @@
-import {CLEAR_JOBS, DELETE_JOB, APPEND_JOBS, SET_STAR, SET_UNWRAP} from '../actions';
+import {CLEAR_JOBS, DELETE_JOB, SET_JOBS, SET_STAR, SET_UNWRAP} from '../actions';
 
 const initialState = [
   // {
@@ -41,8 +41,8 @@ const setStar = (job, jobId, hasStar) => {
 
 const jobs = (state = initialState, action) => {
   switch (action.type) {
-    case (APPEND_JOBS):
-      return [].concat(state, action.jobs);
+    case (SET_JOBS):
+      return action.jobs;
 
     case (CLEAR_JOBS):
       return initialState;

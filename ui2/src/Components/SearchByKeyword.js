@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {APPEND_JOBS} from '../redux/actions';
+import {CLEAR_JOBS, SET_JOBS} from '../redux/actions';
 import {connect} from 'react-redux';
+import {findJobsByKeyword} from '../utils/api';
 import Form from 'react-bootstrap/Form';
 import Job from './Job';
-import {findJobsByKeyword} from '../utils/api';
 
 class SearchByKeyword extends Component {
   componentDidMount() {
+    this.props.dispatch({type: CLEAR_JOBS});
     this.downloadJobs(this.state.searchText);
   }
 
@@ -29,22 +30,17 @@ class SearchByKeyword extends Component {
           handleChange={this.handleChange.bind(this)}
           handleEnter={this.handleEnter.bind(this)}
         />
-        {jobs.filter(this.criteria).map((job) => <Job job={job}/>)}
+        {jobs.map((job) => <Job key={job.jobId} job={job}/>)}
       </React.Fragment>
     );
   }
 
-  criteria = (job) => (
-    this.state.searchText.length > 0 && job.keywords.some((k) => (k.toLowerCase() === this.state.searchText.toLowerCase()))
-  );
-
   downloadJobs(keyword) {
-    const jobsIds = this.props.jobsIds;
     if (keyword.length > 0) {
       findJobsByKeyword(keyword).then((jobs) => {
         this.props.dispatch({
-          type: APPEND_JOBS,
-          jobs: jobs.filter((job) => (!jobsIds.has(job.jobId)))
+          type: SET_JOBS,
+          jobs: jobs
         });
       })
     }
@@ -59,6 +55,7 @@ class SearchByKeyword extends Component {
     const nextSearchText = this.state.inputText;
     this.setState({searchText: nextSearchText});
     this.props.history.push('/keywords/' + encodeURIComponent(nextSearchText));
+    this.props.dispatch({type: CLEAR_JOBS});
     this.downloadJobs(nextSearchText);
   }
 }
@@ -78,8 +75,7 @@ const SearchInput = ({inputText, handleChange, handleEnter, ...props}) => (
 );
 
 const mapStateToProps = (state) => ({
-  jobs: state.jobs,
-  jobsIds: state.jobsIds
+  jobs: state.jobs
 });
 
 export default connect(mapStateToProps)(SearchByKeyword);
