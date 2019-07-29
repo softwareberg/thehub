@@ -1,15 +1,14 @@
 package eu.codeloop.thehub.errors;
 
-public class GenericError implements Error {
+public class GenericError extends Throwable implements Error {
     public static final String GENERIC_ERROR_CODE = "GE";
 
     private int status;
     private String code = GENERIC_ERROR_CODE;
     private String message;
 
-    public GenericError(int status, String code, String message) {
+    public GenericError(int status, String message) {
         this.status = status;
-        this.code = code;
         this.message = message;
     }
 
