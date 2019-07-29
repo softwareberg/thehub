@@ -74,8 +74,6 @@ const SearchInput = ({inputText, handleChange, handleEnter, ...props}) => (
   </Form>
 );
 
-const mapStateToProps = (state) => ({
-  jobs: state.jobs
-});
+const mapStateToProps = (state) => ({jobs: state.jobs});
 
 export default connect(mapStateToProps)(SearchByKeyword);

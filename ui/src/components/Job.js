@@ -119,8 +119,6 @@ const Links = ({href, deleteJob, ...props}) => (
   </React.Fragment>
 );
 
-const mapStateToProps = (state) => ({
-  // Nothing.
-});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps)(Job);
