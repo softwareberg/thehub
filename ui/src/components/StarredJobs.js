@@ -30,8 +30,6 @@ class StarredJobs extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  jobs: state.jobs.filter((job) => job.hasStar)
-});
+const mapStateToProps = (state) => ({jobs: state.jobs});
 
 export default connect(mapStateToProps)(StarredJobs);
