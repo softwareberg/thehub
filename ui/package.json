@@ -2,9 +2,10 @@
   "name": "thehub",
   "version": "0.1.0",
   "scripts": {
-    "start": "webpack-dev-server --mode development --hot --inline",
-    "build": "cross-env NODE_ENV=production webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "author": "Codeloop",
   "license": "ISC",
@@ -15,7 +16,9 @@
     "eslint-loader": "2.2.x",
     "eslint-plugin-import": "2.18.x",
     "eslint-plugin-jsx-a11y": "6.2.x",
-    "eslint-plugin-react": "7.14.x"
+    "eslint-plugin-react": "7.14.x",
+    "stylelint": "10.1.x",
+    "stylelint-config-primer": "7.0.x"
   },
   "dependencies": {
     "bootstrap": "4.3.x",
@@ -28,12 +31,6 @@
     "react-router-dom": "5.0.x",
     "react-scripts": "3.0.x",
     "redux": "4.0.x"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
