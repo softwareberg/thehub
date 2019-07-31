@@ -13,8 +13,6 @@ class BasicErrorController(errorAttributes: ErrorAttributes) : AbstractErrorCont
     @RequestMapping(PATH)
     internal fun error(request: HttpServletRequest): ResponseEntity<ErrorResponse> {
         val errorAttributes = getErrorAttributes(request, getTraceParameter(request))
-
-        val path = errorAttributes.getOrDefault("path", "").toString()
         val message = errorAttributes.getOrDefault("message", "").toString()
         val status = getStatus(request)
 

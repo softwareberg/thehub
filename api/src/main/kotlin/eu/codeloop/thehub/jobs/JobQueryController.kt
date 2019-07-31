@@ -1,14 +1,10 @@
 package eu.codeloop.thehub.jobs
 
 import eu.codeloop.thehub.base.PageResponse
-import eu.codeloop.thehub.errors.BadRequestExceptions
-import eu.codeloop.thehub.errors.NotFoundExceptions
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.lang.IllegalStateException
-import kotlin.random.Random
 
 @RestController
 class JobQueryController(private val jobQueryService: JobQueryService, private val jobMapper: JobMapper) {
