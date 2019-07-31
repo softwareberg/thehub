@@ -5,12 +5,15 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint": "eslint --ext .js --ext .jsx \"src/**\"",
+    "stylelint": "npx stylelint \"src/assets/css/**\""
   },
   "author": "Codeloop",
   "license": "ISC",
   "private": true,
   "devDependencies": {
+    "@primer/css": "12.5.x",
     "eslint": "5.16.x",
     "eslint-config-airbnb": "17.1.x",
     "eslint-loader": "2.2.x",
