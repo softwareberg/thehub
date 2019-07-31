@@ -23,11 +23,6 @@ class JobQueryController(private val jobQueryService: JobQueryService, private v
     ): PageResponse<JobDto> {
         val jobs = jobQueryService.findAll(title, keyword, q, hasStar, pageable)
         val jobsDto = jobs.map(jobMapper::map)
-        when (Random.nextInt(7)) {
-            0 -> throw NotFoundExceptions("Not found")
-            1 -> throw BadRequestExceptions("Bad req")
-            2 -> throw IllegalStateException("Some other ex")
-            else -> return PageResponse.of(jobsDto)
-        }
+        return PageResponse.of(jobsDto)
     }
 }
