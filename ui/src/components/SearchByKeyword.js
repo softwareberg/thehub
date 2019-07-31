@@ -30,14 +30,14 @@ class SearchByKeyword extends Component {
           handleChange={this.handleChange.bind(this)}
           handleEnter={this.handleEnter.bind(this)}
         />
-        {jobs.map((job) => <Job key={job.jobId} job={job}/>)}
+        {jobs.map(job => <Job key={job.jobId} job={job}/>)}
       </React.Fragment>
     );
   }
 
   downloadJobs(keyword) {
     if (keyword.length > 0) {
-      findJobsByKeyword(keyword).then((jobs) => {
+      findJobsByKeyword(keyword).then(jobs => {
         this.props.dispatch({
           type: SET_JOBS,
           jobs: jobs
@@ -61,7 +61,7 @@ class SearchByKeyword extends Component {
 }
 
 const SearchInput = ({inputText, handleChange, handleEnter, ...props}) => (
-  <Form onSubmit={(e) => {e.preventDefault(); handleEnter()}}>
+  <Form onSubmit={e => {e.preventDefault(); handleEnter()}}>
     <Form.Control
       placeholder='Type and press enter...'
       autoFocus
@@ -74,6 +74,6 @@ const SearchInput = ({inputText, handleChange, handleEnter, ...props}) => (
   </Form>
 );
 
-const mapStateToProps = (state) => ({jobs: state.jobs});
+const mapStateToProps = state => ({jobs: state.jobs});
 
 export default connect(mapStateToProps)(SearchByKeyword);

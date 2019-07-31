@@ -15,13 +15,13 @@ class StarredJobs extends Component {
     return (
       <React.Fragment>
         <h1>Starred Jobs</h1>
-        {jobs.map((job) => <Job key={job.jobId} job={job}/>)}
+        {jobs.map(job => <Job key={job.jobId} job={job}/>)}
       </React.Fragment>
     );
   }
 
   downloadJobs() {
-    fetchStarredJobs().then((jobs) => {
+    fetchStarredJobs().then(jobs => {
       this.props.dispatch({
         type: SET_JOBS,
         jobs: jobs
@@ -30,6 +30,6 @@ class StarredJobs extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({jobs: state.jobs});
+const mapStateToProps = state => ({jobs: state.jobs});
 
 export default connect(mapStateToProps)(StarredJobs);

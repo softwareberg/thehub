@@ -102,7 +102,7 @@ const Description = ({description, isUnwrapped, setUnwrap, ...props}) => {
 
 const Keywords = ({keywords, ...props}) => (
   <ul>
-    {keywords.map((k) => (
+    {keywords.map(k => (
       <li key={k} style={{display: 'inline'}}>
         <Badge pill variant="light" style={{fontWeight: 'normal', backgroundColor: 'rgb(241, 241, 241)'}}>
           {k}
@@ -115,10 +115,10 @@ const Keywords = ({keywords, ...props}) => (
 const Links = ({href, deleteJob, ...props}) => (
   <React.Fragment>
     <Card.Link href={href} target="_blank" rel='noopener noreferrer'>Link</Card.Link>
-    <Card.Link href='#delete' className='text-muted' onClick={(e) => {e.preventDefault(); deleteJob()}}>Delete</Card.Link>
+    <Card.Link href='#delete' className='text-muted' onClick={e => {e.preventDefault(); deleteJob()}}>Delete</Card.Link>
   </React.Fragment>
 );
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = state => ({});
 
 export default connect(mapStateToProps)(Job);
