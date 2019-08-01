@@ -1,0 +1,45 @@
+jooq {
+	version = "3.11.11"
+    codeloop(sourceSets.main) {
+        jdbc {
+            driver = "org.postgresql.Driver"
+            url = "jdbc:postgresql://localhost:5432/codeloop"
+            user = "codeloop"
+            password = "codeloop"
+        }
+        generator {
+            database {
+                name = "org.jooq.meta.postgres.PostgresDatabase"
+                inputSchema = "public"
+                forcedTypes {
+                    forcedType {
+                        name = "varchar"
+                        expression = ".*"
+                        types = "JSONB?"
+                    }
+                    forcedType {
+                        name = "varchar"
+                        expression = ".*"
+                        types = "INET"
+                    }
+                }
+                properties{
+                    excludes = "flyway_schema_history"
+                }
+            }
+            generate {
+                relations = true
+                deprecated = false
+                records = true
+                fluentSetters = true
+                validationAnnotations = true
+            }
+            target {
+                packageName = "eu.codeloop.thehub.jooq"
+                directory = "src/generated/java/"
+            }
+        }
+    }
+}
+
+generateCodeloopJooqSchemaSource.enabled = System.getenv("GENERATE_SCHEMA")?.toBoolean() ?: false

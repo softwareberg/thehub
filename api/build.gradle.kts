@@ -1,23 +1,32 @@
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("org.springframework.boot") version "2.1.6.RELEASE"
+    id("io.spring.dependency-management") version "1.0.6.RELEASE"
     id("org.jetbrains.kotlin.jvm") version "1.3.41"
     id("org.jetbrains.kotlin.plugin.spring") version "1.3.41"
     id("org.jetbrains.kotlin.kapt") version "1.3.41"
     id("com.github.ben-manes.versions") version "0.21.0"
     id("io.gitlab.arturbosch.detekt") version "1.0.0-RC16"
     id("nu.studer.jooq") version "3.0.3"
-    id("java")
     id("jacoco")
-    id("io.spring.dependency-management")
+    id("java")
     id("idea")
 }
 
 defaultTasks("bootRun")
 
-//sourceCompatibility = 1.8
-//targetCompatibility = 1.8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:Greenwich.RELEASE")
+    }
+}
 
 tasks.getByName<KotlinCompile>("compileKotlin") {
     kotlinOptions.jvmTarget = "1.8"
@@ -29,107 +38,84 @@ tasks.getByName<KotlinCompile>("compileTestKotlin") {
     kotlinOptions.freeCompilerArgs += listOf("-Xjsr305=strict")
 }
 
-//sourceSets {
-//    integrationTest {
-//        kotlin {
-//            srcDirs += "src/it/kotlin"
-//            compileClasspath += main.output + test.output
-//            runtimeClasspath += main.output + test.output
-//        }
-//        resources.srcDirs += "src/it/resources"
-//    }
-//    main.java.srcDirs += "src/main/generated"
-//}
+val integrationTestCompile by configurations.creating {
+    extendsFrom(configurations["testCompile"])
+}
 
-//task integrationTest(group: "verification", type: Test, description: "Runs integration tests.") {
-//    testClassesDirs = sourceSets.integrationTest.output.classesDirs
-//    classpath = sourceSets.integrationTest.runtimeClasspath
-//}
+val integrationTestRuntime by configurations.creating {
+    extendsFrom(configurations["testRuntime"])
+}
 
-//configurations {
-//    integrationTestCompile.extendsFrom(testCompile)
-//    integrationTestRuntime.extendsFrom(testRuntime)
-//}
+// source: https://stackoverflow.com/a/52906232
+val integrationTest by tasks.registering(Test::class) {
+    group = "verification"
+    description = "Runs integration tests."
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+    mustRunAfter(tasks["test"])  //TODO is it needed?
+}
 
-//task stage(dependsOn: ["assemble"])
+sourceSets {
+    val main by getting
+    main.java.srcDirs("src/main/generated")
 
-//jacoco {
-//    toolVersion = "0.8.2"
-//}
+    create("integrationTest") {
+        withConvention(KotlinSourceSet::class) {
+            kotlin.srcDir("src/it/kotlin")
+            resources.srcDir("src/it/resources")
+            compileClasspath += sourceSets["main"].output + sourceSets["test"].output
+            runtimeClasspath += sourceSets["main"].output + sourceSets["test"].output
+        }
+    }
+}
 
-//jacocoTestReport {
-//    reports {
-//        csv.enabled = false
-//        html.enabled = true
-//        xml.enabled = true
-//    }
-//    dependsOn(test)
-//}
+val stage by tasks.registering {
+    dependsOn(tasks["assemble"])
+}
 
-//detekt {
-//    config = files("detekt.yml")
-//    input = files(
-//        "src/main/kotlin",
-//        "src/test/kotlin",
-//        "src/it/kotlin",
-//    )
-//}
+val check by tasks.existing {
+    dependsOn(tasks["integrationTest"])
+}
 
-//check.dependsOn(integrationTest)
+jacoco {
+    toolVersion = "0.8.2"
+}
 
-//idea {
-//    module {
-//        sourceDirs += file("build/generated/source/kapt/main")
-//        generatedSourceDirs += file("build/generated/source/kapt/main")
-//
-//        sourceDirs += file("src/main/generated/")
-//        generatedSourceDirs += file("src/main/generated/")
-//    }
-//}
+tasks.getByName<JacocoReport>("jacocoTestReport") {
+    reports {
+        csv.isEnabled = false
+        html.isEnabled = true
+        xml.isEnabled = true
+    }
+    dependsOn(tasks["test"])
+}
 
-//jooq {
-//    version = "3.11.11"
-//    softwareberg(sourceSets.main) {
-//        jdbc {
-//            driver = "org.postgresql.Driver"
-//            url = "jdbc:postgresql://localhost:5432/softwareberg"
-//            user = "softwareberg"
-//            password = "softwareberg"
-//        }
-//        generator {
-//            database {
-//                name = "org.jooq.meta.postgres.PostgresDatabase"
-//                inputSchema = "public"
-//                forcedTypes {
-//                    forcedType {
-//                        name = "varchar"
-//                        expression = ".*"
-//                        types = "JSONB?"
-//                    }
-//                    forcedType {
-//                        name = "varchar"
-//                        expression = ".*"
-//                        types = "INET"
-//                    }
-//                }
-//                properties{
-//                    excludes = "flyway_schema_history"
-//                }
-//            }
-//            generate {
-//                relations = true
-//                deprecated = false
-//                records = true
-//                fluentSetters = true
-//                validationAnnotations = true
-//            }
-//            target {
-//                packageName = "com.softwareberg.thehub.jooq"
-//                directory = "src/generated/java/"
-//            }
-//        }
-//    }
-//}
+detekt {
+    config = files("detekt.yml")
+    input = files(
+        "src/main/kotlin",
+        "src/test/kotlin",
+        "src/it/kotlin"
+    )
+}
+
+idea {
+    module {
+        sourceDirs.add(file("build/generated/source/kapt/main"))
+        generatedSourceDirs.add(file("build/generated/source/kapt/main"))
+
+        sourceDirs.add(file("src/main/generated/"))
+        generatedSourceDirs.add(file("src/main/generated/"))
+    }
+}
+
+/**
+ * "Jooq" plugin does not support kotlin:
+ * https://github.com/etiennestuder/gradle-jooq-plugin/issues/62#issuecomment-513394067
+ * Consider alternative plugin with kotlin support:
+ * https://github.com/rohanprabhu/kotlin-dsl-gradle-jooq-plugin
+ */
+apply(from = "useJooq.gradle")
 
 repositories {
     mavenCentral()
@@ -141,9 +127,8 @@ repositories {
 }
 
 dependencies {
-// TODO
-//    ext.kotlinxcoroutines = "0.30.1"
-//    ext.querydsl = "4.2.1"
+//    ext.kotlinxcoroutines = "0.30.1"  //TODO is it needed?
+    val querydsl = "4.2.1"
 
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -157,8 +142,8 @@ dependencies {
     compile("org.hibernate:hibernate-core")
     compile("javax.validation:validation-api:2.0.1.Final")
     compile("org.flywaydb:flyway-core")
-    compile("com.querydsl:querydsl-jpa:4.2.1")
-    kapt("com.querydsl:querydsl-apt:4.2.1:jpa")
+    compile("com.querydsl:querydsl-jpa:${querydsl}")
+    kapt("com.querydsl:querydsl-apt:${querydsl}:jpa")
     jooqRuntime("org.postgresql:postgresql:42.2.6")
     compile("org.jooq:jooq")
     compile("org.jooq:jooq-meta")
@@ -174,11 +159,11 @@ dependencies {
     testCompile("org.powermock:powermock-api-mockito2:2.0.2")
     testCompile("org.assertj:assertj-core:3.12.2")
 
-//    integrationTestCompile("com.jayway.jsonpath:json-path:2.4.0")
+    integrationTestCompile("com.jayway.jsonpath:json-path:2.4.0")
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.0.0-RC16")
 }
 
-//wrapper {
-//    gradleVersion = "5.5.1"
-//}
+tasks.withType<Wrapper> {
+    gradleVersion = "5.5.1"
+}
