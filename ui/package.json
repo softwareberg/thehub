@@ -28,6 +28,7 @@
     "http-proxy-middleware": "0.19.x",
     "node-sass": "4.12.x",
     "react": "16.8.x",
+    "react-app-polyfill": "1.0.x",
     "react-bootstrap": "1.0.0-beta.10",
     "react-dom": "16.8.x",
     "react-redux": "7.1.x",
