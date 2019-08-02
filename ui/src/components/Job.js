@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import {DELETE_JOB, SET_STAR, SET_UNWRAP} from '../redux/actions';
 import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import {connect} from 'react-redux';
-import {deleteJob, startJob} from '../utils/api';
+import deleteJob from '../redux/actions/deleteJob';
+import {deleteJob as deleteJobApi, startJob as startJobApi} from '../utils/api';
 import StarRegular from '../assets/img/star-regular.svg'
 import StarSolid from '../assets/img/star-solid.svg'
+import setUnwrap from '../redux/actions/setUnwrap';
+import setStar from '../redux/actions/setStar';
 
 class Job extends Component {
   constructor(props) {
@@ -37,28 +39,17 @@ class Job extends Component {
   }
 
   setUnwrap(isUnwrapped) {
-    this.props.dispatch({
-      type: SET_UNWRAP,
-      jobId: this.state.jobId,
-      isUnwrapped: isUnwrapped
-    });
+    this.props.dispatch(setUnwrap(this.state.jobId, isUnwrapped));
   }
 
   setStar(hasStar) {
-    this.props.dispatch({
-      type: SET_STAR,
-      jobId: this.state.jobId,
-      hasStar: hasStar
-    });
-    startJob(this.state.jobId, hasStar);  // TODO ignore or not to ignore?
+    this.props.dispatch(setStar(this.state.jobId, hasStar));
+    startJobApi(this.state.jobId, hasStar);  // TODO ignore or not to ignore?
   }
 
   deleteJob() {
-    this.props.dispatch({
-      type: DELETE_JOB,
-      jobId: this.state.jobId,
-    });
-    deleteJob(this.state.jobId);  // TODO ignore or not to ignore?
+    this.props.dispatch(deleteJob(this.state.jobId));
+    deleteJobApi(this.state.jobId);  // TODO ignore or not to ignore?
   }
 }
 

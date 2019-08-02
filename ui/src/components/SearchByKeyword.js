@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {CLEAR_JOBS, SET_JOBS} from '../redux/actions';
+import clearJobs from '../redux/actions/clearJobs';
 import {connect} from 'react-redux';
 import {findJobsByKeyword} from '../utils/api';
 import Form from 'react-bootstrap/Form';
 import Job from './Job';
+import setJobs from '../redux/actions/setJobs';
 
 class SearchByKeyword extends Component {
   componentDidMount() {
-    this.props.dispatch({type: CLEAR_JOBS});
+    this.props.dispatch(clearJobs());
     this.downloadJobs(this.state.searchText);
   }
 
@@ -38,10 +39,7 @@ class SearchByKeyword extends Component {
   downloadJobs(keyword) {
     if (keyword.length > 0) {
       findJobsByKeyword(keyword).then(jobs => {
-        this.props.dispatch({
-          type: SET_JOBS,
-          jobs: jobs
-        });
+        this.props.dispatch(setJobs(jobs));
       })
     }
   }
@@ -55,7 +53,7 @@ class SearchByKeyword extends Component {
     const nextSearchText = this.state.inputText;
     this.setState({searchText: nextSearchText});
     this.props.history.push('/keywords/' + encodeURIComponent(nextSearchText));
-    this.props.dispatch({type: CLEAR_JOBS});
+    this.props.dispatch(clearJobs());
     this.downloadJobs(nextSearchText);
   }
 }

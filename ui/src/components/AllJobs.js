@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {CLEAR_JOBS, SET_JOBS} from '../redux/actions';
+import clearJobs from '../redux/actions/clearJobs';
 import {connect} from 'react-redux';
-import Job from './Job';
 import {fetchJobs} from '../utils/api';
+import Job from './Job';
+import setJobs from '../redux/actions/setJobs';
 
 class AllJobs extends Component {
   componentDidMount() {
-    this.props.dispatch({type: CLEAR_JOBS});
+    this.props.dispatch(clearJobs());
     this.downloadJobs();
   }
 
@@ -22,10 +23,7 @@ class AllJobs extends Component {
 
   downloadJobs() {
     fetchJobs().then(jobs => {
-      this.props.dispatch({
-        type: SET_JOBS,
-        jobs: jobs
-      });
+      this.props.dispatch(setJobs(jobs));
     })
   }
 }

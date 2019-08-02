@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {CLEAR_JOBS, SET_JOBS} from '../redux/actions';
+import clearJobs from '../redux/actions/clearJobs';
 import {connect} from 'react-redux';
+import {findJobs} from '../utils/api';
 import Form from 'react-bootstrap/Form';
 import Job from './Job';
-import {findJobs} from '../utils/api';
+import setJobs from '../redux/actions/setJobs';
 
 class Search extends Component {
   componentDidMount() {
-    this.props.dispatch({type: CLEAR_JOBS});
+    this.props.dispatch(clearJobs());
     this.downloadJobs(this.state.searchText);
   }
 
@@ -38,10 +39,7 @@ class Search extends Component {
   downloadJobs(query) {
     if (query.length > 0) {
       findJobs(query).then(jobs => {
-        this.props.dispatch({
-          type: SET_JOBS,
-          jobs: jobs
-        });
+        this.props.dispatch(setJobs(jobs));
       })
     }
   }
@@ -55,7 +53,7 @@ class Search extends Component {
     const nextSearchText = this.state.inputText;
     this.setState({searchText: nextSearchText});
     this.props.history.push('/search/' + encodeURIComponent(nextSearchText));
-    this.props.dispatch({type: CLEAR_JOBS});
+    this.props.dispatch(clearJobs());
     this.downloadJobs(nextSearchText);
   }
 }
