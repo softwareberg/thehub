@@ -2,6 +2,9 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    java
+    idea
+    jacoco
     id("org.springframework.boot") version "2.1.6.RELEASE"
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
     id("org.jetbrains.kotlin.jvm") version "1.3.41"
@@ -10,9 +13,6 @@ plugins {
     id("com.github.ben-manes.versions") version "0.21.0"
     id("io.gitlab.arturbosch.detekt") version "1.0.0-RC16"
     id("nu.studer.jooq") version "3.0.3"
-    id("jacoco")
-    id("java")
-    id("idea")
 }
 
 defaultTasks("bootRun")
@@ -28,14 +28,9 @@ dependencyManagement {
     }
 }
 
-tasks.getByName<KotlinCompile>("compileKotlin") {
+tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.freeCompilerArgs += listOf("-Xjsr305=strict")
-}
-
-tasks.getByName<KotlinCompile>("compileTestKotlin") {
-    kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.freeCompilerArgs += listOf("-Xjsr305=strict")
+    kotlinOptions.freeCompilerArgs += listOf("-Xjsr305=strict", "-XXLanguage:+InlineClasses")
 }
 
 val integrationTestCompile by configurations.creating {
@@ -47,12 +42,12 @@ val integrationTestRuntime by configurations.creating {
 }
 
 // source: https://stackoverflow.com/a/52906232
-val integrationTest by tasks.registering(Test::class) {
+tasks.register<Test>("integrationTest") {
     group = "verification"
     description = "Runs integration tests."
     testClassesDirs = sourceSets["integrationTest"].output.classesDirs
     classpath = sourceSets["integrationTest"].runtimeClasspath
-    mustRunAfter(tasks["test"])  //TODO is it needed?
+    mustRunAfter(tasks.test)
 }
 
 sourceSets {
@@ -70,7 +65,7 @@ sourceSets {
 }
 
 val stage by tasks.registering {
-    dependsOn(tasks["assemble"])
+    dependsOn(tasks.assemble)
 }
 
 val check by tasks.existing {
@@ -81,13 +76,13 @@ jacoco {
     toolVersion = "0.8.2"
 }
 
-tasks.getByName<JacocoReport>("jacocoTestReport") {
+tasks.jacocoTestReport {
     reports {
         csv.isEnabled = false
         html.isEnabled = true
         xml.isEnabled = true
     }
-    dependsOn(tasks["test"])
+    dependsOn(tasks.test)
 }
 
 detekt {
@@ -164,6 +159,6 @@ dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.0.0-RC16")
 }
 
-tasks.withType<Wrapper> {
+tasks.wrapper {
     gradleVersion = "5.5.1"
 }
