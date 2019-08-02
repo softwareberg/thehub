@@ -1,18 +1,6 @@
 import {CLEAR_JOBS, DELETE_JOB, SET_JOBS, SET_STAR, SET_UNWRAP} from '../actionsTypes';
 
-const initialState = [
-  // {
-  // 	jobId: string,
-  // 	title: string,
-  // 	description: {
-  // 		isUnwrapped: bool,
-  // 		value: string
-  // 	},
-  // 	hasStar: bool,
-  // 	keywords: [string],
-  // 	href: string
-  // }
-];
+const initialState = [];
 
 const setUnwrap = (job, jobId, isUnwrapped) => {
   if (job.jobId === jobId) {
