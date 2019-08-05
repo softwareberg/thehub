@@ -33,12 +33,8 @@ tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += listOf("-Xjsr305=strict", "-XXLanguage:+InlineClasses")
 }
 
-val integrationTestCompile by configurations.creating {
-    extendsFrom(configurations["testCompile"])
-}
-
-val integrationTestRuntime by configurations.creating {
-    extendsFrom(configurations["testRuntime"])
+val integrationTestImplementation by configurations.creating {
+    extendsFrom(configurations["testImplementation"])
 }
 
 // source: https://stackoverflow.com/a/52906232
@@ -133,7 +129,7 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib-common:1.3.41")
     compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-M2")
 
-    compile("org.postgresql:postgresql:42.2.6")
+    implementation("org.postgresql:postgresql:42.2.6")
     compile("org.hibernate:hibernate-core")
     compile("javax.validation:validation-api:2.0.1.Final")
     compile("org.flywaydb:flyway-core")
@@ -154,7 +150,7 @@ dependencies {
     testCompile("org.powermock:powermock-api-mockito2:2.0.2")
     testCompile("org.assertj:assertj-core:3.12.2")
 
-    integrationTestCompile("com.jayway.jsonpath:json-path:2.4.0")
+    integrationTestImplementation("com.jayway.jsonpath:json-path:2.4.0")
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.0.0-RC16")
 }
