@@ -59,6 +59,12 @@
         }
       ],
       "import/no-unresolved": "ignore",
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [".js", ".jsx"]
+        }
+      ],
       "react/react-in-jsx-scope": "ignore",
       "react/no-unknown-property": "ignore",
       "react/prop-types": "ignore",
