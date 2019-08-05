@@ -12,6 +12,7 @@ const Search = ({history, ...props}) => {
   const [inputText, setInputText] = useState(props.match.params.searchText ? decodeURIComponent(props.match.params.searchText) : '');
   const [searchText, setSearchText] = useState(props.match.params.searchText ? decodeURIComponent(props.match.params.searchText) : '');
   const [isDownloaded, setDownloaded] = useState(false);
+  const [isDownloading, setDownloading] = useState(false);
 
   function handleChange(e) {
     const nextSearchText = e.target.value;
@@ -27,13 +28,15 @@ const Search = ({history, ...props}) => {
   }
 
   useEffect(() => {
-    if (isDownloaded !== true) {
+    if (isDownloaded !== true && isDownloading !== true) {
+      setDownloading(true);
       dispatch(clearJobsAction());
       if (searchText.length > 0) {
         findJobs(searchText)
           .then(jobs => {
             dispatch(setJobsAction(jobs));
             setDownloaded(true);
+            setDownloading(false);
           });
       }
     }

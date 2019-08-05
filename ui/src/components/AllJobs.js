@@ -9,13 +9,16 @@ const AllJobs = ({...props}) => {
   const jobs = useSelector(state => state.jobs);
   const dispatch = useDispatch();
   const [isDownloaded, setDownloaded] = useState(false);
+  const [isDownloading, setDownloading] = useState(false);
 
   useEffect(() => {
-    if (isDownloaded !== true) {
+    if (isDownloaded !== true && isDownloading !== true) {
+      setDownloading(true);
       dispatch(clearJobsAction());
       fetchJobs().then(jobs => {
         dispatch(setJobsAction(jobs));
         setDownloaded(true);
+        setDownloading(false);
       });
     }
   });
