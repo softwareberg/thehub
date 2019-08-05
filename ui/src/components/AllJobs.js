@@ -12,13 +12,11 @@ const AllJobs = ({...props}) => {
 
   useEffect(() => {
     if (isDownloaded !== true) {
-      const controller = new AbortController();
       dispatch(clearJobsAction());
-      fetchJobs(controller.signal).then(jobs => {
+      fetchJobs().then(jobs => {
         dispatch(setJobsAction(jobs));
         setDownloaded(true);
       });
-      return () => controller.abort();
     }
   });
 

@@ -9,8 +9,8 @@ import setJobsAction from '../redux/actions/setJobs';
 const Search = ({history, ...props}) => {
   const jobs = useSelector(state => state.jobs);
   const dispatch = useDispatch();
-  const [inputText, setInputText] = useState(this.props.match.params.searchText ? decodeURIComponent(this.props.match.params.searchText) : '');
-  const [searchText, setSearchText] = useState(this.props.match.params.searchText ? decodeURIComponent(this.props.match.params.searchText) : '');
+  const [inputText, setInputText] = useState(props.match.params.searchText ? decodeURIComponent(props.match.params.searchText) : '');
+  const [searchText, setSearchText] = useState(props.match.params.searchText ? decodeURIComponent(props.match.params.searchText) : '');
   const [isDownloaded, setDownloaded] = useState(false);
 
   function handleChange(e) {
@@ -27,14 +27,15 @@ const Search = ({history, ...props}) => {
   }
 
   useEffect(() => {
-    if (isDownloaded !== true && searchText.length > 0) {
-      const controller = new AbortController();
-      findJobs(searchText, controller.signal)
-        .then(jobs => {
-          dispatch(setJobsAction(jobs));
-          setDownloaded(true);
-        });
-      return () => controller.abort();
+    if (isDownloaded !== true) {
+      dispatch(clearJobsAction());
+      if (searchText.length > 0) {
+        findJobs(searchText)
+          .then(jobs => {
+            dispatch(setJobsAction(jobs));
+            setDownloaded(true);
+          });
+      }
     }
   });
 

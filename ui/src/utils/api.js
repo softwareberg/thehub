@@ -13,37 +13,26 @@ const transformJob = ({ jobId, title, description, hasStar, keywords, href }) =>
 
 const prefix = '/api';
 
-const fetchWithAbort = (url, signal = undefined, options = {}) => {
-  if (signal !== undefined && signal !== null) {
-    options = {
-      ...options,
-      signal
-    }
-  }
-
-  return fetch(url, options);
-};
-
-export const fetchJobs = (signal = undefined) => (
-  fetchWithAbort(prefix + '/jobs?size=100', signal)
+export const fetchJobs = () => (
+  fetch(prefix + '/jobs?size=100')
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob))
 );
 
-export const fetchStarredJobs = (signal = undefined) => (
-  fetchWithAbort(prefix +'/jobs?hasStar=true', signal)
+export const fetchStarredJobs = () => (
+  fetch(prefix +'/jobs?hasStar=true')
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob))
 );
 
-export const findJobsByKeyword = (keyword, signal = undefined) => (
-  fetchWithAbort(prefix + `/jobs?keyword=${keyword}&size=100`, signal)
+export const findJobsByKeyword = (keyword) => (
+  fetch(prefix + `/jobs?keyword=${keyword}&size=100`)
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob))
 );
 
-export const findJobs = (q, signal = undefined) => (
-  fetchWithAbort(prefix + `/jobs?q=${q}&size=100`, signal)
+export const findJobs = (q) => (
+  fetch(prefix + `/jobs?q=${q}&size=100`)
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob))
 );
