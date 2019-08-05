@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import clearJobsAction from '../redux/actions/clearJobs';
-import {fetchJobs} from '../utils/api';
+import { fetchJobs } from '../utils/api';
 import Job from './Job';
 import setJobsAction from '../redux/actions/setJobs';
-import { useDispatch, useSelector } from 'react-redux';
 
-const AllJobs = ({...props}) => {
+const AllJobs = ({ ...props }) => {
   const jobs = useSelector(state => state.jobs);
   const dispatch = useDispatch();
   const [isDownloaded, setDownloaded] = useState(false);
@@ -15,18 +15,18 @@ const AllJobs = ({...props}) => {
     if (isDownloaded !== true && isDownloading !== true) {
       setDownloading(true);
       dispatch(clearJobsAction());
-      fetchJobs().then(jobs => {
+      fetchJobs().then((jobs) => {
         dispatch(setJobsAction(jobs));
         setDownloaded(true);
         setDownloading(false);
       });
     }
-  });
+  }, [isDownloaded, isDownloading, dispatch]);
 
   return (
     <React.Fragment>
       <h1>All Jobs</h1>
-      {jobs.map(job => <Job key={job.jobId} job={job}/>)}
+      {jobs.map(job => <Job key={job.jobId} job={job} />)}
     </React.Fragment>
   );
 };

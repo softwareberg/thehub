@@ -1,12 +1,12 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import Menu from "./Menu";
+import Menu from './Menu';
 
-const Layout = ({component: Component, ...props}) => (
+const Layout = ({ component: Component, ...props }) => (
   <Container>
-    <Menu/>
+    <Menu />
     <main>
-      <Component {...props}/>
+      <Component {...props} />
     </main>
   </Container>
 );

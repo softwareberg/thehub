@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import clearJobsAction from '../redux/actions/clearJobs';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { findJobsByKeyword } from '../utils/api';
 import Form from 'react-bootstrap/Form';
+import clearJobsAction from '../redux/actions/clearJobs';
+import { findJobsByKeyword } from '../utils/api';
 import Job from './Job';
 import setJobsAction from '../redux/actions/setJobs';
 
-const SearchByKeyword = ({history, ...props}) => {
+const SearchByKeyword = ({ history, ...props }) => {
   const jobs = useSelector(state => state.jobs);
   const dispatch = useDispatch();
   const [inputText, setInputText] = useState(props.match.params.searchText ? decodeURIComponent(props.match.params.searchText) : '');
@@ -22,7 +22,7 @@ const SearchByKeyword = ({history, ...props}) => {
   function handleEnter() {
     const nextSearchText = inputText;
     setSearchText(nextSearchText);
-    history.push('/keywords/' + encodeURIComponent(nextSearchText));
+    history.push(`/keywords/${encodeURIComponent(nextSearchText)}`);
     dispatch(clearJobsAction());
     setDownloaded(false);
   }
@@ -33,14 +33,14 @@ const SearchByKeyword = ({history, ...props}) => {
       dispatch(clearJobsAction());
       if (searchText.length > 0) {
         findJobsByKeyword(searchText)
-          .then(jobs => {
+          .then((jobs) => {
             dispatch(setJobsAction(jobs));
             setDownloaded(true);
             setDownloading(false);
           });
       }
     }
-  });
+  }, [isDownloaded, isDownloading, dispatch, searchText]);
 
   return (
     <React.Fragment>
@@ -50,21 +50,21 @@ const SearchByKeyword = ({history, ...props}) => {
         handleChange={handleChange}
         handleEnter={handleEnter}
       />
-      {jobs.map(job => <Job key={job.jobId} job={job}/>)}
+      {jobs.map(job => <Job key={job.jobId} job={job} />)}
     </React.Fragment>
   );
 };
 
-const SearchInput = ({inputText, handleChange, handleEnter, ...props}) => (
-  <Form onSubmit={e => {e.preventDefault(); handleEnter()}}>
+const SearchInput = ({ inputText, handleChange, handleEnter, ...props }) => (
+  <Form onSubmit={(e) => { e.preventDefault(); handleEnter(); }}>
     <Form.Control
-      placeholder='Type and press enter...'
+      placeholder="Type and press enter..."
       autoFocus
       size="lg"
       type="text"
       value={inputText}
       onChange={handleChange}
-      style={{marginBottom: 8}}
+      style={{ marginBottom: 8 }}
     />
   </Form>
 );

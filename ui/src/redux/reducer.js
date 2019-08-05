@@ -1,6 +1,6 @@
-import {combineReducers} from 'redux'
-import jobs from './reducers/jobs'
+import { combineReducers } from 'redux';
+import jobs from './reducers/jobs';
 
 export default combineReducers({
-  jobs: jobs
+  jobs
 });
