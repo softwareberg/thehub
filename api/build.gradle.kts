@@ -118,7 +118,7 @@ repositories {
 }
 
 dependencies {
-//    ext.kotlinxcoroutines = "0.30.1"  //TODO is it needed?
+//    ext.kotlinxcoroutines = "0.30.1"
     val querydsl = "4.2.1"
 
     compile("org.springframework.boot:spring-boot-starter-web")
