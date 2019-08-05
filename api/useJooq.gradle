@@ -1,5 +1,5 @@
 jooq {
-	version = "3.11.11"
+    version = "3.11.11"
     codeloop(sourceSets.main) {
         jdbc {
             driver = "org.postgresql.Driver"
