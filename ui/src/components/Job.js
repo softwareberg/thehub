@@ -60,14 +60,14 @@ const Star = ({ hasStar, setStar, ...props }) => (
   />
 );
 
-const Title = ({ title, hasStar, setStar, ...props }) => (
+const Title = ({ title, hasStar, setStar }) => (
   <Card.Title>
     <Star hasStar={hasStar} setStar={setStar} />
     <span style={{ marginLeft: '0.5ch' }}>{title}</span>
   </Card.Title>
 );
 
-const Description = ({ description, isUnwrapped, setUnwrap, ...props }) => {
+const Description = ({ description, isUnwrapped, setUnwrap }) => {
   if (isUnwrapped) {
     return (
       <Card.Text style={{ whiteSpace: 'pre-line' }}>
@@ -90,7 +90,7 @@ const Description = ({ description, isUnwrapped, setUnwrap, ...props }) => {
   );
 };
 
-const Keywords = ({ keywords, ...props }) => (
+const Keywords = ({ keywords }) => (
   <ul>
     {keywords.map(k => (
       <li key={k} style={{ display: 'inline' }}>
@@ -102,7 +102,7 @@ const Keywords = ({ keywords, ...props }) => (
   </ul>
 );
 
-const Links = ({ href, deleteJob, ...props }) => (
+const Links = ({ href, deleteJob }) => (
   <React.Fragment>
     <Card.Link href={href} target="_blank" rel="noopener noreferrer">Link</Card.Link>
     <Card.Link href="#delete" className="text-muted" onClick={(e) => { e.preventDefault(); deleteJob(); }}>Delete</Card.Link>

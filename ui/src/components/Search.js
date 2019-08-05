@@ -6,11 +6,11 @@ import { findJobs } from '../utils/api';
 import Job from './Job';
 import setJobsAction from '../redux/actions/setJobs';
 
-const Search = ({ history, ...props }) => {
+const Search = ({ history, match, ...props }) => {
   const jobs = useSelector(state => state.jobs);
   const dispatch = useDispatch();
-  const [inputText, setInputText] = useState(props.match.params.searchText ? decodeURIComponent(props.match.params.searchText) : '');
-  const [searchText, setSearchText] = useState(props.match.params.searchText ? decodeURIComponent(props.match.params.searchText) : '');
+  const [inputText, setInputText] = useState(match.params.searchText ? decodeURIComponent(match.params.searchText) : '');
+  const [searchText, setSearchText] = useState(match.params.searchText ? decodeURIComponent(match.params.searchText) : '');
   const [isDownloaded, setDownloaded] = useState(false);
   const [isDownloading, setDownloading] = useState(false);
 

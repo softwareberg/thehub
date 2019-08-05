@@ -21,7 +21,6 @@
     "eslint-plugin-jsx-a11y": "6.2.x",
     "eslint-plugin-react": "7.14.x",
     "eslint-plugin-react-hooks": "1.6.x",
-    "redux-devtools-extension": "2.13.x",
     "stylelint": "10.1.x",
     "stylelint-config-primer": "7.0.x"
   },
@@ -36,7 +35,8 @@
     "react-redux": "7.1.x",
     "react-router-dom": "5.0.x",
     "react-scripts": "3.0.x",
-    "redux": "4.0.x"
+    "redux": "4.0.x",
+    "redux-devtools-extension": "2.13.x"
   },
   "eslintConfig": {
     "extends": "airbnb",

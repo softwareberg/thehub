@@ -5,7 +5,7 @@ import { fetchJobs } from '../utils/api';
 import Job from './Job';
 import setJobsAction from '../redux/actions/setJobs';
 
-const AllJobs = ({ ...props }) => {
+const AllJobs = () => {
   const jobs = useSelector(state => state.jobs);
   const dispatch = useDispatch();
   const [isDownloaded, setDownloaded] = useState(false);
