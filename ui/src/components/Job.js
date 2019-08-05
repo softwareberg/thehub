@@ -1,57 +1,52 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
-import {connect} from 'react-redux';
-import deleteJob from '../redux/actions/deleteJob';
+import deleteJobAction from '../redux/actions/deleteJob';
 import {deleteJob as deleteJobApi, startJob as startJobApi} from '../utils/api';
 import StarRegular from '../assets/img/star-regular.svg'
 import StarSolid from '../assets/img/star-solid.svg'
-import setUnwrap from '../redux/actions/setUnwrap';
-import setStar from '../redux/actions/setStar';
+import setUnwrapAction from '../redux/actions/setUnwrap';
+import setStarAction from '../redux/actions/setStar';
+import { useDispatch } from 'react-redux';
 
-class Job extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {jobId: props.job.jobId};
+const Job = ({job, ...props}) => {
+  const jobId = job.jobId;
+  const dispatch = useDispatch();
+
+  function setStar(hasStar) {
+    dispatch(setStarAction(jobId, hasStar));
+    startJobApi(jobId, hasStar);  // TODO ignore or not to ignore?
   }
 
-  render() {
-    const job = this.props.job;
-    return (
-      <Card body style={{marginBottom: 8}}>
-        <Title
-          title={job.title}
-          hasStar={job.hasStar}
-          setStar={this.setStar.bind(this)}
-        />
-        <Description
-          description={job.description.value}
-          isUnwrapped={job.description.isUnwrapped}
-          setUnwrap={this.setUnwrap.bind(this)}
-        />
-        <Keywords keywords={job.keywords}/>
-        <Links
-          href={job.href}
-          deleteJob={this.deleteJob.bind(this)}
-        />
-      </Card>
-    );
+  function setUnwrap(isUnwrapped) {
+    dispatch(setUnwrapAction(jobId, isUnwrapped));
   }
 
-  setUnwrap(isUnwrapped) {
-    this.props.dispatch(setUnwrap(this.state.jobId, isUnwrapped));
+  function deleteJob() {
+    dispatch(deleteJobAction(jobId));
+    deleteJobApi(jobId);  // TODO ignore or not to ignore?
   }
 
-  setStar(hasStar) {
-    this.props.dispatch(setStar(this.state.jobId, hasStar));
-    startJobApi(this.state.jobId, hasStar);  // TODO ignore or not to ignore?
-  }
-
-  deleteJob() {
-    this.props.dispatch(deleteJob(this.state.jobId));
-    deleteJobApi(this.state.jobId);  // TODO ignore or not to ignore?
-  }
-}
+  return (
+    <Card body style={{marginBottom: 8}}>
+      <Title
+        title={job.title}
+        hasStar={job.hasStar}
+        setStar={setStar}
+      />
+      <Description
+        description={job.description.value}
+        isUnwrapped={job.description.isUnwrapped}
+        setUnwrap={setUnwrap}
+      />
+      <Keywords keywords={job.keywords}/>
+      <Links
+        href={job.href}
+        deleteJob={deleteJob}
+      />
+    </Card>
+  );
+};
 
 const Star = ({hasStar, setStar, ...props}) => (
   <img
@@ -110,6 +105,4 @@ const Links = ({href, deleteJob, ...props}) => (
   </React.Fragment>
 );
 
-const mapStateToProps = state => ({});
-
-export default connect(mapStateToProps)(Job);
+export default React.memo(Job);

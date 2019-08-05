@@ -1,33 +1,33 @@
-import React, {Component} from 'react';
-import clearJobs from '../redux/actions/clearJobs';
-import {connect} from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import clearJobsAction from '../redux/actions/clearJobs';
 import {fetchJobs} from '../utils/api';
 import Job from './Job';
-import setJobs from '../redux/actions/setJobs';
+import setJobsAction from '../redux/actions/setJobs';
+import { useDispatch, useSelector } from 'react-redux';
 
-class AllJobs extends Component {
-  componentDidMount() {
-    this.props.dispatch(clearJobs());
-    this.downloadJobs();
-  }
+const AllJobs = ({...props}) => {
+  const jobs = useSelector(state => state.jobs);
+  const dispatch = useDispatch();
+  const [isDownloaded, setDownloaded] = useState(false);
 
-  render() {
-    const jobs = this.props.jobs;
-    return (
-      <React.Fragment>
-        <h1>All Jobs</h1>
-        {jobs.map(job => <Job key={job.jobId} job={job}/>)}
-      </React.Fragment>
-    );
-  }
+  useEffect(() => {
+    if (isDownloaded !== true) {
+      const controller = new AbortController();
+      dispatch(clearJobsAction());
+      fetchJobs(controller.signal).then(jobs => {
+        dispatch(setJobsAction(jobs));
+        setDownloaded(true);
+      });
+      return () => controller.abort();
+    }
+  });
 
-  downloadJobs() {
-    fetchJobs().then(jobs => {
-      this.props.dispatch(setJobs(jobs));
-    })
-  }
-}
+  return (
+    <React.Fragment>
+      <h1>All Jobs</h1>
+      {jobs.map(job => <Job key={job.jobId} job={job}/>)}
+    </React.Fragment>
+  );
+};
 
-const mapStateToProps = state => ({jobs: state.jobs});
-
-export default connect(mapStateToProps)(AllJobs);
+export default AllJobs;
