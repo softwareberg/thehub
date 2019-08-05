@@ -20,7 +20,8 @@
     "eslint-plugin-import": "2.18.x",
     "eslint-plugin-jsx-a11y": "6.2.x",
     "eslint-plugin-react": "7.14.x",
-    "eslint-plugin-react-hooks": "^1.6.1",
+    "eslint-plugin-react-hooks": "1.6.x",
+    "redux-devtools-extension": "2.13.x",
     "stylelint": "10.1.x",
     "stylelint-config-primer": "7.0.x"
   },
