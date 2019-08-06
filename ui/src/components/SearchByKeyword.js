@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Form from 'react-bootstrap/Form';
-import clearJobsAction from '../redux/actions/clearJobs';
-import { findJobsByKeyword } from '../utils/api';
 import Job from './Job';
-import setJobsAction from '../redux/actions/setJobs';
+import useSearchByKeywordData from '../hooks/useSearchByKeywordData';
+import useEmptyJobsDidMount from '../hooks/useEmptyJobsDidMount';
 
-const SearchByKeyword = ({ history, match, ...props }) => {
+const SearchByKeyword = ({ history, match }) => {
   const jobs = useSelector(state => state.jobs);
-  const dispatch = useDispatch();
   const [inputText, setInputText] = useState(match.params.searchText ? decodeURIComponent(match.params.searchText) : '');
   const [searchText, setSearchText] = useState(match.params.searchText ? decodeURIComponent(match.params.searchText) : '');
-  const [isDownloaded, setDownloaded] = useState(false);
-  const [isDownloading, setDownloading] = useState(false);
+
+  useEmptyJobsDidMount();
+  useSearchByKeywordData(searchText);
 
   function handleChange(e) {
     const nextSearchText = e.target.value;
@@ -23,24 +22,7 @@ const SearchByKeyword = ({ history, match, ...props }) => {
     const nextSearchText = inputText;
     setSearchText(nextSearchText);
     history.push(`/keywords/${encodeURIComponent(nextSearchText)}`);
-    dispatch(clearJobsAction());
-    setDownloaded(false);
   }
-
-  useEffect(() => {
-    if (isDownloaded !== true && isDownloading !== true) {
-      setDownloading(true);
-      dispatch(clearJobsAction());
-      if (searchText.length > 0) {
-        findJobsByKeyword(searchText)
-          .then((jobs) => {
-            dispatch(setJobsAction(jobs));
-            setDownloaded(true);
-            setDownloading(false);
-          });
-      }
-    }
-  }, [isDownloaded, isDownloading, dispatch, searchText]);
 
   return (
     <React.Fragment>
@@ -55,7 +37,7 @@ const SearchByKeyword = ({ history, match, ...props }) => {
   );
 };
 
-const SearchInput = ({ inputText, handleChange, handleEnter, ...props }) => (
+const SearchInput = ({ inputText, handleChange, handleEnter }) => (
   <Form onSubmit={(e) => { e.preventDefault(); handleEnter(); }}>
     <Form.Control
       placeholder="Type and press enter..."

@@ -1,27 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import clearJobsAction from '../redux/actions/clearJobs';
-import { fetchJobs } from '../utils/api';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Job from './Job';
-import setJobsAction from '../redux/actions/setJobs';
+import useAllJobsData from '../hooks/useAllJobsData';
+import useEmptyJobsDidMount from '../hooks/useEmptyJobsDidMount';
 
 const AllJobs = () => {
   const jobs = useSelector(state => state.jobs);
-  const dispatch = useDispatch();
-  const [isDownloaded, setDownloaded] = useState(false);
-  const [isDownloading, setDownloading] = useState(false);
 
-  useEffect(() => {
-    if (isDownloaded !== true && isDownloading !== true) {
-      setDownloading(true);
-      dispatch(clearJobsAction());
-      fetchJobs().then((jobs) => {
-        dispatch(setJobsAction(jobs));
-        setDownloaded(true);
-        setDownloading(false);
-      });
-    }
-  }, [isDownloaded, isDownloading, dispatch]);
+  useEmptyJobsDidMount();
+  useAllJobsData();
 
   return (
     <React.Fragment>
