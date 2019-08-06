@@ -16,18 +16,19 @@ function useSearchData(query) {
   }
 
   useEffect(() => {
-    if (isDownloaded !== true && isDownloading !== true) {
-      setDownloading(true);
-      dispatch(clearJobsAction());
-      if (lastQuery.length > 0) {
-        findJobs(lastQuery)
-          .then((jobs) => {
-            dispatch(setJobsAction(jobs));
-            setDownloaded(true);
-            setDownloading(false);
-          });
+    async function fetchData() {
+      if (isDownloaded !== true && isDownloading !== true) {
+        setDownloading(true);
+        dispatch(clearJobsAction());
+        if (lastQuery.length > 0) {
+          const jobs = await findJobs(lastQuery);
+          dispatch(setJobsAction(jobs));
+          setDownloaded(true);
+          setDownloading(false);
+        }
       }
     }
+    fetchData();
   }, [isDownloaded, isDownloading, dispatch, lastQuery]);
 }
 

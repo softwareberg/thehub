@@ -12,4 +12,4 @@ const Menu = () => (
   </Nav>
 );
 
-export default Menu;
+export default React.memo(Menu);

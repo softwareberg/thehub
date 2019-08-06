@@ -4,11 +4,11 @@ import { useDispatch } from 'react-redux';
 
 function useEmptyJobsDidMount() {
   const dispatch = useDispatch();
-  const [initialized, setInitialized] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  if (initialized !== true) {
+  if (isInitialized !== true) {
     dispatch(clearJobsAction());
-    setInitialized(true);
+    setIsInitialized(true);
   }
 }
 

@@ -10,15 +10,17 @@ function useStarredJobsData() {
   const [isDownloaded, setDownloaded] = useState(false);
 
   useEffect(() => {
-    if (isDownloaded !== true && isDownloading !== true) {
-      setDownloading(true);
-      dispatch(clearJobsAction());
-      fetchStarredJobs().then((jobs) => {
+    async function fetchData() {
+      if (isDownloaded !== true && isDownloading !== true) {
+        setDownloading(true);
+        dispatch(clearJobsAction());
+        const jobs = await fetchStarredJobs();
         dispatch(setJobsAction(jobs));
         setDownloaded(true);
         setDownloading(false);
-      });
+      }
     }
+    fetchData();
   }, [isDownloaded, isDownloading, dispatch]);
 }
 
