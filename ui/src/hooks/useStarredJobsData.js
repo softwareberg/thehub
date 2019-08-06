@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux';
 
 function useStarredJobsData() {
   const dispatch = useDispatch();
-  const [isDownloaded, setDownloaded] = useState(false);
   const [isDownloading, setDownloading] = useState(false);
+  const [isDownloaded, setDownloaded] = useState(false);
 
   useEffect(() => {
     if (isDownloaded !== true && isDownloading !== true) {
