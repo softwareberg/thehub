@@ -6,7 +6,7 @@
     "build": "rescripts build",
     "test": "rescripts test",
     "eject": "react-scripts eject",
-    "eslint": "eslint --ext .js --ext .jsx \"src/**\"",
+    "eslint": "eslint --ext .js --ext .jsx \"src/**\" --ignore-pattern \"src/assets/**\" --ignore-pattern \"src/serviceWorker.js\"",
     "stylelint": "npx stylelint \"src/assets/css/**\""
   },
   "author": "Codeloop",
@@ -40,67 +40,6 @@
     "react-scripts": "3.0.x",
     "redux": "4.0.x",
     "redux-devtools-extension": "2.13.x"
-  },
-  "eslintConfig": {
-    "extends": "airbnb",
-    "env": {
-      "browser": true
-    },
-    "plugins": [
-      "react-hooks"
-    ],
-    "rules": {
-      "comma-dangle": [
-        "error",
-        "never"
-      ],
-      "import/prefer-default-export": "ignore",
-      "object-curly-newline": [
-        "error",
-        {
-          "ImportDeclaration": "never"
-        }
-      ],
-      "import/no-unresolved": "ignore",
-      "react/jsx-filename-extension": [
-        1,
-        {
-          "extensions": [
-            ".js",
-            ".jsx"
-          ]
-        }
-      ],
-      "react/react-in-jsx-scope": "ignore",
-      "react/no-unknown-property": "ignore",
-      "react/prop-types": "ignore",
-      "jsx-a11y/click-events-have-key-events": "ignore",
-      "jsx-a11y/no-noninteractive-element-interactions": "ignore",
-      "no-shadow": [
-        "error",
-        {
-          "allow": [
-            "state",
-            "actions"
-          ]
-        }
-      ],
-      "no-unused-vars": [
-        "error",
-        {
-          "varsIgnorePattern": "h"
-        }
-      ],
-      "no-param-reassign": [
-        "error",
-        {
-          "props": false
-        }
-      ],
-      "linebreak-style": 0,
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
-    }
   },
   "browserslist": {
     "production": [
