@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Form from 'react-bootstrap/Form';
-import Job from './Job';
-import useSearchData from '../hooks/useSearchData';
-import useEmptyJobsDidMount from '../hooks/useEmptyJobsDidMount';
+import Job from 'components/Job';
+import useSearchData from 'hooks/useSearchData';
+import useEmptyJobsDidMount from 'hooks/useEmptyJobsDidMount';
 
 const Search = ({ history, match }) => {
   const jobs = useSelector(state => state.jobs);

@@ -2,12 +2,12 @@ import React from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import { useDispatch } from 'react-redux';
-import deleteJobAction from '../redux/actions/deleteJob';
-import { deleteJob as deleteJobApi, startJob as startJobApi } from '../utils/api';
-import StarRegular from '../assets/img/star-regular.svg';
-import StarSolid from '../assets/img/star-solid.svg';
-import setUnwrapAction from '../redux/actions/setUnwrap';
-import setStarAction from '../redux/actions/setStar';
+import deleteJobAction from 'redux/actions/deleteJob';
+import { deleteJob as deleteJobApi, startJob as startJobApi } from 'utils/api';
+import StarRegular from 'assets/img/star-regular.svg';
+import StarSolid from 'assets/img/star-solid.svg';
+import setUnwrapAction from 'redux/actions/setUnwrap';
+import setStarAction from 'redux/actions/setStar';
 
 const Job = ({ job, ...props }) => {
   const { jobId } = job;

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import AllJobs from './AllJobs';
-import Home from './Home';
-import Layout from './Layout';
-import NotFound from './NotFound';
-import Search from './Search';
-import SearchByKeyword from './SearchByKeyword';
-import StarredJobs from './StarredJobs';
-import withRedux from './withRedux';
+import AllJobs from 'components/AllJobs';
+import Home from 'components/Home';
+import Layout from 'components/Layout';
+import NotFound from 'components/NotFound';
+import Search from 'components/Search';
+import SearchByKeyword from 'components/SearchByKeyword';
+import StarredJobs from 'components/StarredJobs';
+import withRedux from 'components/withRedux';
 
 const App = ({ ...props }) => (
   <React.Fragment>

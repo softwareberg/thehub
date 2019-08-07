@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Job from './Job';
-import useAllJobsData from '../hooks/useAllJobsData';
-import useEmptyJobsDidMount from '../hooks/useEmptyJobsDidMount';
+import Job from 'components/Job';
+import useAllJobsData from 'hooks/useAllJobsData';
+import useEmptyJobsDidMount from 'hooks/useEmptyJobsDidMount';
 
 const AllJobs = () => {
   const jobs = useSelector(state => state.jobs);

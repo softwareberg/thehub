@@ -1,4 +1,4 @@
-import { DELETE_JOB } from '../actionsTypes';
+import { DELETE_JOB } from 'redux/actionsTypes';
 
 export const deleteJob = jobId => ({
   type: DELETE_JOB,

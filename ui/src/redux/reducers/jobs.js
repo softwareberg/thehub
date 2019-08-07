@@ -1,4 +1,4 @@
-import { CLEAR_JOBS, DELETE_JOB, SET_JOBS, SET_STAR, SET_UNWRAP } from '../actionsTypes';
+import { CLEAR_JOBS, DELETE_JOB, SET_JOBS, SET_STAR, SET_UNWRAP } from 'redux/actionsTypes';
 
 const initialState = [];
 
