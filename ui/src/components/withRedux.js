@@ -7,7 +7,7 @@ import reducer from 'redux/reducer';
 const store = createStore(reducer, devToolsEnhancer());
 
 function withRedux(Component) {
-  function withRedux(props) {
+  function withReduxProvider(props) {
     return (
       <Provider store={store}>
         <Component {...props} />
@@ -15,7 +15,7 @@ function withRedux(Component) {
     );
   }
 
-  return withRedux;
+  return withReduxProvider;
 }
 
 export default withRedux;

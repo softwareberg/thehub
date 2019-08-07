@@ -9,13 +9,13 @@ import StarSolid from 'assets/img/star-solid.svg';
 import setUnwrapAction from 'redux/actions/setUnwrap';
 import setStarAction from 'redux/actions/setStar';
 
-const Job = ({ job, ...props }) => {
+const Job = ({ job }) => {
   const { jobId } = job;
   const dispatch = useDispatch();
 
   function setStar(hasStar) {
     dispatch(setStarAction(jobId, hasStar));
-    startJobApi(jobId, hasStar); // TODO ignore or not to ignore?
+    startJobApi(jobId, hasStar); // TODO ignore promise or not to ignore?
   }
 
   function setUnwrap(isUnwrapped) {
@@ -24,7 +24,7 @@ const Job = ({ job, ...props }) => {
 
   function deleteJob() {
     dispatch(deleteJobAction(jobId));
-    deleteJobApi(jobId); // TODO ignore or not to ignore?
+    deleteJobApi(jobId); // TODO ignore promise or not to ignore?
   }
 
   return (
@@ -48,7 +48,7 @@ const Job = ({ job, ...props }) => {
   );
 };
 
-const Star = ({ hasStar, setStar, ...props }) => (
+const Star = ({ hasStar, setStar }) => (
   <img
     src={hasStar ? StarSolid : StarRegular}
     alt={hasStar ? 'full star' : 'empty star'}

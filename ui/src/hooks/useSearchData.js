@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react';
 import clearJobsAction from 'redux/actions/clearJobs';
 import { findJobs } from 'utils/api';
 import setJobsAction from 'redux/actions/setJobs';

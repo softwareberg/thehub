@@ -7,11 +7,11 @@ import NotFound from 'components/NotFound';
 import Search from 'components/Search';
 import SearchByKeyword from 'components/SearchByKeyword';
 import StarredJobs from 'components/StarredJobs';
-import withRedux from 'components/withRedux';
+import withRedux from 'components/withReduxHelper';
 
-const App = ({ ...props }) => (
+const App = appProps => (
   <React.Fragment>
-    <Router {...props}>
+    <Router {...appProps}>
       <Switch>
         <Route path="/" exact component={props => <Layout component={Home} {...props} />} />
         <Route path="/all" exact component={props => <Layout component={AllJobs} {...props} />} />
