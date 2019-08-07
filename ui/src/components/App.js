@@ -7,7 +7,7 @@ import NotFound from 'components/NotFound';
 import Search from 'components/Search';
 import SearchByKeyword from 'components/SearchByKeyword';
 import StarredJobs from 'components/StarredJobs';
-import withRedux from 'components/withReduxHelper';
+import withRedux from 'components/withRedux';
 
 const App = appProps => (
   <React.Fragment>
