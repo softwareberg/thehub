@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import clearJobsAction from 'redux/actions/clearJobs';
 import { fetchStarredJobs } from 'utils/api';
 import setJobsAction from 'redux/actions/setJobs';
 import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 function useStarredJobsData() {
   const dispatch = useDispatch();

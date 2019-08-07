@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import clearJobsAction from 'redux/actions/clearJobs';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 function useEmptyJobsDidMount() {
   const dispatch = useDispatch();

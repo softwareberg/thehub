@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import clearJobsAction from 'redux/actions/clearJobs';
 import { findJobs } from 'utils/api';
 import setJobsAction from 'redux/actions/setJobs';
 import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 function useSearchData(query) {
   const dispatch = useDispatch();
