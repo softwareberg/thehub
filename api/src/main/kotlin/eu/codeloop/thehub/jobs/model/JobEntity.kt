@@ -34,6 +34,9 @@ class JobEntity {
     @Column(name = "is_deleted", nullable = false)
     var isDeleted: Boolean = false
 
+    @Column(name = "poster", nullable = false)
+    lateinit var poster: String
+
     @ManyToOne
     @JoinColumn(
         name = "company_id",

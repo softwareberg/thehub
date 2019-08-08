@@ -1,73 +1,123 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
-import { useDispatch } from 'react-redux';
 import deleteJobAction from 'redux/actions/deleteJob';
 import { deleteJob as deleteJobApi, startJob as startJobApi } from 'utils/api';
 import StarRegular from 'assets/img/star-regular.svg';
 import StarSolid from 'assets/img/star-solid.svg';
 import setUnwrapAction from 'redux/actions/setUnwrap';
 import setStarAction from 'redux/actions/setStar';
+import { useDispatch } from 'react-redux';
+import useHover from 'hooks/useHover';
 
-const Job = ({ job }) => {
-  const { jobId } = job;
-  const dispatch = useDispatch();
+const Job = ({ job }) => (
+  <Card body style={{ marginBottom: 8 }}>
+    <Title
+      hasStar={job.hasStar}
+      jobId={job.jobId}
+      title={job.title}
+    />
+    <Image
+      logo={job.logo}
+      poster={job.poster}
+    />
+    <Description
+      description={job.description.value}
+      isUnwrapped={job.description.isUnwrapped}
+      jobId={job.jobId}
+    />
+    <Keywords keywords={job.keywords} />
+    <Links
+      href={job.href}
+      jobId={job.jobId}
+    />
+  </Card>
+);
 
-  function setStar(hasStar) {
-    dispatch(setStarAction(jobId, hasStar));
-    startJobApi(jobId, hasStar); // TODO ignore promise or not to ignore?
-  }
-
-  function setUnwrap(isUnwrapped) {
-    dispatch(setUnwrapAction(jobId, isUnwrapped));
-  }
-
-  function deleteJob() {
-    dispatch(deleteJobAction(jobId));
-    deleteJobApi(jobId); // TODO ignore promise or not to ignore?
-  }
+const Image = ({ poster, logo }) => {
+  const [logoOpacity, setLogoOpacity] = useState(1);
+  const logoHover = useHover(isHover => (isHover ? setLogoOpacity(0.1) : setLogoOpacity(1)));
 
   return (
-    <Card body style={{ marginBottom: 8 }}>
-      <Title
-        title={job.title}
-        hasStar={job.hasStar}
-        setStar={setStar}
+    <div
+      style={{
+        position: 'relative',
+        display: 'inline-flex',
+        justifyContent: 'center',
+        width: '100%',
+        height: 380
+      }}
+    >
+      <Card.Img
+        variant="top"
+        src={poster}
+        alt=""
+        style={{
+          objectFit: 'cover'
+        }}
       />
-      <Description
-        description={job.description.value}
-        isUnwrapped={job.description.isUnwrapped}
-        setUnwrap={setUnwrap}
-      />
-      <Keywords keywords={job.keywords} />
-      <Links
-        href={job.href}
-        deleteJob={deleteJob}
-      />
-    </Card>
+      <picture
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          height: 150,
+          width: 200,
+          transform: 'translate(-50%, -50%)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignContent: 'center'
+        }}
+        {...logoHover}
+      >
+        <img
+          src={logo}
+          alt=""
+          style={{
+            opacity: logoOpacity,
+            objectFit: 'contain'
+          }}
+        />
+      </picture>
+    </div>
   );
 };
 
-const Star = ({ hasStar, setStar }) => (
-  <img
-    src={hasStar ? StarSolid : StarRegular}
-    alt={hasStar ? 'full star' : 'empty star'}
-    style={{
-      height: '1em',
-      cursor: 'pointer'
-    }}
-    onClick={() => setStar(!hasStar)}
-  />
-);
+const Star = ({ jobId, hasStar }) => {
+  const dispatch = useDispatch();
 
-const Title = ({ title, hasStar, setStar }) => (
+  function setStar(hasStar2) {
+    dispatch(setStarAction(jobId, hasStar2));
+    startJobApi(jobId, hasStar2); // TODO ignore promise or not to ignore?
+  }
+
+  return (
+    <img
+      src={hasStar ? StarSolid : StarRegular}
+      alt={hasStar ? 'full star' : 'empty star'}
+      style={{
+        height: '1em',
+        cursor: 'pointer'
+      }}
+      onClick={() => setStar(!hasStar)}
+    />
+  );
+};
+
+const Title = ({ title, hasStar, jobId }) => (
   <Card.Title>
-    <Star hasStar={hasStar} setStar={setStar} />
+    <Star hasStar={hasStar} jobId={jobId} />
     <span style={{ marginLeft: '0.5ch' }}>{title}</span>
   </Card.Title>
 );
 
-const Description = ({ description, isUnwrapped, setUnwrap }) => {
+const Description = ({ description, isUnwrapped, jobId }) => {
+  const dispatch = useDispatch();
+
+  function setUnwrap(isUnwrapped2) {
+    dispatch(setUnwrapAction(jobId, isUnwrapped2));
+  }
+
   if (isUnwrapped) {
     return (
       <Card.Text style={{ whiteSpace: 'pre-line' }}>
@@ -102,11 +152,20 @@ const Keywords = ({ keywords }) => (
   </ul>
 );
 
-const Links = ({ href, deleteJob }) => (
-  <React.Fragment>
-    <Card.Link href={href} target="_blank" rel="noopener noreferrer">Link</Card.Link>
-    <Card.Link href="#delete" className="text-muted" onClick={(e) => { e.preventDefault(); deleteJob(); }}>Delete</Card.Link>
-  </React.Fragment>
-);
+const Links = ({ href, jobId }) => {
+  const dispatch = useDispatch();
+
+  function deleteJob() {
+    dispatch(deleteJobAction(jobId));
+    deleteJobApi(jobId); // TODO ignore promise or not to ignore?
+  }
+
+  return (
+    <React.Fragment>
+      <Card.Link href={href} target="_blank" rel="noopener noreferrer">Link</Card.Link>
+      <Card.Link href="#delete" className="text-muted" onClick={(e) => { e.preventDefault(); deleteJob(); }}>Delete</Card.Link>
+    </React.Fragment>
+  );
+};
 
 export default React.memo(Job);

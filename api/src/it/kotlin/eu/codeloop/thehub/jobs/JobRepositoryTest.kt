@@ -76,7 +76,8 @@ class JobRepositoryTest {
         jobPerkDescription: String = "jobPerkDescription",
         jobEquity: String = "jobEquity",
         jobMonthlySalary: String = "jobMonthlySalary",
-        jobPositionType: String = "jobPositionType"
+        jobPositionType: String = "jobPositionType",
+        jobPoster: String = "jobPoster"
     ): CompanyEntity {
         val company = repository.findById(companyId).orElse(CompanyEntity())
 
@@ -120,6 +121,7 @@ class JobRepositoryTest {
         job.keywords.add(keyword)
         job.perks.clear()
         job.perks.add(perk)
+        job.poster = jobPoster
 
         company.jobs.add(job)
 

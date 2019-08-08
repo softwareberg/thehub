@@ -1,4 +1,4 @@
-const transformJob = ({ jobId, title, description, hasStar, keywords, href }) => ({
+const transformJob = ({ jobId, title, description, hasStar, keywords, href, logo, poster }) => ({
   jobId,
   title: title.replace(/&amp;/g, '&'),
   description: {
@@ -7,7 +7,9 @@ const transformJob = ({ jobId, title, description, hasStar, keywords, href }) =>
   },
   hasStar,
   keywords,
-  href
+  href,
+  logo,
+  poster
 }
 );
 

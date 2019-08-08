@@ -26,5 +26,6 @@ class JobHtmlFetcherTest {
         assertThat(details.monthlySalary).isEqualToIgnoringCase("competitive")
         assertThat(details.perks.map { it.key }).contains("lunch", "time", "coffee")
         assertThat(details.keywords).containsExactlyInAnyOrder("sales", "saas", "inside")
+        assertThat(details.poster).isEqualTo(Poster("5aafe9fc2afde8750765d7c8/coverImage_upload-f2c77d9936526fda76ecef28e3ef513b.png"))
     }
 }

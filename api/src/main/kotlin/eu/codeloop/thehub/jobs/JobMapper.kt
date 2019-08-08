@@ -8,13 +8,17 @@ class JobMapper {
     fun map(job: JobEntity): JobDto {
         val href = "https://${job.company.domain.domain}/jobs/${job.jobId}"
         val keywords = job.keywords.map { it.keyword }
+        val logo = "https://${job.company.domain.domain}/files/${job.company.logo}"
+        val poster = if (job.poster != "") "https://${job.company.domain.domain}/files/${job.poster}" else "https://${job.company.domain.domain}/images/default_cover.jpg"
         return JobDto(
             jobId = job.jobId,
             title = job.title,
             description = job.description,
             hasStar = job.hasStar,
             href = href,
-            keywords = keywords
+            keywords = keywords,
+            logo = logo,
+            poster = poster
         )
     }
 }

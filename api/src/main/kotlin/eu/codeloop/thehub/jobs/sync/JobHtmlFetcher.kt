@@ -10,6 +10,7 @@ import org.jsoup.select.Elements
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.util.concurrent.TimeUnit
+import java.util.regex.Pattern
 
 @Service
 class JobHtmlFetcher(private val jsoupFetcher: JsoupFetcher) {
@@ -26,7 +27,22 @@ class JobHtmlFetcher(private val jsoupFetcher: JsoupFetcher) {
         val keyword = document.select(".keywords mark").eachText()
         val description = unescapeHtml4(document.select(".text-body").wholeText())
         val perks = extractPerks(document)
-        return Job(monthlySalary, equity, keyword, description, perks)
+        val poster = extractPoster(document)
+        return Job(monthlySalary, equity, keyword, description, perks, poster)
+    }
+
+    private fun extractPoster(document: Document): Poster {
+        val css = document.select("hero").attr("style")
+
+        val patternLink = Pattern.compile("^.*background-image:url\\(([^)]*)\\).*$")
+        val matcherLink = patternLink.matcher(css)
+        val link = if (matcherLink.matches()) matcherLink.group(1) else ""
+
+        val patternCleanLink = Pattern.compile("^/files/(.*)/(.*)$")
+        val matcherCleanLink = patternCleanLink.matcher(link)
+        val filename = if (matcherCleanLink.matches()) "${matcherCleanLink.group(1)}/${matcherCleanLink.group(2)}" else ""
+
+        return Poster(filename)
     }
 
     private fun extractPerks(document: Document): List<Perk> {
@@ -49,7 +65,8 @@ class JobHtmlFetcher(private val jsoupFetcher: JsoupFetcher) {
         val equity: String?,
         val keywords: List<String>,
         val description: String,
-        val perks: List<Perk>
+        val perks: List<Perk>,
+        val poster: Poster
     )
 }
 
