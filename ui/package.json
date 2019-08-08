@@ -2,50 +2,55 @@
   "name": "thehub",
   "version": "0.1.0",
   "scripts": {
-    "start": "webpack-dev-server --mode development --hot --inline",
-    "build": "cross-env NODE_ENV=production webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
+    "eject": "react-scripts eject",
+    "eslint": "eslint --ext .js --ext .jsx \"src/**\" --ignore-pattern \"src/assets/**\" --ignore-pattern \"src/serviceWorker.js\"",
+    "stylelint": "npx stylelint \"src/assets/css/**\""
   },
   "author": "Codeloop",
   "license": "ISC",
+  "private": true,
   "devDependencies": {
-    "babel-core": "6.26.x",
-    "babel-loader": "7.1.x",
-    "babel-plugin-transform-react-jsx": "6.24.x",
-    "babel-preset-env": "1.7.x",
-    "babel-preset-stage-2": "6.24.x",
-    "copy-webpack-plugin": "5.0.x",
-    "cross-env": "5.2.x",
-    "css-loader": "3.0.x",
+    "@primer/css": "12.5.x",
+    "@rescripts/cli": "0.0.x",
+    "@rescripts/rescript-use-babel-config": "0.0.x",
+    "babel-plugin-module-resolver": "3.2.x",
     "eslint": "5.16.x",
     "eslint-config-airbnb": "17.1.x",
     "eslint-loader": "2.2.x",
     "eslint-plugin-import": "2.18.x",
     "eslint-plugin-jsx-a11y": "6.2.x",
     "eslint-plugin-react": "7.14.x",
-    "file-loader": "4.0.x",
-    "html-webpack-plugin": "3.2.x",
-    "mini-css-extract-plugin": "0.8.x",
-    "node-sass": "4.12.x",
-    "postcss-loader": "3.0.x",
-    "@primer/css": "^12.4.x",
-    "sass-loader": "7.1.x",
-    "style-loader": "0.23.x",
+    "eslint-plugin-react-hooks": "1.6.x",
     "stylelint": "10.1.x",
-    "stylelint-config-primer": "7.0.x",
-    "stylelint-webpack-plugin": "0.10.x",
-    "webpack": "4.35.x",
-    "webpack-cli": "3.3.x",
-    "webpack-dev-server": "3.7.x"
+    "stylelint-config-primer": "7.0.x"
   },
   "dependencies": {
-    "@hyperapp/logger": "0.5.x",
-    "@hyperapp/router": "0.7.x",
-    "autoprefixer": "9.6.x",
     "bootstrap": "4.3.x",
-    "hyperapp": "1.2.x",
-    "jquery": "3.4.x",
-    "popper.js": "1.15.x",
-    "whatwg-fetch": "3.0.x"
+    "http-proxy-middleware": "0.19.x",
+    "node-sass": "4.12.x",
+    "react": "16.8.x",
+    "react-app-polyfill": "1.0.x",
+    "react-bootstrap": "1.0.0-beta.10",
+    "react-dom": "16.8.x",
+    "react-redux": "7.1.x",
+    "react-router-dom": "5.0.x",
+    "react-scripts": "3.0.x",
+    "redux": "4.0.x",
+    "redux-devtools-extension": "2.13.x"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
