@@ -21,7 +21,7 @@ open http://localhost:8080/api/jobs
 We use [jOOQ](https://www.jooq.org) for generating code that deals with SQL. If you change something related to databse you will need to regenerate this code. You can generate it explicitly:
 
 ```
-./gradlew generateSoftwarebergJooqSchemaSource
+./gradlew generateCodeloopJooqSchemaSource
 ```
 
 Or you can define environmental variable and call any gradle task:
