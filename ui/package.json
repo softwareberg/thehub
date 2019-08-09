@@ -6,7 +6,7 @@
     "build": "rescripts build",
     "test": "rescripts test",
     "eject": "react-scripts eject",
-    "eslint": "eslint --ext .js --ext .jsx \"src/**\" --ignore-pattern \"src/assets/**\" --ignore-pattern \"src/serviceWorker.js\"",
+    "eslint": "eslint --ext .js --ext .jsx \"src/**\" --ignore-pattern \"src/assets/**\"",
     "stylelint": "npx stylelint \"src/assets/css/**\""
   },
   "author": "Codeloop",
