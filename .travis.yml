@@ -13,9 +13,7 @@ matrix:
         - oraclejdk8
       before_cache:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-        - rm -f  $HOME/api/.gradle/caches/modules-2/modules-2.lock
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-        - rm -fr $HOME/api/.gradle/caches/*/plugin-resolution/
         - mkdir -p $HOME/docker
         - docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}' | xargs -n 2 -t sh -c 'test -e $HOME/docker/$1.tar.gz || docker save $0 | gzip -2 > $HOME/docker/$1.tar.gz'
       cache:
@@ -33,17 +31,13 @@ matrix:
         - cd api/
         - ./gradlew check
         - ./gradlew jacocoTestReport
-        - ls -A $HOME/api/.gradle/caches
-        - du -sh $HOME/api/.gradle/
-        - ls -A $HOME/.gradle/caches
-        - du -sh $HOME/.gradle/
     - name: "Frontend"
       language: node_js
       node_js:
         - "10.8.0"
-      cache:
-        directories:
-          - ui/node_modules
+#      cache:
+#        directories:
+#          - ui/node_modules
       script:
         - cd ui/
         - yarn install
