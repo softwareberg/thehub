@@ -37,10 +37,10 @@ matrix:
         - "10.8.0"
       cache:
         directories:
-          - ui/node_modules
+          - ui/node_modules/
+          - $HOME/.cache/yarn/
       script:
         - cd ui/
-        - yarn cache dir
         - yarn install
         - yarn build
         - yarn test
