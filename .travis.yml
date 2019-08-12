@@ -36,9 +36,9 @@ matrix:
       node_js:
         - "10.8.0"
       cache:
+        yarn: true
         directories:
           - ui/node_modules/
-          - $HOME/.cache/yarn/
       script:
         - cd ui/
         - yarn install
