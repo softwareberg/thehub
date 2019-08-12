@@ -23,7 +23,7 @@ matrix:
           - ${DOCKER_CACHE_FOLDER}
       before_install:
         - sudo /etc/init.d/postgresql stop
-        - if [[ -d ${DOCKER_CACHE_FOLDER} ]]; then ls ${DOCKER_CACHE_FOLDER}/*.tar.gz | xargs -I {file} sh -c "zcat {file} | docker load"; fi
+        - if [[ -d ${DOCKER_CACHE_FOLDER} ]]; then ls ${DOCKER_CACHE_FOLDER}/*.tar.gz | xargs -I {file} sh -c "zcat {file} | docker load" || true; fi
         - cd api/docker/
         - docker-compose up -d
         - cd ../../
