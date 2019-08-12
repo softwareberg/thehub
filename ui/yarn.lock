@@ -10033,7 +10033,7 @@ requires-port@^1.0.0:
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
-rescript-use-babel-jest-config@^1.0.0:
+rescript-use-babel-jest-config@1.0.x:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/rescript-use-babel-jest-config/-/rescript-use-babel-jest-config-1.0.0.tgz#6976161bf8ac5f0866087446b4c3cbc0b07a3f9d"
   integrity sha512-ULxc8SLi9M+9dK2v/95PHcqZ12nK8lAfb+uTX9ukZ7pIjaoaf39NkO89xCfDPqa/IgdMO7XMiDE6VeyaoEAzKA==
