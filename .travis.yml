@@ -1,6 +1,7 @@
 matrix:
   include:
-    - language: java
+    - name: "Backend"
+      language: java
       services:
         - docker
       env:
@@ -25,7 +26,8 @@ matrix:
         - cd api/
         - ./gradlew check
         - ./gradlew jacocoTestReport
-    - language: node_js
+    - name: "Frontend"
+      language: node_js
       node_js:
         - "10.8.0"
       cache:
