@@ -24,6 +24,7 @@
     "eslint-plugin-jsx-a11y": "6.2.x",
     "eslint-plugin-react": "7.14.x",
     "eslint-plugin-react-hooks": "1.6.x",
+    "rescript-use-babel-jest-config": "1.0.x",
     "stylelint": "10.1.x",
     "stylelint-config-primer": "7.0.x"
   },
