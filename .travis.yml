@@ -29,8 +29,8 @@ matrix:
         - cd ../../
       script:
         - cd api/
-        - ./gradlew check
-        - ./gradlew jacocoTestReport
+        - ./gradlew --build-cache check
+        - ./gradlew --build-cache jacocoTestReport
     - name: "Frontend"
       language: node_js
       node_js:
