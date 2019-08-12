@@ -8,22 +8,14 @@ matrix:
         global:
           - PGPORT=5432
           - GENERATE_SCHEMA=false
-          - DOCKER_CACHE_FOLDER=$HOME/docker
       jdk:
         - oraclejdk8
-      before_cache:
-        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-        - mkdir -p $HOME/docker-images
-        - docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}' | xargs -n 2 -t sh -c 'test -e $HOME/docker/$1.tar.gz || docker save $0 | gzip -2 > $HOME/docker/$1.tar.gz'
       cache:
         directories:
           - $HOME/.gradle/caches/
           - $HOME/.gradle/wrapper/
-          - ${DOCKER_CACHE_FOLDER}
       before_install:
         - sudo /etc/init.d/postgresql stop
-        - if [[ -d ${DOCKER_CACHE_FOLDER} ]]; then ls -1 ${DOCKER_CACHE_FOLDER}/*.tar.gz | xargs -I {file} sh -c "zcat {file} | docker load" || true; fi
         - cd api/docker/
         - docker-compose up -d
         - cd ../../
@@ -36,6 +28,9 @@ matrix:
         - ./gradlew --build-cache check
         - ./gradlew --build-cache jacocoTestReport
         - cd ../
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
     - name: "Frontend"
       language: node_js
       node_js:
