@@ -26,6 +26,8 @@ matrix:
         - cd api/
         - ./gradlew check
         - ./gradlew jacocoTestReport
+        - ls -A $HOME/api/.gradle/
+        - ls -A $HOME/.gradle/
     - name: "Frontend"
       language: node_js
       node_js:
