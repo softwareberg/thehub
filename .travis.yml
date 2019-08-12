@@ -35,9 +35,9 @@ matrix:
       language: node_js
       node_js:
         - "10.8.0"
-#      cache:
-#        directories:
-#          - ui/node_modules
+      cache:
+        directories:
+          - ui/node_modules
       script:
         - cd ui/
         - yarn install
