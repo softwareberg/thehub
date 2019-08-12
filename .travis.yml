@@ -1,7 +1,7 @@
 matrix:
   include:
     - name: "Backend"
-      language: java
+      language: generic
       services:
         - docker
       env:
@@ -27,6 +27,9 @@ matrix:
         - cd api/docker/
         - docker-compose up -d
         - cd ../../
+      install:
+        - cd api/
+        - ./gradlew assemble
       script:
         - cd api/
         - ./gradlew --build-cache build
