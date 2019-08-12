@@ -42,10 +42,10 @@ matrix:
       script:
         - cd ui/
         - yarn install
-        - yarn eslint
-        - yarn stylelint
         - yarn build
         - yarn test
+        - yarn eslint
+        - yarn stylelint
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 branches:
