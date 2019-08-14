@@ -15,7 +15,6 @@ const App = appProps => (
       <Switch>
         <Route path="/" exact component={props => <Layout component={Home} {...props} />} />
         <Route path="/all" exact component={props => <Layout component={AllJobs} {...props} />} />
-        <Route path="/all/:page" exact component={props => <Layout component={AllJobs} {...props} />} />
         <Route path="/starred" exact component={props => <Layout component={StarredJobs} {...props} />} />
         <Route path="/search" exact component={props => <Layout component={Search} {...props} />} />
         <Route path="/search/:searchText" component={props => <Layout component={Search} {...props} />} />
