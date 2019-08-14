@@ -7,15 +7,20 @@ const Pagination = () => {
   const { page, totalPages } = useSelector(state => state.pagination);
   const dispatch = useDispatch();
 
+  const indices = [];
+  for (let i = 1; i <= totalPages; i += 1) {
+    indices.push(i);
+  }
+
   return (
     <PaginationBootstrap style={{ flexWrap: 'wrap' }}>
-      {Array(totalPages).fill(0).map((_, i) => (
+      {indices.map(i => (
         <PaginationBootstrap.Item
           key={i}
-          active={i + 1 === page}
-          onClick={() => dispatch(setPage(i + 1))}
+          active={i === page}
+          onClick={() => dispatch(setPage(i))}
         >
-          {i + 1}
+          {i}
         </PaginationBootstrap.Item>
       ))
       }
