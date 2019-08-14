@@ -8,7 +8,7 @@ const Pagination = () => {
   const dispatch = useDispatch();
 
   return (
-    <PaginationBootstrap size="lg">
+    <PaginationBootstrap style={{ flexWrap: 'wrap' }}>
       {Array(totalPages).fill(0).map((_, i) => (
         <PaginationBootstrap.Item
           key={i}
