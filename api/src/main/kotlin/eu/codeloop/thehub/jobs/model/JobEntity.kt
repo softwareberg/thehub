@@ -1,5 +1,6 @@
 package eu.codeloop.thehub.jobs.model
 
+import java.time.OffsetDateTime
 import java.util.ArrayList
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -33,6 +34,9 @@ class JobEntity {
 
     @Column(name = "is_deleted", nullable = false)
     var isDeleted: Boolean = false
+
+    @Column(name = "approved_at", nullable = false)
+    var approvedAt: OffsetDateTime = OffsetDateTime.parse("1970-01-01T00:00:00.000Z")
 
     @ManyToOne
     @JoinColumn(

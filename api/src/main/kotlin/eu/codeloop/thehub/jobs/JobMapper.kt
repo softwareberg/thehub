@@ -14,7 +14,8 @@ class JobMapper {
             description = job.description,
             hasStar = job.hasStar,
             href = href,
-            keywords = keywords
+            keywords = keywords,
+            approvedAt = job.approvedAt
         )
     }
 }

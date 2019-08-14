@@ -129,7 +129,8 @@ class DatabaseOperations(
         equity: String?,
         positionType: String,
         hasStar: Boolean,
-        isDeleted: Boolean
+        isDeleted: Boolean,
+        approvedAt: OffsetDateTime
     ) {
         val record = db.fetchOne(JOBS, JOBS.JOB_ID.eq(jobId)) ?: db.newRecord(JOBS)
         record.jobId = jobId
@@ -141,6 +142,7 @@ class DatabaseOperations(
         record.positionType = positionType
         record.hasStar = hasStar
         record.isDeleted = isDeleted
+        record.approvedAt = approvedAt
         if (record != record.original()) {
             record.dateModified = now()
         }
