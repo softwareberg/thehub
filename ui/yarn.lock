@@ -2071,7 +2071,7 @@ babel-plugin-macros@2.5.1:
     cosmiconfig "^5.2.0"
     resolve "^1.10.0"
 
-babel-plugin-module-resolver@^3.2.0:
+babel-plugin-module-resolver@3.2.x:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-module-resolver/-/babel-plugin-module-resolver-3.2.0.tgz#ddfa5e301e3b9aa12d852a9979f18b37881ff5a7"
   integrity sha512-tjR0GvSndzPew/Iayf4uICWZqjBwnlMWjSx6brryfQ81F9rxBVqwDJtFCV8oOs0+vJeefK9TmdZtkIFdFe1UnA==
@@ -10032,6 +10032,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+rescript-use-babel-jest-config@1.0.x:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/rescript-use-babel-jest-config/-/rescript-use-babel-jest-config-1.0.0.tgz#6976161bf8ac5f0866087446b4c3cbc0b07a3f9d"
+  integrity sha512-ULxc8SLi9M+9dK2v/95PHcqZ12nK8lAfb+uTX9ukZ7pIjaoaf39NkO89xCfDPqa/IgdMO7XMiDE6VeyaoEAzKA==
 
 reselect@^3.0.1:
   version "3.0.1"

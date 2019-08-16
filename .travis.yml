@@ -1,6 +1,7 @@
 matrix:
   include:
-    - language: java
+    - name: "Backend"
+      language: generic
       services:
         - docker
       env:
@@ -9,23 +10,43 @@ matrix:
           - GENERATE_SCHEMA=false
       jdk:
         - oraclejdk8
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
       before_install:
         - sudo /etc/init.d/postgresql stop
         - cd api/docker/
         - docker-compose up -d
         - cd ../../
+      install:
+        - cd api/
+        - ./gradlew --build-cache assemble
+        - cd ../
       script:
         - cd api/
-        - ./gradlew check
-        - ./gradlew jacocoTestReport
-    - language: node_js
+        - ./gradlew --build-cache check
+        - ./gradlew --build-cache jacocoTestReport
+        - cd ../
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+    - name: "Frontend"
+      language: node_js
       node_js:
         - "10.8.0"
+      cache:
+        yarn: true
+        directories:
+          - ui/node_modules/
       script:
         - cd ui/
         - yarn install
+        - yarn build
+        - yarn test
         - yarn eslint
         - yarn stylelint
+        - cd ../
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 branches:
