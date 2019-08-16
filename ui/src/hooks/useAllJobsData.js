@@ -22,7 +22,7 @@ function useAllJobsData(page) {
       if (isDownloaded !== true && isDownloading !== true) {
         setDownloading(true);
         dispatch(clearJobsAction());
-        const data = await fetchJobs(page)
+        const data = await fetchJobs(lastQuery)
           .catch(() => showAlert('Error occurred while downloading jobs!'));
         const { jobs, pagination } = data;
         dispatch(setJobsAction(jobs));

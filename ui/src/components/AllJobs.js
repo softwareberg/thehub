@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import useAllJobsData from 'hooks/useAllJobsData';
 import useEmptyJobsDidMount from 'hooks/useEmptyJobsDidMount';
 import Job from 'components/Job';
-import Pagination from './Pagination';
+import Pagination from 'components/Pagination';
 
 const AllJobs = () => {
   const jobs = useSelector(state => state.jobs);
