@@ -21,7 +21,7 @@ matrix:
         - cd ../../
       install:
         - cd api/
-        - ./gradlew assemble
+        - ./gradlew --build-cache assemble
         - cd ../
       script:
         - cd api/
