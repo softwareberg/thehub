@@ -32,7 +32,7 @@ function useAllJobsData(page) {
       }
     }
     fetchData();
-  }, [isDownloaded, isDownloading, dispatch, page]);
+  }, [isDownloaded, isDownloading, dispatch, lastQuery]);
 }
 
 export default useAllJobsData;
