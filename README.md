@@ -36,7 +36,7 @@ Values can be `true`, `false` or variable is not defined at all (not generating)
 ## Frontend
 
 ```
-nvm install 10.8.0
+nvm install 12.8.1
 yarn
 yarn start
 open http://localhost:3000

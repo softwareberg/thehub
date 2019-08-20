@@ -3,6 +3,7 @@ import { fetchJobs } from 'utils/api';
 import setJobsAction from 'redux/actions/setJobs';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import setErrorMessage from '../redux/actions/setErrorMessage';
 
 function useAllJobsData() {
   const dispatch = useDispatch();
@@ -20,7 +21,10 @@ function useAllJobsData() {
         setDownloading(false);
       }
     }
-    fetchData();
+    fetchData()
+      .catch(() => {
+        dispatch(setErrorMessage("Wystąpił błąd podczas pobierania listy ofert z backendu!"))
+      });
   }, [isDownloaded, isDownloading, dispatch]);
 }
 
