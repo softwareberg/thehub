@@ -10,11 +10,13 @@ function useStarredJobsData() {
   const [isDownloaded, setDownloaded] = useState(false);
 
   useEffect(() => {
+    const showAlert = () => window.alert("Error occurred while downloading jobs!");
     async function fetchData() {
       if (isDownloaded !== true && isDownloading !== true) {
         setDownloading(true);
         dispatch(clearJobsAction());
-        const jobs = await fetchStarredJobs();
+        const jobs = await fetchStarredJobs()
+          .catch(() => showAlert());
         dispatch(setJobsAction(jobs));
         setDownloaded(true);
         setDownloading(false);

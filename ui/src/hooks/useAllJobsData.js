@@ -10,11 +10,13 @@ function useAllJobsData() {
   const [isDownloaded, setDownloaded] = useState(false);
 
   useEffect(() => {
+    const showAlert = () => window.alert("Error occurred while downloading jobs!");
     async function fetchData() {
       if (isDownloaded !== true && isDownloading !== true) {
         setDownloading(true);
         dispatch(clearJobsAction());
-        const jobs = await fetchJobs();
+        const jobs = await fetchJobs()
+          .catch(() => showAlert());
         dispatch(setJobsAction(jobs));
         setDownloaded(true);
         setDownloading(false);

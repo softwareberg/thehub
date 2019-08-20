@@ -16,12 +16,14 @@ function useSearchData(query) {
   }
 
   useEffect(() => {
+    const showAlert = () => window.alert("Error occurred while downloading jobs!");
     async function fetchData() {
       if (isDownloaded !== true && isDownloading !== true) {
         setDownloading(true);
         dispatch(clearJobsAction());
         if (lastQuery.length > 0) {
-          const jobs = await findJobs(lastQuery);
+          const jobs = await findJobs(lastQuery)
+            .catch(() => showAlert());
           dispatch(setJobsAction(jobs));
           setDownloaded(true);
           setDownloading(false);
