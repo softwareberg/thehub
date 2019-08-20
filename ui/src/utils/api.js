@@ -15,7 +15,7 @@ const prefix = '/api';
 
 const handleHttpError = (response) => {
   if (response.ok !== true) {
-    throw `http response: ${response.status}`;
+    throw new Error(`http response: ${response.status}`);
   }
   return response;
 };

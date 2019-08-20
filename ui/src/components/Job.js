@@ -14,6 +14,7 @@ const Job = ({ job }) => {
   const dispatch = useDispatch();
 
   function setStar(hasStar) {
+    // eslint-disable-next-line no-alert
     const showAlert = () => window.alert(`Error occurred while sending star!\n\n{jobId: ${jobId}, hasStar: ${hasStar}}`);
     dispatch(setStarAction(jobId, hasStar));
     starJobApi(jobId, hasStar)
@@ -25,6 +26,7 @@ const Job = ({ job }) => {
   }
 
   function deleteJob() {
+    // eslint-disable-next-line no-alert
     const showAlert = () => window.alert(`Error occurred while deleting an offer!\n\n{jobId: ${jobId}}`);
     dispatch(deleteJobAction(jobId));
     deleteJobApi(jobId)

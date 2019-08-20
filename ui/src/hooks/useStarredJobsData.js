@@ -10,7 +10,8 @@ function useStarredJobsData() {
   const [isDownloaded, setDownloaded] = useState(false);
 
   useEffect(() => {
-    const showAlert = () => window.alert("Error occurred while downloading jobs!");
+    // eslint-disable-next-line no-alert
+    const showAlert = () => window.alert('Error occurred while downloading jobs!');
     async function fetchData() {
       if (isDownloaded !== true && isDownloading !== true) {
         setDownloading(true);
