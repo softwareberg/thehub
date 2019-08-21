@@ -1,6 +1,7 @@
 import clearJobsAction from 'redux/actions/clearJobs';
 import { findJobs } from 'utils/api';
 import setJobsAction from 'redux/actions/setJobs';
+import { showAlert } from 'utils/commons';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
@@ -16,15 +17,13 @@ function useSearchData(query) {
   }
 
   useEffect(() => {
-    // eslint-disable-next-line no-alert
-    const showAlert = () => window.alert('Error occurred while downloading jobs!');
     async function fetchData() {
       if (isDownloaded !== true && isDownloading !== true) {
         setDownloading(true);
         dispatch(clearJobsAction());
         if (lastQuery.length > 0) {
           const jobs = await findJobs(lastQuery)
-            .catch(() => showAlert());
+            .catch(() => showAlert('Error occurred while downloading jobs!'));
           dispatch(setJobsAction(jobs));
           setDownloaded(true);
           setDownloading(false);

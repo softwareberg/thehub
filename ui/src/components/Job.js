@@ -4,21 +4,20 @@ import Card from 'react-bootstrap/Card';
 import { useDispatch } from 'react-redux';
 import deleteJobAction from 'redux/actions/deleteJob';
 import { deleteJob as deleteJobApi, starJob as starJobApi } from 'utils/api';
-import StarRegular from 'assets/img/star-regular.svg';
-import StarSolid from 'assets/img/star-solid.svg';
 import setUnwrapAction from 'redux/actions/setUnwrap';
 import setStarAction from 'redux/actions/setStar';
+import { showAlert } from 'utils/commons';
+import StarRegular from 'assets/img/star-regular.svg';
+import StarSolid from 'assets/img/star-solid.svg';
 
 const Job = ({ job }) => {
   const { jobId } = job;
   const dispatch = useDispatch();
 
   function setStar(hasStar) {
-    // eslint-disable-next-line no-alert
-    const showAlert = () => window.alert(`Error occurred while sending star!\n\n{jobId: ${jobId}, hasStar: ${hasStar}}`);
     dispatch(setStarAction(jobId, hasStar));
     starJobApi(jobId, hasStar)
-      .catch(() => showAlert());
+      .catch(() => showAlert(`Error occurred while sending star!\n\n{jobId: ${jobId}, hasStar: ${hasStar}}`));
   }
 
   function setUnwrap(isUnwrapped) {
@@ -26,11 +25,9 @@ const Job = ({ job }) => {
   }
 
   function deleteJob() {
-    // eslint-disable-next-line no-alert
-    const showAlert = () => window.alert(`Error occurred while deleting an offer!\n\n{jobId: ${jobId}}`);
     dispatch(deleteJobAction(jobId));
     deleteJobApi(jobId)
-      .catch(() => showAlert());
+      .catch(() => showAlert(`Error occurred while deleting an offer!\n\n{jobId: ${jobId}}`));
   }
 
   return (
