@@ -34,7 +34,7 @@ matrix:
     - name: "Frontend"
       language: node_js
       node_js:
-        - "10.8.0"
+        - "12.8.1"
       cache:
         yarn: true
         directories:
