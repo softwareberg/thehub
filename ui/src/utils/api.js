@@ -22,35 +22,35 @@ const handleHttpError = (response) => {
 
 export const fetchJobs = () => (
   fetch(`${prefix}/jobs?size=100`)
-    .then(response => handleHttpError(response))
+    .then(handleHttpError)
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob))
 );
 
 export const fetchStarredJobs = () => (
   fetch(`${prefix}/jobs?hasStar=true`)
-    .then(response => handleHttpError(response))
+    .then(handleHttpError)
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob))
 );
 
 export const findJobsByKeyword = keyword => (
   fetch(`${prefix}/jobs?keyword=${keyword}&size=100`)
-    .then(response => handleHttpError(response))
+    .then(handleHttpError)
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob))
 );
 
 export const findJobs = q => (
   fetch(`${prefix}/jobs?q=${q}&size=100`)
-    .then(response => handleHttpError(response))
+    .then(handleHttpError)
     .then(response => response.json())
     .then(jobs => jobs.data.map(transformJob))
 );
 
 export const deleteJob = jobId => (
   fetch(`${prefix}/jobs/${jobId}`, { method: 'DELETE' })
-    .then(response => handleHttpError(response))
+    .then(handleHttpError)
 );
 
 export const starJob = (jobId, hasStar) => (
@@ -61,5 +61,5 @@ export const starJob = (jobId, hasStar) => (
     },
     body: JSON.stringify({ hasStar })
   })
-    .then(response => handleHttpError(response))
+    .then(handleHttpError)
 );
