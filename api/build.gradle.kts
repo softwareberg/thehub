@@ -153,6 +153,9 @@ dependencies {
     integrationTestImplementation("com.jayway.jsonpath:json-path:2.4.0")
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.0.0-RC16")
+
+    testImplementation("org.springframework.cloud:spring-cloud-contract-wiremock")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.wrapper {

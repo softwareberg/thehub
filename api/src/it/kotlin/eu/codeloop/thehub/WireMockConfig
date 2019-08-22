@@ -1,0 +1,22 @@
+package eu.codeloop.thehub
+
+import com.github.tomakehurst.wiremock.common.ClasspathFileSource
+import com.github.tomakehurst.wiremock.common.Slf4jNotifier
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+
+@Configuration
+internal class WireMockConfig {
+
+	@Bean
+	fun wireMockConfiguration(@Value("\${wiremock.server.port}") port: Int): WireMockConfiguration {
+		return wireMockConfig()
+				.port(port)
+				.fileSource(ClasspathFileSource("."))
+				.jettyHeaderBufferSize(32768)
+				.notifier(Slf4jNotifier(true))
+	}
+}
