@@ -15,8 +15,10 @@ data class Job(
     val perks: List<Perk>,
     val host: String,
     val approvedAt: OffsetDateTime
+    val poster: Poster
 )
 
 data class Company(val key: String, val name: String, val logo: Logo)
 data class Logo(val filename: String)
 data class Perk(val key: String, val description: String)
+data class Poster(val filename: String)

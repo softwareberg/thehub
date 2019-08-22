@@ -9,5 +9,7 @@ data class JobDto(
     val hasStar: Boolean,
     val keywords: List<String>,
     val href: String,
-    val approvedAt: OffsetDateTime
+    val approvedAt: OffsetDateTime,
+    val logo: String,
+    val poster: String
 )

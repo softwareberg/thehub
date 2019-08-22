@@ -5,12 +5,12 @@ import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 
 @Service
-class JobFetcher(private val jonFetcher: JobApiFetcher, private val jobHtmlFetcher: JobHtmlFetcher) {
+class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetcher: JobHtmlFetcher) {
 
     private val log = LoggerFactory.getLogger(JobFetcher::class.java)
 
     fun fetch(host: String): List<Job> {
-        val pages = jonFetcher.fetch(host)
+        val pages = jobFetcher.fetch(host)
         val jobsFromApi = pages.flatMap { it.jobs.docs }
         return jobsFromApi.mapNotNull { api -> fetch(host, api) }
     }
@@ -32,7 +32,8 @@ class JobFetcher(private val jonFetcher: JobApiFetcher, private val jobHtmlFetch
                 html.description,
                 html.perks,
                 host,
-                approvedAt
+                approvedAt,
+                html.poster
             )
         } catch (e: Exception) {
             log.info("Error on fetching details from ${api.key}", e)
