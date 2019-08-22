@@ -6,5 +6,7 @@ data class JobDto(
     val description: String,
     val hasStar: Boolean,
     val keywords: List<String>,
-    val href: String
+    val href: String,
+    val logo: String,
+    val poster: String
 )

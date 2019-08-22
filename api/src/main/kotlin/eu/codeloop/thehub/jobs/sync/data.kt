@@ -11,9 +11,11 @@ data class Job(
     val keywords: List<String>,
     val description: String,
     val perks: List<Perk>,
-    val host: String
+    val host: String,
+    val poster: Poster
 )
 
 data class Company(val key: String, val name: String, val logo: Logo)
 data class Logo(val filename: String)
 data class Perk(val key: String, val description: String)
+data class Poster(val filename: String)
