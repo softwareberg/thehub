@@ -1,6 +1,7 @@
 import clearJobsAction from 'redux/actions/clearJobs';
 import { fetchJobs } from 'utils/api';
 import setJobsAction from 'redux/actions/setJobs';
+import { showAlert } from 'utils/commons';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
@@ -14,7 +15,8 @@ function useAllJobsData() {
       if (isDownloaded !== true && isDownloading !== true) {
         setDownloading(true);
         dispatch(clearJobsAction());
-        const jobs = await fetchJobs();
+        const jobs = await fetchJobs()
+          .catch(() => showAlert('Error occurred while downloading jobs!'));
         dispatch(setJobsAction(jobs));
         setDownloaded(true);
         setDownloading(false);
