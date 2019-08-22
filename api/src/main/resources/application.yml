@@ -33,3 +33,5 @@ thehub:
   sync:
     domains: hub.no, thehub.dk, thehub.se, thehub.fi
     scheduling.fixedRate-in-milliseconds: 900000
+  models:
+    JobEntity.approved_at: 2000-01-01T00:00:00.000Z

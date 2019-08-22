@@ -19,7 +19,7 @@ class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetch
     private fun fetch(host: String, api: JobApiFetcher.Job): Job? {
         try {
             val html = jobHtmlFetcher.fetchDetails(host, api.key)
-            val approvedAt = OffsetDateTime.parse(api.approvedAt ?: "1970-01-01T00:00:00.000Z")
+            val approvedAt = OffsetDateTime.parse(api.approvedAt ?: "\${thehub.models.JobEntity.approved_at}")
             return Job(
                 api.key,
                 api.jobPositionTypes?.firstOrNull()?.name ?: "unknown",

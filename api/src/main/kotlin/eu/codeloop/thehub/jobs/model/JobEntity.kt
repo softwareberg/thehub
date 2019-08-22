@@ -36,7 +36,7 @@ class JobEntity {
     var isDeleted: Boolean = false
 
     @Column(name = "approved_at", nullable = false)
-    var approvedAt: OffsetDateTime = OffsetDateTime.parse("1970-01-01T00:00:00.000Z")
+    var approvedAt: OffsetDateTime = OffsetDateTime.parse("\${thehub.models.JobEntity.approved_at}")
 
     @Column(name = "poster", nullable = false)
     lateinit var poster: String
