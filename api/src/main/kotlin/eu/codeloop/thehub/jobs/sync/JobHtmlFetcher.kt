@@ -31,14 +31,15 @@ class JobHtmlFetcher(private val jsoupFetcher: JsoupFetcher) {
         return Job(monthlySalary, equity, keyword, description, perks, poster)
     }
 
+    private val patternLink = Pattern.compile("^.*background-image:url\\(([^)]*)\\).*$")
+    private val patternCleanLink = Pattern.compile("^/files/(.*)/(.*)$")
+
     private fun extractPoster(document: Document): Poster {
         val css = document.select("hero").attr("style")
 
-        val patternLink = Pattern.compile("^.*background-image:url\\(([^)]*)\\).*$")
         val matcherLink = patternLink.matcher(css)
         val link = if (matcherLink.matches()) matcherLink.group(1) else ""
 
-        val patternCleanLink = Pattern.compile("^/files/(.*)/(.*)$")
         val matcherCleanLink = patternCleanLink.matcher(link)
         val filename = if (matcherCleanLink.matches()) "${matcherCleanLink.group(1)}/${matcherCleanLink.group(2)}" else ""
 
