@@ -14,7 +14,7 @@ data class Job(
     val description: String,
     val perks: List<Perk>,
     val host: String,
-    val approvedAt: OffsetDateTime
+    val approvedAt: OffsetDateTime,
     val poster: Poster
 )
 
