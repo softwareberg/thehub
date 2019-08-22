@@ -1,5 +1,6 @@
 package eu.codeloop.thehub.jobs.model
 
+import org.springframework.beans.factory.annotation.Value
 import java.time.OffsetDateTime
 import java.util.ArrayList
 import javax.persistence.CascadeType
@@ -35,8 +36,13 @@ class JobEntity {
     @Column(name = "is_deleted", nullable = false)
     var isDeleted: Boolean = false
 
+// TODO - how get this value?
+//	@Value("\${thehub.models.JobEntity.approved_at}")
+//	private lateinit var approvedAtDefault: String
+
     @Column(name = "approved_at", nullable = false)
-    var approvedAt: OffsetDateTime = OffsetDateTime.parse("\${thehub.models.JobEntity.approved_at}")
+//	var approvedAt: OffsetDateTime = OffsetDateTime.parse(approvedAtDefault)
+    var approvedAt: OffsetDateTime = OffsetDateTime.parse("2000-01-01T00:00:00.000Z")
 
     @Column(name = "poster", nullable = false)
     lateinit var poster: String

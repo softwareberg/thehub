@@ -1,6 +1,7 @@
 package eu.codeloop.thehub.jobs.sync
 
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 
@@ -15,11 +16,14 @@ class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetch
         return jobsFromApi.mapNotNull { api -> fetch(host, api) }
     }
 
+    @Value("\${thehub.models.JobEntity.approved_at}")
+    private lateinit var approvedAtDefault: String
+
     @SuppressWarnings("TooGenericExceptionCaught")
     private fun fetch(host: String, api: JobApiFetcher.Job): Job? {
         try {
             val html = jobHtmlFetcher.fetchDetails(host, api.key)
-            val approvedAt = OffsetDateTime.parse(api.approvedAt ?: "\${thehub.models.JobEntity.approved_at}")
+            val approvedAt = OffsetDateTime.parse(api.approvedAt ?: approvedAtDefault)
             return Job(
                 api.key,
                 api.jobPositionTypes?.firstOrNull()?.name ?: "unknown",
