@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import deleteJobAction from 'redux/actions/deleteJob';
-import { deleteJob as deleteJobApi, startJob as startJobApi } from 'utils/api';
-import StarRegular from 'assets/img/star-regular.svg';
-import StarSolid from 'assets/img/star-solid.svg';
+import { deleteJob as deleteJobApi, starJob as starJobApi } from 'utils/api';
 import setUnwrapAction from 'redux/actions/setUnwrap';
 import setStarAction from 'redux/actions/setStar';
+import { showAlert } from 'utils/commons';
+import StarRegular from 'assets/img/star-regular.svg';
+import StarSolid from 'assets/img/star-solid.svg';
 import { useDispatch } from 'react-redux';
 import useHover from 'hooks/useHover';
 
@@ -88,7 +89,8 @@ const Star = ({ jobId, hasStar }) => {
 
   function setStar(hasStar2) {
     dispatch(setStarAction(jobId, hasStar2));
-    startJobApi(jobId, hasStar2); // TODO ignore promise or not to ignore?
+    starJobApi(jobId, hasStar2)
+      .catch(() => showAlert(`Error occurred while sending star!\n\n{jobId: ${jobId}, hasStar: ${hasStar}}`));
   }
 
   return (
@@ -157,7 +159,8 @@ const Links = ({ href, jobId }) => {
 
   function deleteJob() {
     dispatch(deleteJobAction(jobId));
-    deleteJobApi(jobId); // TODO ignore promise or not to ignore?
+    deleteJobApi(jobId)
+      .catch(() => showAlert(`Error occurred while deleting an offer!\n\n{jobId: ${jobId}}`));
   }
 
   return (

@@ -1,6 +1,7 @@
 import clearJobsAction from 'redux/actions/clearJobs';
 import { findJobsByKeyword } from 'utils/api';
 import setJobsAction from 'redux/actions/setJobs';
+import { showAlert } from 'utils/commons';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
@@ -21,7 +22,8 @@ function useSearchByKeywordData(query) {
         setDownloading(true);
         dispatch(clearJobsAction());
         if (lastQuery.length > 0) {
-          const jobs = await findJobsByKeyword(lastQuery);
+          const jobs = await findJobsByKeyword(lastQuery)
+            .catch(() => showAlert('Error occurred while downloading jobs!'));
           dispatch(setJobsAction(jobs));
           setDownloaded(true);
           setDownloading(false);
