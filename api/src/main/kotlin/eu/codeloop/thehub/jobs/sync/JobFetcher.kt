@@ -1,11 +1,14 @@
 package eu.codeloop.thehub.jobs.sync
 
+import eu.codeloop.thehub.properties.JobProperties
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 
 @Service
+@EnableConfigurationProperties(JobProperties::class)
 class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetcher: JobHtmlFetcher) {
 
     private val log = LoggerFactory.getLogger(JobFetcher::class.java)
@@ -16,14 +19,14 @@ class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetch
         return jobsFromApi.mapNotNull { api -> fetch(host, api) }
     }
 
-    @Value("\${thehub.job.approved-at-default}")
-    private lateinit var approvedAtDefault: String
+    @Autowired
+    private lateinit var jobProperties: JobProperties
 
     @SuppressWarnings("TooGenericExceptionCaught")
     private fun fetch(host: String, api: JobApiFetcher.Job): Job? {
         try {
             val html = jobHtmlFetcher.fetchDetails(host, api.key)
-            val approvedAt = OffsetDateTime.parse(api.approvedAt ?: approvedAtDefault)
+            val approvedAt = OffsetDateTime.parse(api.approvedAt ?: jobProperties.abcdef)
             return Job(
                 api.key,
                 api.jobPositionTypes?.firstOrNull()?.name ?: "unknown",
