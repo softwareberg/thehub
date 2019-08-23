@@ -13,6 +13,11 @@ const transformJob = ({ jobId, title, description, hasStar, keywords, href, logo
 }
 );
 
+const transformPagination = ({ number, totalPages }) => ({
+  page: number + 1,
+  totalPages
+});
+
 const prefix = '/api';
 
 const handleHttpError = (response) => {
@@ -22,11 +27,14 @@ const handleHttpError = (response) => {
   return response;
 };
 
-export const fetchJobs = () => (
-  fetch(`${prefix}/jobs?size=100`)
+export const fetchJobs = (page = 1) => (
+  fetch(`${prefix}/jobs?size=100&page=${page - 1}`)
     .then(handleHttpError)
     .then(response => response.json())
-    .then(jobs => jobs.data.map(transformJob))
+    .then(jobs => ({
+      jobs: jobs.data.map(transformJob),
+      pagination: transformPagination(jobs)
+    }))
 );
 
 export const fetchStarredJobs = () => (
