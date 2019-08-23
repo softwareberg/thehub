@@ -33,3 +33,5 @@ thehub:
   sync:
     domains: hub.no, thehub.dk, thehub.se, thehub.fi
     scheduling.fixedRate-in-milliseconds: 900000
+
+spring.data.web.pageable.one-indexed-parameters: true
