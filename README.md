@@ -58,4 +58,8 @@ cd api/
 flyway -url="jdbc:postgresql://127.0.0.1/codeloop" -user="codeloop" -password="codeloop" -locations="filesystem:src/main/resources/db/migration/" migrate
 ```
 
-If there is a conflict the easiest/laziest thing you can do is to delete docker container with postgres and create a new one.
+If there is a conflict the easiest/laziest thing you can do is to delete docker container with postgres and create a new one. Alternatively you can just purge database:
+
+```
+flyway -url="jdbc:postgresql://127.0.0.1/codeloop" -user="codeloop" -password="codeloop" clean
+```
