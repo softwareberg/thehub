@@ -16,7 +16,7 @@ class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetch
         return jobsFromApi.mapNotNull { api -> fetch(host, api) }
     }
 
-    @Value("\${thehub.models.JobEntity.approved_at}")
+    @Value("\${thehub.job.approved-at-default}")
     private lateinit var approvedAtDefault: String
 
     @SuppressWarnings("TooGenericExceptionCaught")
