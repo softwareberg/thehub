@@ -21,7 +21,7 @@ data class PageResponse<T>(
                 totalElements = page.totalElements,
                 last = page.isLast,
                 size = page.size,
-                number = page.number,
+                number = page.number + 1, // change to indexing starting from 1
                 first = page.isFirst,
                 numberOfElements = page.numberOfElements
             )
