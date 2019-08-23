@@ -35,3 +35,5 @@ thehub:
     scheduling.fixedRate-in-milliseconds: 900000
 #  job.approved-at-default: 2000-01-01T00:00:00.000Z
   job.abcdef: 2000-01-01T00:00:00.000Z
+
+spring.data.web.pageable.one-indexed-parameters: true

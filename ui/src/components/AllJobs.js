@@ -1,19 +1,24 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Job from 'components/Job';
 import useAllJobsData from 'hooks/useAllJobsData';
 import useEmptyJobsDidMount from 'hooks/useEmptyJobsDidMount';
+import Job from 'components/Job';
+import Pagination from 'components/Pagination';
 
 const AllJobs = () => {
   const jobs = useSelector(state => state.jobs);
+  const pagination = useSelector(state => state.pagination);
+  const { page } = pagination;
 
   useEmptyJobsDidMount();
-  useAllJobsData();
+  useAllJobsData(page);
 
   return (
     <React.Fragment>
       <h1>All Jobs</h1>
+      <Pagination />
       {jobs.map(job => <Job key={job.jobId} job={job} />)}
+      {jobs.length > 0 && <Pagination />}
     </React.Fragment>
   );
 };
