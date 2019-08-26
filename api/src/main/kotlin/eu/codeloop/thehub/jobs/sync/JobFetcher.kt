@@ -22,7 +22,7 @@ class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetch
     private fun fetch(host: String, api: JobApiFetcher.Job): Job? {
         try {
             val html = jobHtmlFetcher.fetchDetails(host, api.key)
-            val approvedAt = OffsetDateTime.parse(api.approvedAt ?: jobProperties.abcdef)
+            val approvedAt = OffsetDateTime.parse(api.approvedAt ?: jobProperties.`approved-at-default`)
             return Job(
                 api.key,
                 api.jobPositionTypes?.firstOrNull()?.name ?: "unknown",
