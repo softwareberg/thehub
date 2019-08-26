@@ -2,14 +2,13 @@ package eu.codeloop.thehub.jobs.sync
 
 import eu.codeloop.thehub.properties.JobProperties
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 
 @Service
 @EnableConfigurationProperties(JobProperties::class)
-class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetcher: JobHtmlFetcher) {
+class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetcher: JobHtmlFetcher, private val jobProperties: JobProperties) {
 
     private val log = LoggerFactory.getLogger(JobFetcher::class.java)
 
@@ -18,9 +17,6 @@ class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetch
         val jobsFromApi = pages.flatMap { it.jobs.docs }
         return jobsFromApi.mapNotNull { api -> fetch(host, api) }
     }
-
-    @Autowired
-    private lateinit var jobProperties: JobProperties
 
     @SuppressWarnings("TooGenericExceptionCaught")
     private fun fetch(host: String, api: JobApiFetcher.Job): Job? {
