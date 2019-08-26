@@ -1,0 +1,13 @@
+{
+  "request" : {
+    "urlPath": "/jobs/backend-developer-impact-internship",
+    "method": "GET"
+  },
+  "response" : {
+    "status": 200,
+    "headers": {
+      "Content-Type": "text/html"
+    },
+    "bodyFileName": "backend-developer-impact-internship.html"
+  }
+}
