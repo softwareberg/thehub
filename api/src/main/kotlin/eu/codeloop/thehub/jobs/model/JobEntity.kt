@@ -1,6 +1,6 @@
 package eu.codeloop.thehub.jobs.model
 
-import org.springframework.beans.factory.annotation.Value
+import eu.codeloop.thehub.base.DefaultValues
 import java.time.OffsetDateTime
 import java.util.ArrayList
 import javax.persistence.CascadeType
@@ -37,7 +37,7 @@ class JobEntity {
     var isDeleted: Boolean = false
 
     @Column(name = "approved_at", nullable = false)
-    var approvedAt: OffsetDateTime = DefaultValues.approvedAt
+    var approvedAt: OffsetDateTime = OffsetDateTime.parse(DefaultValues.approvedAt)
 
     @Column(name = "poster", nullable = false)
     lateinit var poster: String
