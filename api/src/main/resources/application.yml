@@ -31,7 +31,8 @@ logging:
 thehub:
   scheduling.enable: false
   sync:
-    domains: hub.no, thehub.dk, thehub.se, thehub.fi
+    # todo
+    domains: http://localhost:${wiremock.server.port}
     scheduling.fixedRate-in-milliseconds: 900000
   job.approved-at-default: 2000-01-01T00:00:00.000Z
 

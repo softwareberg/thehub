@@ -25,9 +25,10 @@ class JobApiFetcher(private val http: RestTemplate) {
     }
 
     private fun fetchOnePageAsync(host: String, page: Int): Deferred<JobsWrapper> = GlobalScope.async {
-        val url = "https://$host/api/jobs?page=$page"
+        val url = "$host/api/jobs?page=$page"
         log.info("fetching $url...")
         val response = http.getForEntity(url, JobsWrapper::class.java).body
+        log.info("{}", response)
         response ?: throw IllegalStateException("req: $url")
     }
 

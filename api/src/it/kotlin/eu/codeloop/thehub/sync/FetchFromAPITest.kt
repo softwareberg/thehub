@@ -1,63 +1,54 @@
 package eu.codeloop.thehub.sync
 
-import com.github.tomakehurst.wiremock.client.WireMock.*
+import com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import com.github.tomakehurst.wiremock.client.WireMock.get
+import com.github.tomakehurst.wiremock.client.WireMock.stubFor
+import com.github.tomakehurst.wiremock.client.WireMock.urlMatching
 import eu.codeloop.thehub.IntegrationTest
 import eu.codeloop.thehub.base.DatabaseSetup
 import eu.codeloop.thehub.base.DatabaseSetupOperations
-import org.hamcrest.Matchers.*
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.junit.Test
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType.ALL_VALUE
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-class FetchFromAPITest: IntegrationTest() {
+class FetchFromAPITest : IntegrationTest() {
 
     @Autowired
     private lateinit var databaseSetup: DatabaseSetup
 
-    @Value("\${server.port}")
-    private var serverPort: Int = 8080
-
-    private val log = LoggerFactory.getLogger(FetchFromAPITest::class.java)
+    @Value("\${thehub.sync.domains}")
+    private lateinit var syncDomains: String
 
     @Test
-    @Throws(Exception::class)
     fun shouldCheckEndpoint() {
-        log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-        // 1. mieć 3 fałszywe endpointy udające API
         // given
         databaseSetup.prepareDatabase(
-                DatabaseSetupOperations.deleteAll()
+            DatabaseSetupOperations.deleteAll()
         )
-        stubFor(get(urlMatching("/api/jobs/sync"))
-                .willReturn(aResponse().proxiedFrom("http://localhost:${serverPort}/api/jobs/sync")));
+        stubFor(get("/api/jobs?page=1").willReturn(aResponse().withBodyFile("/jobs/jobs.json")))
         val syncRequest = MockMvcRequestBuilders
-                .post("/api/jobs/sync")
-                .accept(ALL_VALUE)
+            .post("/api/jobs/sync")
+            .accept(ALL_VALUE)
         val jobsRequest = MockMvcRequestBuilders
-                .get("/api/jobs")
-                .accept(APPLICATION_JSON_VALUE)
+            .get("/api/jobs")
+            .accept(APPLICATION_JSON_VALUE)
 
-        // 2. zrobić request do naszego api
         // when
         val syncResult = mvc.perform(syncRequest)
 
-        //awaiti... coś tam
-
+        // awaitility
         val jobsResult = mvc.perform(jobsRequest)
 
-        log.warn("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         // 3. wyciągnąć wyniki
         // then
         syncResult
-                .andExpect(status().is2xxSuccessful)
+            .andExpect(status().isNoContent)
         jobsResult
-                .andExpect(status().isOk)
+            .andExpect(status().isOk)
     }
 }
