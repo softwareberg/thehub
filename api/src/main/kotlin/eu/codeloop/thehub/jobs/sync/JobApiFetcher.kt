@@ -43,6 +43,7 @@ class JobApiFetcher(private val http: RestTemplate) {
         val jobPositionTypes: List<JobPositionTypes>?,
         val locationLabel: String,
         val title: String,
-        val company: Company
+        val company: Company,
+        val approvedAt: String?
     )
 }

@@ -1,7 +1,9 @@
 package eu.codeloop.thehub.jobs.sync
 
+import eu.codeloop.thehub.base.DefaultValues
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import java.time.OffsetDateTime
 
 @Service
 class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetcher: JobHtmlFetcher) {
@@ -18,6 +20,7 @@ class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetch
     private fun fetch(host: String, api: JobApiFetcher.Job): Job? {
         try {
             val html = jobHtmlFetcher.fetchDetails(host, api.key)
+            val approvedAt = OffsetDateTime.parse(api.approvedAt ?: DefaultValues.approvedAt)
             return Job(
                 api.key,
                 api.jobPositionTypes?.firstOrNull()?.name ?: "unknown",
@@ -30,6 +33,7 @@ class JobFetcher(private val jobFetcher: JobApiFetcher, private val jobHtmlFetch
                 html.description,
                 html.perks,
                 host,
+                approvedAt,
                 html.poster
             )
         } catch (e: Exception) {

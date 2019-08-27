@@ -1,5 +1,7 @@
 package eu.codeloop.thehub.jobs.sync
 
+import java.time.OffsetDateTime
+
 data class Job(
     val key: String,
     val positionType: String,
@@ -12,6 +14,7 @@ data class Job(
     val description: String,
     val perks: List<Perk>,
     val host: String,
+    val approvedAt: OffsetDateTime,
     val poster: Poster
 )
 

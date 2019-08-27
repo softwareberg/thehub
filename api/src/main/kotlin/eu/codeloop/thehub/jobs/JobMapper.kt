@@ -17,6 +17,7 @@ class JobMapper {
             hasStar = job.hasStar,
             href = href,
             keywords = keywords,
+            approvedAt = job.approvedAt,
             logo = logo,
             poster = poster
         )

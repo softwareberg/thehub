@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Jobs extends TableImpl<JobsRecord> {
 
-    private static final long serialVersionUID = -323945008;
+    private static final long serialVersionUID = -1736784509;
 
     /**
      * The reference instance of <code>public.jobs</code>
@@ -115,6 +115,11 @@ public class Jobs extends TableImpl<JobsRecord> {
      * The column <code>public.jobs.poster</code>.
      */
     public final TableField<JobsRecord, String> POSTER = createField("poster", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false).defaultValue(org.jooq.impl.DSL.field("''::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>public.jobs.approved_at</code>.
+     */
+    public final TableField<JobsRecord, OffsetDateTime> APPROVED_AT = createField("approved_at", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false).defaultValue(org.jooq.impl.DSL.field("'1970-01-01 01:00:00+01'::timestamp with time zone", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
 
     /**
      * Create a <code>public.jobs</code> table reference
