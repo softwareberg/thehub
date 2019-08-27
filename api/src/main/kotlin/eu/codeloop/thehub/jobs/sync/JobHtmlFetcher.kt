@@ -18,7 +18,7 @@ class JobHtmlFetcher(private val jsoupFetcher: JsoupFetcher) {
     private val log = LoggerFactory.getLogger(JobHtmlFetcher::class.java)
 
     fun fetchDetails(host: String, key: String): Job {
-        val url = "https://$host/jobs/$key"
+        val url = "$host/jobs/$key"
         log.info("fetching $url...")
         val document = jsoupFetcher.get(url)
         val compensation = document.select(".compensation h3").eachText()
