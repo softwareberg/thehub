@@ -28,7 +28,6 @@ class JobApiFetcher(private val http: RestTemplate) {
         val url = "$host/api/jobs?page=$page"
         log.info("fetching $url...")
         val response = http.getForEntity(url, JobsWrapper::class.java).body
-        log.info("{}", response)
         response ?: throw IllegalStateException("req: $url")
     }
 
