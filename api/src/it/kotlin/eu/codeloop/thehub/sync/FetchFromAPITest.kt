@@ -7,6 +7,7 @@ import eu.codeloop.thehub.base.DatabaseSetupOperations
 import org.hamcrest.Matchers.*
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.junit.Test
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType.ALL_VALUE
@@ -22,9 +23,12 @@ class FetchFromAPITest: IntegrationTest() {
     @Value("\${server.port}")
     private var serverPort: Int = 8080
 
+    private val log = LoggerFactory.getLogger(FetchFromAPITest::class.java)
+
     @Test
     @Throws(Exception::class)
     fun shouldCheckEndpoint() {
+        log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
         // 1. mieć 3 fałszywe endpointy udające API
         // given
         databaseSetup.prepareDatabase(
@@ -47,10 +51,12 @@ class FetchFromAPITest: IntegrationTest() {
 
         val jobsResult = mvc.perform(jobsRequest)
 
+        log.warn("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
         // 3. wyciągnąć wyniki
         // then
         syncResult
-                .andExpect(status().isOk)
+                .andExpect(status().is2xxSuccessful)
         jobsResult
                 .andExpect(status().isOk)
     }
