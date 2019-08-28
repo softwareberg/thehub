@@ -149,6 +149,8 @@ dependencies {
     testCompile("com.nhaarman:mockito-kotlin:1.6.0")
     testCompile("org.powermock:powermock-api-mockito2:2.0.2")
     testCompile("org.assertj:assertj-core:3.12.2")
+    testCompile("org.awaitility:awaitility:3.1.6")
+    testCompile("org.awaitility:awaitility-kotlin:3.1.6")
 
     integrationTestImplementation("com.jayway.jsonpath:json-path:2.4.0")
 
