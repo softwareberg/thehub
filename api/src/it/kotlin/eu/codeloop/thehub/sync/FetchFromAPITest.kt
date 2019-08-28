@@ -34,7 +34,7 @@ class FetchFromAPITest : IntegrationTest() {
         // given
         val lowerDelay = 200
         val upperDealy = 2000
-        val awaitTime = (upperDealy * 3 + 3000).toLong() //+3000 miliseconds after download
+        val awaitTime = ((upperDealy * 3) + (5 * 1000)).toLong() //download + delay after that
         databaseSetup.prepareDatabase(
             DatabaseSetupOperations.deleteAll()
         )
@@ -68,9 +68,11 @@ class FetchFromAPITest : IntegrationTest() {
 
         // when
         val syncResult = mvc.perform(syncRequest)
-
-        await().atMost(awaitTime, MILLISECONDS).untilAsserted { true /*TODO*/ }
-
+        await().atMost(awaitTime, MILLISECONDS).untilAsserted {
+            mvc.perform(jobsRequest)
+                .andExpect(status().isOk)
+                .andExpect(jsonPath("$.totalElements").value(2)) // TODO - works with 0 :)
+        }
         val jobsResult = mvc.perform(jobsRequest)
 
         // then
@@ -78,6 +80,7 @@ class FetchFromAPITest : IntegrationTest() {
             .andExpect(status().isNoContent)
         jobsResult
             .andExpect(status().isOk)
+            .andExpect(jsonPath("$.totalElements").value(2))
             // TODO - więcej asercji
     }
 }
