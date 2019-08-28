@@ -1,0 +1,24 @@
+{
+  "id" : "684c1e0b-3e98-3e28-9909-1d5cc3ece02c",
+  "request" : {
+    "url" : "/jobs/chief-financial-officer-cfo-1",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-jobs-chief-financial-officer-cfo-1-kgwWj.txt",
+    "headers" : {
+      "Server" : "nginx",
+      "Date" : "Wed, 28 Aug 2019 06:32:16 GMT",
+      "Content-Type" : "text/html; charset=utf-8",
+      "Transfer-Encoding" : "chunked",
+      "Connection" : "keep-alive",
+      "X-Powered-By" : "Express",
+      "x-frame-options" : "sameorigin",
+      "X-XSS-Protection" : "1; mode=block",
+      "ETag" : "W/\"ed51-sf4Mkx/zZqAY3IKHfe8zq8p1Aio\"",
+      "Vary" : "Accept-Encoding"
+    }
+  },
+  "uuid" : "684c1e0b-3e98-3e28-9909-1d5cc3ece02c"
+}

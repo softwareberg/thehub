@@ -1,0 +1,25 @@
+{
+  "id" : "4cf4b9a0-2166-3fc0-bc7e-ca7487d7108e",
+  "request" : {
+    "url" : "/jobs/chief-marketing-officer-cmo-6",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "body-jobs-chief-marketing-officer-cmo-6-8G7JB.txt",
+    "headers" : {
+      "Server" : "nginx",
+      "Date" : "Wed, 28 Aug 2019 06:31:47 GMT",
+      "Content-Type" : "text/html; charset=utf-8",
+      "Transfer-Encoding" : "chunked",
+      "Connection" : "keep-alive",
+      "X-Powered-By" : "Express",
+      "x-frame-options" : "sameorigin",
+      "X-XSS-Protection" : "1; mode=block",
+      "ETag" : "W/\"e09e-2rIpzLmNbBkPrNx1eXqpuASo40U\"",
+      "set-cookie" : "keystone.sid=s%3AnQLvcsZ3zNAFO__EoTAHnXcE782LndxY.IGfX%2FN%2BV%2FeSV0LCfs3%2F%2Fvp7nyUwoDH14X%2FDmlzGPx1o; Path=/; HttpOnly",
+      "Vary" : "Accept-Encoding",
+    }
+  },
+  "uuid" : "4cf4b9a0-2166-3fc0-bc7e-ca7487d7108e"
+}
