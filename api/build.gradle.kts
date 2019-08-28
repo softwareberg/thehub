@@ -53,10 +53,10 @@ sourceSets {
     create("integrationTest") {
         withConvention(KotlinSourceSet::class) {
             kotlin.srcDir("src/it/kotlin")
-            resources.srcDir("src/it/resources")
-            compileClasspath += sourceSets["main"].output + sourceSets["test"].output + configurations["testRuntimeClasspath"]
-            runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
         }
+        resources.srcDir("src/it/resources")
+        compileClasspath += sourceSets["main"].output + sourceSets["test"].output + configurations["testRuntimeClasspath"]
+        runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
     }
 }
 
