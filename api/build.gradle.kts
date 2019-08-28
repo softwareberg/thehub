@@ -159,5 +159,5 @@ dependencies {
 }
 
 tasks.wrapper {
-    gradleVersion = "5.5.1"
+    gradleVersion = "5.6.1"
 }
