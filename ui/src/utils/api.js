@@ -14,7 +14,7 @@ const transformJob = ({ jobId, title, description, hasStar, keywords, href, logo
 );
 
 const transformPagination = ({ number, totalPages }) => ({
-  page: number + 1,
+  page: number,
   totalPages
 });
 
@@ -28,7 +28,7 @@ const handleHttpError = (response) => {
 };
 
 export const fetchJobs = (page = 1) => (
-  fetch(`${prefix}/jobs?size=100&page=${page - 1}`)
+  fetch(`${prefix}/jobs?size=100&page=${page}`)
     .then(handleHttpError)
     .then(response => response.json())
     .then(jobs => ({
