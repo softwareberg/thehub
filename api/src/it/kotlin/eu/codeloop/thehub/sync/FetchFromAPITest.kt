@@ -55,16 +55,40 @@ class FetchFromAPITest : IntegrationTest() {
         }
 
         // then
+        val chiefMarketingIndex = 0
+        val chiefFinancialIndex = 1
         syncResult
             .andExpect(status().isNoContent)
         jobsResult
             .andExpect(status().isOk)
+            .andExpect(jsonPath("$.totalPages").value(1))
+            .andExpect(jsonPath("$.number").value(1))
+            .andExpect(jsonPath("$.size").isNumber)
+            .andExpect(jsonPath("$.first").value(true))
+            .andExpect(jsonPath("$.last").value(true))
             .andExpect(jsonPath("$.totalElements").value(2))
-            // TODO - więcej asercji
+            .andExpect(jsonPath("$.numberOfElements").value(2))
+            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].jobId").value("chief-marketing-officer-cmo-6"))
+            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].title").value("Chief Marketing Officer (CMO)"))
+            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].description").isString) //TODO
+            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].hasStar").value(false))
+            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].keywords").isArray) //TODO
+            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].approvedAt").isString) //TODO
+            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].logo").isString) //TODO
+            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].poster").isString) //TODO
+
+            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].jobId").value("chief-financial-officer-cfo-1"))
+            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].title").value("Chief Financial Officer (CFO)"))
+            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].description").isString) //TODO
+            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].hasStar").value(false))
+            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].keywords").isArray) //TODO
+            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].approvedAt").isString)
+            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].logo").isString) //TODO
+            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].poster").isString) //TODO
     }
 
     private fun addJsonMapping(url: String, fileName: String) {
-        stubFor(get(urlPathEqualTo(url)).willReturn(
+        stubFor(get(url).willReturn(
             aResponse()
                 .withStatus(200)
                 .withRandomDelay(uniformDistribution)
@@ -74,7 +98,7 @@ class FetchFromAPITest : IntegrationTest() {
     }
 
     private fun addHtmlMapping(url: String, fileName: String) {
-        stubFor(get(urlPathEqualTo(url)).willReturn(
+        stubFor(get(url).willReturn(
             aResponse()
                 .withStatus(200)
                 .withRandomDelay(uniformDistribution)
