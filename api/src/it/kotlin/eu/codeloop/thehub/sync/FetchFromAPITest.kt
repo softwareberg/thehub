@@ -1,7 +1,6 @@
 package eu.codeloop.thehub.sync
 
 import com.github.tomakehurst.wiremock.client.WireMock.*
-import com.github.tomakehurst.wiremock.http.UniformDistribution
 import eu.codeloop.thehub.IntegrationTest
 import eu.codeloop.thehub.base.DatabaseSetup
 import eu.codeloop.thehub.base.DatabaseSetupOperations
@@ -15,7 +14,7 @@ import org.springframework.test.web.servlet.ResultActions
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import java.util.concurrent.TimeUnit.MILLISECONDS
+import java.util.concurrent.TimeUnit.SECONDS
 import wiremock.org.apache.http.HttpHeaders.CONTENT_TYPE
 
 class FetchFromAPITest : IntegrationTest() {
@@ -26,14 +25,9 @@ class FetchFromAPITest : IntegrationTest() {
     @Value("\${thehub.sync.domains}")
     private lateinit var syncDomains: String
 
-    private val lowerDelay = 200
-    private val upperDelay = 2000
-    private val uniformDistribution = UniformDistribution(lowerDelay, upperDelay)
-
     @Test
     fun `it should fetch jobs from external api and return sorted list`() {
         // given
-        val awaitTime = ((upperDelay * 3) + (10 * 1000)).toLong() //download + delay after that
         databaseSetup.prepareDatabase(
             DatabaseSetupOperations.deleteAll()
         )
@@ -50,7 +44,7 @@ class FetchFromAPITest : IntegrationTest() {
 
         // when
         val syncResult = mvc.perform(syncRequest)
-        val jobsResult = await().atMost(awaitTime, MILLISECONDS).untilRequest({ mvc.perform(jobsRequest) }) {
+        val jobsResult = await().atMost(10, SECONDS).untilRequest({ mvc.perform(jobsRequest) }) {
             response -> response.andExpect(jsonPath("$.totalElements").value(2))
         }
 
@@ -91,7 +85,6 @@ class FetchFromAPITest : IntegrationTest() {
         stubFor(get(url).willReturn(
             aResponse()
                 .withStatus(200)
-                .withRandomDelay(uniformDistribution)
                 .withHeader(CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
                 .withBodyFile(fileName)
         ))
@@ -101,7 +94,6 @@ class FetchFromAPITest : IntegrationTest() {
         stubFor(get(url).willReturn(
             aResponse()
                 .withStatus(200)
-                .withRandomDelay(uniformDistribution)
                 .withHeader("Content-Type", TEXT_HTML_VALUE)
                 .withBodyFile(fileName)
         ))
