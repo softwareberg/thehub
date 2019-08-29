@@ -5,7 +5,9 @@ import com.github.tomakehurst.wiremock.common.Slf4jNotifier
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 
+@Configuration
 class WireMockConfig {
 
     @Bean
