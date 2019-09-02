@@ -23,21 +23,3 @@ class WireMockConfig {
     }
 
 }
-
-fun addJsonMapping(url: String, fileName: String) {
-    WireMock.stubFor(WireMock.get(url).willReturn(
-            WireMock.aResponse()
-                    .withStatus(200)
-                    .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
-                    .withBodyFile(fileName)
-    ))
-}
-
-fun addHtmlMapping(url: String, fileName: String) {
-    WireMock.stubFor(WireMock.get(url).willReturn(
-            WireMock.aResponse()
-                    .withStatus(200)
-                    .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_HTML_VALUE)
-                    .withBodyFile(fileName)
-    ))
-}
