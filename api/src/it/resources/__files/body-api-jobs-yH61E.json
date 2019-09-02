@@ -1,0 +1,64 @@
+{
+  "jobs": {
+    "total": 2,
+    "limit": 10,
+    "pages": 1,
+    "docs": [
+      {
+        "_id": "5d63f956d1c65a86773c093e",
+        "key": "chief-marketing-officer-cmo-6",
+        "locationShort": "copenhagen",
+        "title": "Chief Marketing Officer (CMO)",
+        "company": {
+          "key": "hoodheroes",
+          "name": "'hoodHeroes",
+          "logo": {
+            "filename": "5b85123423003ae417ed233e/logo_upload-bf606eb14a4ac7f8610aa6bb92968ea0.jpg",
+            "originalname": "HoodHeroes_FacebookPicture2.jpg",
+            "path": "public/files",
+            "size": 56829,
+            "filetype": "image/jpeg"
+          }
+        },
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e46b3853f039706b6ea74",
+            "name": "Cofounder",
+            "__v": 0
+          }
+        ],
+        "approvedAt": "2019-08-26T19:32:30.211Z",
+        "id": "5d63f956d1c65a86773c093e",
+        "domain": "thehub.dk",
+        "locationLabel": "Copenhagen"
+      },
+      {
+        "_id": "5d63f4afd1c65a86773c0933",
+        "key": "chief-financial-officer-cfo-1",
+        "locationShort": "copenhagen",
+        "title": "Chief Financial Officer (CFO)",
+        "company": {
+          "key": "hoodheroes",
+          "name": "'hoodHeroes",
+          "logo": {
+            "filename": "5b85123423003ae417ed233e/logo_upload-bf606eb14a4ac7f8610aa6bb92968ea0.jpg",
+            "originalname": "HoodHeroes_FacebookPicture2.jpg",
+            "path": "public/files",
+            "size": 56829,
+            "filetype": "image/jpeg"
+          }
+        },
+        "jobPositionTypes": [
+          {
+            "_id": "5b8e46b3853f039706b6ea74",
+            "name": "Cofounder",
+            "__v": 0
+          }
+        ],
+        "id": "5d63f4afd1c65a86773c0933",
+        "domain": "thehub.dk",
+        "locationLabel": "Copenhagen"
+      }
+    ]
+  }
+}

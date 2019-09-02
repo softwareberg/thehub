@@ -53,10 +53,10 @@ sourceSets {
     create("integrationTest") {
         withConvention(KotlinSourceSet::class) {
             kotlin.srcDir("src/it/kotlin")
-            resources.srcDir("src/it/resources")
-            compileClasspath += sourceSets["main"].output + sourceSets["test"].output
-            runtimeClasspath += sourceSets["main"].output + sourceSets["test"].output
         }
+        resources.srcDir("src/it/resources")
+        compileClasspath += sourceSets["main"].output + sourceSets["test"].output
+        runtimeClasspath += sourceSets["main"].output + sourceSets["test"].output
     }
 }
 
@@ -149,12 +149,17 @@ dependencies {
     testCompile("com.nhaarman:mockito-kotlin:1.6.0")
     testCompile("org.powermock:powermock-api-mockito2:2.0.2")
     testCompile("org.assertj:assertj-core:3.12.2")
+    testCompile("org.awaitility:awaitility:3.1.6")
+    testCompile("org.awaitility:awaitility-kotlin:3.1.6")
 
     integrationTestImplementation("com.jayway.jsonpath:json-path:2.4.0")
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.0.0-RC16")
+
+    testImplementation("org.springframework.cloud:spring-cloud-contract-wiremock")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.wrapper {
-    gradleVersion = "5.5.1"
+    gradleVersion = "5.6.1"
 }
