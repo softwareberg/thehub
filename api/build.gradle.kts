@@ -55,8 +55,8 @@ sourceSets {
             kotlin.srcDir("src/it/kotlin")
         }
         resources.srcDir("src/it/resources")
-        compileClasspath += sourceSets["main"].output + sourceSets["test"].output + configurations["testRuntimeClasspath"]
-        runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
+        compileClasspath += sourceSets["main"].output + sourceSets["test"].output
+        runtimeClasspath += sourceSets["main"].output + sourceSets["test"].output
     }
 }
 

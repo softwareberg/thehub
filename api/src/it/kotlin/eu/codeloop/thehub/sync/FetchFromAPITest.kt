@@ -4,26 +4,23 @@ import com.github.tomakehurst.wiremock.client.WireMock.*
 import eu.codeloop.thehub.IntegrationTest
 import eu.codeloop.thehub.base.DatabaseSetup
 import eu.codeloop.thehub.base.DatabaseSetupOperations
+import eu.codeloop.thehub.addHtmlMapping
+import eu.codeloop.thehub.addJsonMapping
+import eu.codeloop.thehub.untilRequest
 import org.awaitility.Awaitility.await
-import org.awaitility.core.ConditionFactory
 import org.junit.Test
+import org.hamcrest.Matchers.containsString
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType.*
-import org.springframework.test.web.servlet.ResultActions
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.util.concurrent.TimeUnit.SECONDS
-import wiremock.org.apache.http.HttpHeaders.CONTENT_TYPE
 
 class FetchFromAPITest : IntegrationTest() {
 
     @Autowired
     private lateinit var databaseSetup: DatabaseSetup
-
-    @Value("\${thehub.sync.domains}")
-    private lateinit var syncDomains: String
 
     @Test
     fun `it should fetch jobs from external api and return sorted list`() {
@@ -49,8 +46,6 @@ class FetchFromAPITest : IntegrationTest() {
         }
 
         // then
-        val chiefMarketingIndex = 0
-        val chiefFinancialIndex = 1
         syncResult
             .andExpect(status().isNoContent)
         jobsResult
@@ -62,51 +57,21 @@ class FetchFromAPITest : IntegrationTest() {
             .andExpect(jsonPath("$.last").value(true))
             .andExpect(jsonPath("$.totalElements").value(2))
             .andExpect(jsonPath("$.numberOfElements").value(2))
-            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].jobId").value("chief-marketing-officer-cmo-6"))
-            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].title").value("Chief Marketing Officer (CMO)"))
-            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].description").isString) //TODO
-            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].hasStar").value(false))
-            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].keywords").isArray) //TODO
-            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].approvedAt").isString) //TODO
-            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].logo").isString) //TODO
-            .andExpect(jsonPath("$.data[${chiefMarketingIndex}].poster").isString) //TODO
-
-            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].jobId").value("chief-financial-officer-cfo-1"))
-            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].title").value("Chief Financial Officer (CFO)"))
-            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].description").isString) //TODO
-            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].hasStar").value(false))
-            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].keywords").isArray) //TODO
-            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].approvedAt").isString)
-            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].logo").isString) //TODO
-            .andExpect(jsonPath("$.data[${chiefFinancialIndex}].poster").isString) //TODO
-    }
-
-    private fun addJsonMapping(url: String, fileName: String) {
-        stubFor(get(url).willReturn(
-            aResponse()
-                .withStatus(200)
-                .withHeader(CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
-                .withBodyFile(fileName)
-        ))
-    }
-
-    private fun addHtmlMapping(url: String, fileName: String) {
-        stubFor(get(url).willReturn(
-            aResponse()
-                .withStatus(200)
-                .withHeader("Content-Type", TEXT_HTML_VALUE)
-                .withBodyFile(fileName)
-        ))
-    }
-
-    fun ConditionFactory.untilRequest(resultProvider: () -> ResultActions, resultChecker: (ResultActions) -> Unit): ResultActions {
-        return this.until(resultProvider) { r ->
-            try {
-                resultChecker(r)
-                true
-            } catch (e: java.lang.AssertionError) {
-                false
-            }
-        }
+            .andExpect(jsonPath("$.data[${0}].jobId", containsString("marketing")))
+            .andExpect(jsonPath("$.data[${0}].title", containsString("Marketing")))
+            .andExpect(jsonPath("$.data[${0}].description", containsString("everyday heroes")))
+            .andExpect(jsonPath("$.data[${0}].hasStar").value(false))
+            .andExpect(jsonPath("$.data[${0}].keywords").isArray)
+            .andExpect(jsonPath("$.data[${0}].approvedAt", containsString("2019")))
+            .andExpect(jsonPath("$.data[${0}].logo", containsString("5b85123423003ae417ed233e/logo_upload-bf606eb14a4ac7f8610aa6bb92968ea0.jpg")))
+            .andExpect(jsonPath("$.data[${0}].poster", containsString("/files/5b85123423003ae417ed233e/coverImage_upload-e46fd5472487b6efb18316e80a3dd745.jpg")))
+            .andExpect(jsonPath("$.data[${1}].jobId", containsString("financial")))
+            .andExpect(jsonPath("$.data[${1}].title", containsString("Financial")))
+            .andExpect(jsonPath("$.data[${1}].description", containsString("everyday heroes")))
+            .andExpect(jsonPath("$.data[${1}].hasStar").value(false))
+            .andExpect(jsonPath("$.data[${1}].keywords").isArray)
+            .andExpect(jsonPath("$.data[${1}].approvedAt", containsString("2000")))
+            .andExpect(jsonPath("$.data[${1}].logo", containsString("5b85123423003ae417ed233e/logo_upload-bf606eb14a4ac7f8610aa6bb92968ea0.jpg")))
+            .andExpect(jsonPath("$.data[${1}].poster", containsString("/images/default_cover.jpg")))
     }
 }
