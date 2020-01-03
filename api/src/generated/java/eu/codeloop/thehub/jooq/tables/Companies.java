@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Companies extends TableImpl<CompaniesRecord> {
 
-    private static final long serialVersionUID = -1008295813;
+    private static final long serialVersionUID = 1348636721;
 
     /**
      * The reference instance of <code>public.companies</code>
@@ -70,11 +70,6 @@ public class Companies extends TableImpl<CompaniesRecord> {
      * The column <code>public.companies.logo</code>.
      */
     public final TableField<CompaniesRecord, String> LOGO = createField("logo", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
-
-    /**
-     * The column <code>public.companies.domain</code>.
-     */
-    public final TableField<CompaniesRecord, String> DOMAIN = createField("domain", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
      * The column <code>public.companies.location</code>.
@@ -161,11 +156,7 @@ public class Companies extends TableImpl<CompaniesRecord> {
      */
     @Override
     public List<ForeignKey<CompaniesRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<CompaniesRecord, ?>>asList(Keys.COMPANIES__COMPANIES_DOMAIN_FKEY, Keys.COMPANIES__COMPANIES_LOCATION_FKEY);
-    }
-
-    public Domains domains() {
-        return new Domains(this, Keys.COMPANIES__COMPANIES_DOMAIN_FKEY);
+        return Arrays.<ForeignKey<CompaniesRecord, ?>>asList(Keys.COMPANIES__COMPANIES_LOCATION_FKEY);
     }
 
     public Locations locations() {

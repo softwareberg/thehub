@@ -141,7 +141,6 @@ dependencies {
     compile("org.jooq:jooq-codegen")
 
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
-    compile("org.jsoup:jsoup:1.12.1")
     compile("org.apache.commons:commons-text:1.5")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")

@@ -15,7 +15,6 @@ class JobQueryController(private val jobQueryService: JobQueryService, private v
     @GetMapping("/api/jobs")
     fun jobs(
         @RequestParam title: String?,
-        @RequestParam keyword: String?,
         @RequestParam q: String?,
         @RequestParam hasStar: Boolean?,
         @SortDefault.SortDefaults(
@@ -23,7 +22,7 @@ class JobQueryController(private val jobQueryService: JobQueryService, private v
             SortDefault(sort = ["title"], direction = ASC)
         ) pageable: Pageable
     ): PageResponse<JobDto> {
-        val jobs = jobQueryService.findAll(title, keyword, q, hasStar, pageable)
+        val jobs = jobQueryService.findAll(title, q, hasStar, pageable)
         val jobsDto = jobs.map(jobMapper::map)
         return PageResponse.of(jobsDto)
     }

@@ -12,18 +12,11 @@ class JobHubToDatabaseService(private val db: DSLContext) {
         db.transaction { configuration ->
             val context = DSL.using(configuration)
             val databaseOperations = DatabaseOperations(context)
-            databaseOperations.upsertDomain(job.host)
             databaseOperations.upsertLocation(job.locationLabel)
-            databaseOperations.upsertPositionType(job.positionType)
-            job.keywords.forEach(databaseOperations::upsertKeyword)
-            job.perks.forEach { perk -> databaseOperations.upsertPerk(perk.key, perk.description) }
-            databaseOperations.upsertCompany(job.company.key, job.company.name, job.company.logo.filename, job.host, job.locationLabel)
-            job.equity?.also(databaseOperations::upsertEquity)
-            job.monthlySalary?.also(databaseOperations::upsertMonthlySalary)
-            databaseOperations.upsertJob(
-                job.key, job.company.key, job.title, job.description, job.monthlySalary, job.equity, job.positionType, hasStar = false, isDeleted = false, approvedAt = job.approvedAt, poster = job.poster.filename)
-            job.keywords.forEach { keyword -> databaseOperations.upsertJobKeyword(keyword, job.key) }
-            job.perks.forEach { perk -> databaseOperations.upsertJobPerk(perk.key, job.key) }
+            databaseOperations.upsertCompany(job.company.key, job.company.name, job.company.logoImage.path, job.locationLabel)
+            databaseOperations.upsertEquity(job.equity)
+            databaseOperations.upsertSalary(job.salary)
+            databaseOperations.upsertJob(job.key, job.company.key, job.title, job.description, job.salary, job.equity, hasStar = false, isDeleted = false, approvedAt = job.createdAt)
         }
     }
 }

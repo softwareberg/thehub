@@ -35,16 +35,6 @@ class CompanyEntity {
 
     @ManyToOne(cascade = [CascadeType.MERGE])
     @JoinColumn(
-        name = "domain",
-        referencedColumnName = "domain",
-        insertable = true,
-        updatable = true,
-        nullable = false
-    )
-    lateinit var domain: DomainEntity
-
-    @ManyToOne(cascade = [CascadeType.MERGE])
-    @JoinColumn(
         name = "location",
         referencedColumnName = "location",
         insertable = true,

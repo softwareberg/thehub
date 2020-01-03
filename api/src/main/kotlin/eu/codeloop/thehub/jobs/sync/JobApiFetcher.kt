@@ -8,6 +8,7 @@ import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.client.getForEntity
 
 @Service
 class JobApiFetcher(private val http: RestTemplate) {
@@ -20,14 +21,14 @@ class JobApiFetcher(private val http: RestTemplate) {
 
     private fun fetchAsync(host: String): Deferred<List<JobsWrapper>> = GlobalScope.async {
         val firstJobsPage = fetchOnePageAsync(host, 1).await()
-        val lastPage = firstJobsPage.jobs.pages
+        val lastPage = firstJobsPage.pages
         fetchPageRangeAsync(host, lastPage).await()
     }
 
     private fun fetchOnePageAsync(host: String, page: Int): Deferred<JobsWrapper> = GlobalScope.async {
         val url = "$host/api/jobs?page=$page"
         log.info("fetching $url...")
-        val response = http.getForEntity(url, JobsWrapper::class.java).body
+        val response = http.getForEntity<JobsWrapper>(url, JobsWrapper::class.java).body
         response ?: throw IllegalStateException("req: $url")
     }
 
@@ -35,15 +36,24 @@ class JobApiFetcher(private val http: RestTemplate) {
         (1..lastPage).map { fetchOnePageAsync(host, it) }.awaitAll()
     }
 
-    data class JobsWrapper(val jobs: Jobs)
-    data class JobPositionTypes(val name: String)
-    data class Jobs(val pages: Int, val docs: List<Job>)
-    data class Job(
+    data class JobsWrapper(val docs: List<RawJob>, val pages: Int)
+
+    data class RawJob(
         val key: String,
-        val jobPositionTypes: List<JobPositionTypes>?,
-        val locationLabel: String,
         val title: String,
+        val description: String,
+        val jobRole: String,
+        val jobPositionTypes: List<String>,
+        val location: Location,
         val company: Company,
-        val approvedAt: String?
+        val salary: String,
+        val equity: String,
+        val createdAt: String
+    )
+
+    data class Location(
+        val locality: String?,
+        val country: String?,
+        val address: String
     )
 }

@@ -4,21 +4,17 @@ import java.time.OffsetDateTime
 
 data class Job(
     val key: String,
-    val positionType: String,
+    val jobRole: String,
     val locationLabel: String,
     val title: String,
     val company: Company,
-    val monthlySalary: String?,
-    val equity: String?,
-    val keywords: List<String>,
+    val salary: String,
+    val equity: String,
     val description: String,
-    val perks: List<Perk>,
     val host: String,
-    val approvedAt: OffsetDateTime,
-    val poster: Poster
+    val createdAt: OffsetDateTime
 )
 
-data class Company(val key: String, val name: String, val logo: Logo)
-data class Logo(val filename: String)
-data class Perk(val key: String, val description: String)
-data class Poster(val filename: String)
+data class Company(val key: String, val name: String, val logoImage: Image)
+
+data class Image(val path: String)

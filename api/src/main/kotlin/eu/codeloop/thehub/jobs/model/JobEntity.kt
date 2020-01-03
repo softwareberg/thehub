@@ -1,15 +1,11 @@
 package eu.codeloop.thehub.jobs.model
 
-import eu.codeloop.thehub.base.DefaultValues
 import java.time.OffsetDateTime
-import java.util.ArrayList
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.JoinColumn
-import javax.persistence.JoinTable
-import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import javax.persistence.Table
 
@@ -37,10 +33,7 @@ class JobEntity {
     var isDeleted: Boolean = false
 
     @Column(name = "approved_at", nullable = false)
-    var approvedAt: OffsetDateTime = OffsetDateTime.parse(DefaultValues.approvedAt)
-
-    @Column(name = "poster", nullable = false)
-    lateinit var poster: String
+    lateinit var approvedAt: OffsetDateTime
 
     @ManyToOne
     @JoinColumn(
@@ -71,30 +64,4 @@ class JobEntity {
         nullable = true
     )
     var monthlySalary: MonthlySalaryEntity? = null
-
-    @ManyToOne(cascade = [CascadeType.MERGE])
-    @JoinColumn(
-        name = "position_type",
-        referencedColumnName = "position_type",
-        insertable = true,
-        updatable = true,
-        nullable = false
-    )
-    lateinit var positionType: PositionsTypeEntity
-
-    @ManyToMany(cascade = [CascadeType.MERGE])
-    @JoinTable(
-        name = "jobs_job_keywords",
-        joinColumns = [JoinColumn(name = "job_id", referencedColumnName = "job_id")],
-        inverseJoinColumns = [JoinColumn(name = "keyword", referencedColumnName = "keyword")]
-    )
-    val keywords: MutableList<JobKeywordEntity> = ArrayList()
-
-    @ManyToMany(cascade = [CascadeType.MERGE])
-    @JoinTable(
-        name = "jobs_job_perks",
-        joinColumns = [JoinColumn(name = "job_id", referencedColumnName = "job_id")],
-        inverseJoinColumns = [JoinColumn(name = "job_perk_id", referencedColumnName = "job_perk_id")]
-    )
-    val perks: MutableList<JobPerkEntity> = ArrayList()
 }

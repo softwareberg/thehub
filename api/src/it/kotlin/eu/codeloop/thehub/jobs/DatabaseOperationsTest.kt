@@ -4,11 +4,10 @@ import eu.codeloop.thehub.base.DatabaseOperations
 import eu.codeloop.thehub.base.DatabaseSetup
 import eu.codeloop.thehub.base.DatabaseSetupOperations.deleteAll
 import eu.codeloop.thehub.base.DatabaseSetupOperations.insertCompany
-import eu.codeloop.thehub.base.DatabaseSetupOperations.insertDomain
-import eu.codeloop.thehub.base.DatabaseSetupOperations.insertKeyword
 import eu.codeloop.thehub.base.DatabaseSetupOperations.insertLocation
+import eu.codeloop.thehub.base.DatabaseSetupOperations.insertSalary
 import eu.codeloop.thehub.jooq.Tables.COMPANIES
-import eu.codeloop.thehub.jooq.Tables.JOB_KEYWORDS
+import eu.codeloop.thehub.jooq.Tables.MONTHLY_SALARIES
 import org.assertj.core.api.Assertions.assertThat
 import org.jooq.DSLContext
 import org.junit.Test
@@ -33,20 +32,20 @@ class DatabaseOperationsTest {
     }
 
     @Test
-    fun `it should not modify keyword when value is the same`() {
+    fun `it should not modify salary when value is the same`() {
         // given
         val date = OffsetDateTime.parse("2007-12-03T10:15:30Z")
         databaseSetup.prepareDatabase(
             deleteAll(),
-            insertKeyword(keyword = "java", dateCreated = date, dateModified = date)
+            insertSalary(monthlySalary = "competitive", dateCreated = date, dateModified = date)
         )
 
         // when
-        databaseOperations.upsertKeyword(keyword = "java")
+        databaseOperations.upsertSalary(monthlySalary = "competitive")
 
         // then
-        val keyword = db.fetchOne(JOB_KEYWORDS, JOB_KEYWORDS.KEYWORD.eq("java"))
-        assertThat(keyword.keyword).isEqualTo("java")
+        val keyword = db.fetchOne(MONTHLY_SALARIES, MONTHLY_SALARIES.MONTHLY_SALARY.eq("competitive"))
+        assertThat(keyword.monthlySalary).isEqualTo("competitive")
         assertThat(keyword.dateCreated.toInstant()).isEqualTo(date.toInstant())
         assertThat(keyword.dateModified.toInstant()).isEqualTo(date.toInstant())
     }
@@ -57,13 +56,12 @@ class DatabaseOperationsTest {
         val date = OffsetDateTime.parse("2007-12-03T10:15:30Z")
         databaseSetup.prepareDatabase(
             deleteAll(),
-            insertDomain(domain = "USA"),
             insertLocation(location = "New York"),
-            insertCompany(companyId = "foo", name = "Foobar Inc.", domain = "USA", location = "New York", logo = "logo.png")
+            insertCompany(companyId = "foo", name = "Foobar Inc.", location = "New York", logo = "logo.png")
         )
 
         // when
-        databaseOperations.upsertCompany(companyId = "foo", name = "Foobar Inc.", domain = "USA", location = "New York", logo = "logo.png")
+        databaseOperations.upsertCompany(companyId = "foo", name = "Foobar Inc.", location = "New York", logo = "logo.png")
 
         // then
         val company = db.fetchOne(COMPANIES, COMPANIES.COMPANY_ID.eq("foo"))
@@ -79,13 +77,12 @@ class DatabaseOperationsTest {
         val date = OffsetDateTime.parse("2007-12-03T10:15:30Z")
         databaseSetup.prepareDatabase(
             deleteAll(),
-            insertDomain(domain = "USA"),
             insertLocation(location = "New York"),
-            insertCompany(companyId = "foo", name = "Foo Inc.", domain = "USA", location = "New York")
+            insertCompany(companyId = "foo", name = "Foo Inc.", location = "New York")
         )
 
         // when
-        databaseOperations.upsertCompany(companyId = "foo", name = "Foobar Inc.", domain = "USA", location = "New York", logo = "logo.png")
+        databaseOperations.upsertCompany(companyId = "foo", name = "Foobar Inc.", location = "New York", logo = "logo.png")
 
         // then
         val company = db.fetchOne(COMPANIES, COMPANIES.COMPANY_ID.eq("foo"))

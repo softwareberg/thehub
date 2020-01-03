@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Jobs extends TableImpl<JobsRecord> {
 
-    private static final long serialVersionUID = -1736784509;
+    private static final long serialVersionUID = -2091958597;
 
     /**
      * The reference instance of <code>public.jobs</code>
@@ -87,11 +87,6 @@ public class Jobs extends TableImpl<JobsRecord> {
     public final TableField<JobsRecord, String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
-     * The column <code>public.jobs.position_type</code>.
-     */
-    public final TableField<JobsRecord, String> POSITION_TYPE = createField("position_type", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
-
-    /**
      * The column <code>public.jobs.date_created</code>.
      */
     public final TableField<JobsRecord, OffsetDateTime> DATE_CREATED = createField("date_created", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false).defaultValue(org.jooq.impl.DSL.field("now()", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
@@ -112,14 +107,9 @@ public class Jobs extends TableImpl<JobsRecord> {
     public final TableField<JobsRecord, Boolean> IS_DELETED = createField("is_deleted", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false).defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
-     * The column <code>public.jobs.poster</code>.
-     */
-    public final TableField<JobsRecord, String> POSTER = createField("poster", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false).defaultValue(org.jooq.impl.DSL.field("''::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
-
-    /**
      * The column <code>public.jobs.approved_at</code>.
      */
-    public final TableField<JobsRecord, OffsetDateTime> APPROVED_AT = createField("approved_at", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false).defaultValue(org.jooq.impl.DSL.field("'1970-01-01 01:00:00+01'::timestamp with time zone", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
+    public final TableField<JobsRecord, OffsetDateTime> APPROVED_AT = createField("approved_at", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false).defaultValue(org.jooq.impl.DSL.field("'2000-01-01 01:00:00+01'::timestamp with time zone", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
 
     /**
      * Create a <code>public.jobs</code> table reference
@@ -191,7 +181,7 @@ public class Jobs extends TableImpl<JobsRecord> {
      */
     @Override
     public List<ForeignKey<JobsRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<JobsRecord, ?>>asList(Keys.JOBS__JOBS_COMPANY_ID_FKEY, Keys.JOBS__JOBS_MONTHLY_SALARY_FKEY, Keys.JOBS__JOBS_EQUITY_FKEY, Keys.JOBS__JOBS_POSITION_TYPE_FKEY);
+        return Arrays.<ForeignKey<JobsRecord, ?>>asList(Keys.JOBS__JOBS_COMPANY_ID_FKEY, Keys.JOBS__JOBS_MONTHLY_SALARY_FKEY, Keys.JOBS__JOBS_EQUITY_FKEY);
     }
 
     public Companies companies() {
@@ -204,10 +194,6 @@ public class Jobs extends TableImpl<JobsRecord> {
 
     public Equities equities() {
         return new Equities(this, Keys.JOBS__JOBS_EQUITY_FKEY);
-    }
-
-    public PositionsTypes positionsTypes() {
-        return new PositionsTypes(this, Keys.JOBS__JOBS_POSITION_TYPE_FKEY);
     }
 
     /**
